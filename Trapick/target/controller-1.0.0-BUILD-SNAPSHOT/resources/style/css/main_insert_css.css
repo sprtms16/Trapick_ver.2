@@ -1,0 +1,78 @@
+@charset "UTF-8";
+#main_title {
+   font-size: 50px;
+   font-weight: bold;
+   text-align: center;
+   margin-top: 70px;
+   font-family: Fantasy;
+}
+
+#container {/* 전체div */
+   width: 100%;
+   height: 300px;
+   padding: 10px;
+   box-sizing: border-box;
+   border: solid 1px silver;
+   border-radius: 12px;
+   font-size: 16px;
+   resize: both;
+   margin-top: 100px;
+}
+
+body {
+   margin: 0 auto;
+   width: 1000px;
+}
+
+#contents {/* 내용div */
+   margin-left: 50px;
+   margin-top: 50px;   
+}
+
+#target {/* 국가 */
+   width: 120px;
+   height: 30px;
+   border-radius: 6px;
+   margin-right: 20px;
+   float: left;
+   position: relative;
+}
+
+#target2 {/* 도시 */
+   width: 150px;
+   height: 30px;
+   border-radius: 6px;
+   margin-right: 20px;
+   float: left;
+   position: relative;
+}
+
+#start_time { /* 출발일 */
+   width: 140px;
+   height: 30px;
+   border-radius: 6px;
+}
+
+#end_time { /* 도착일 */
+   width: 140px;
+   height: 30px;
+   border-radius: 6px;
+}
+
+#submit {
+   border-radius: 6px;
+}
+
+#target3_weather {
+   width:250px;
+   height: 300px;
+   float: left;
+   position: relative;
+   margin-left: 330px;
+   margin-top: 15px;   
+}
+
+.ui-datepicker-trigger {/* 달력 아이콘 이미지 */
+   height: 30px;
+   width: 30px;
+}

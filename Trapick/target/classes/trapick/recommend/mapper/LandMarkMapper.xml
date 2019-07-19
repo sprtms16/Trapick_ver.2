@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="trapick.recommend.mapper.LandMarkMapper">
+	<select id="landMarkList" resultType="trapick.recommend.domain.LandmarkVO">
+		select l.land_idx, l.name, l.image "image", l.latitude, l.longitude, l.detail, l.city_idx, c.name "city_name", c.time_difference 
+		from landmark l, city c 
+		where l.city_idx = c.city_idx and c.name = #{city_name}
+	</select>
+	
+	<select id="cityList" resultType="String">
+		select c.name from city c,country co where c.country_idx = co.country_idx and co.name = #{country_name}
+	</select>
+	
+	
+	<insert id="saveSchedule">
+<!-- 		<selectKey keyProperty="max" order="BEFORE" resultType="int">
+			select nvl(max(schd_idx)+1,1) from schedule
+		</selectKey> -->
+		insert into SCHEDULE values(#{schd_idx},#{title},sysdate,sysdate,1)
+	</insert>
+	
+	<insert id ="saveLandMark">
+<!-- 		<selectKey keyProperty="max" order="BEFORE" resultType="int">
+			select nvl(max(schd_idx),1) from schedule
+		</selectKey> -->
+		insert into selected_landmark values(#{schd_idx},#{land_idx},null,null,null,null,1,#{position})
+	</insert>
+	
+	<select id="schd_idx" resultType = "String">
+		select nvl(max(schd_idx)+1,1) from schedule
+	</select>
+
+</mapper>
