@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import trapick.recommend.domain.LandmarkVO;
+import trapick.recommend.service.CrawlingSortingService;
 import trapick.recommend.service.RecommendService;
 
 @RestController
@@ -22,6 +23,7 @@ public class RecommendAjaxController {
 	public List<LandmarkVO> landMarkAjax(@RequestParam("city_name") String city_name){
 		return recommedService.landMarkList(city_name);
 	}
+	
 	
 /*	@PostMapping("saveLandMark")
 	public List<LandMark> saveLandMark(LandMark landMark,@RequestParam("position") String position,@RequestParam("schd_idx") String schd_idx) throws InterruptedException{

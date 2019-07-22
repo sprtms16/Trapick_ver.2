@@ -16,5 +16,4 @@ public interface RecommendService {
 	   
 	   public String schd_idx();
 	   
-	   
 }

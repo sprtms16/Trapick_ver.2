@@ -1,17 +1,28 @@
 package trapick.recommend.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.TreeMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.Setter;
 import trapick.recommend.domain.HotelVO;
 import trapick.recommend.domain.ItemVO;
+import trapick.recommend.domain.LandmarkVO;
 import trapick.recommend.domain.RestaurantVO;
 
 @Service
 public class CrawlingSortingServiceImpl implements CrawlingSortingService {
+	
+	@Setter(onMethod_ = @Autowired)
+	private CrawlingCommonService com;
+	
 	//ITEM
    // 가격순 정렬
    @Override
@@ -83,9 +94,9 @@ public class CrawlingSortingServiceImpl implements CrawlingSortingService {
       Collections.sort(list, new Comparator<ItemVO>() {
          @Override
          public int compare(ItemVO o1, ItemVO o2) {
-            if (o1.getDist() > o2.getDist()) {
+            if (o1.getDist() < o2.getDist()) {
                return -1;
-            } else if (o1.getDist() < o2.getDist()) {
+            } else if (o1.getDist() > o2.getDist()) {
                return 1;
             }
             return 0;
@@ -102,9 +113,9 @@ public class CrawlingSortingServiceImpl implements CrawlingSortingService {
 	   Collections.sort(list, new Comparator<RestaurantVO>() {
 		   @Override
 		   public int compare(RestaurantVO o1, RestaurantVO o2){
-			   if(o1.getDist() > o2.getDist()){
+			   if(o1.getDist() < o2.getDist()){
 				   return -1;
-			   }else if(o1.getDist() < o2.getDist()){
+			   }else if(o1.getDist() > o2.getDist()){
 				   return 1;
 			   }
 			   return 0;
@@ -124,10 +135,12 @@ public class CrawlingSortingServiceImpl implements CrawlingSortingService {
         	 
         	 String object1 = o1.getPrice().replaceAll(",", "");
         	 object1 = object1.replace("원", "");
+        	 object1 = object1.replace("~", "");
         	 int obj1 = Integer.parseInt(object1);
         	 
         	 String object2 = o2.getPrice().replaceAll(",", "");
         	 object2 = object2.replace("원", "");
+        	 object2 = object2.replace("~", "");
         	 int obj2 = Integer.parseInt(object2);      
  
             if (obj1 < obj2) {
@@ -170,9 +183,9 @@ public class CrawlingSortingServiceImpl implements CrawlingSortingService {
 	   Collections.sort(list, new Comparator<HotelVO>() {
 		   @Override
 		   public int compare(HotelVO o1, HotelVO o2){
-			   if(o1.getDist() > o2.getDist()){
+			   if(o1.getDist() < o2.getDist()){
 				   return -1;
-			   }else if(o1.getDist() < o2.getDist()){
+			   }else if(o1.getDist() > o2.getDist()){
 				   return 1;
 			   }
 			   return 0;
@@ -181,5 +194,43 @@ public class CrawlingSortingServiceImpl implements CrawlingSortingService {
 	   return list;
    }
    
-   
+   //명소
+   //거리순
+   @Override
+	public List<LandmarkVO> landmarkDistSort(List<LandmarkVO> list, String city_name, String base_point) {
+
+		List<Double> listDist = new ArrayList<>();
+		List<LandmarkVO> listSort = new ArrayList<>();
+		HashMap<Double, Integer> map = new HashMap<>();
+
+		for (int i = 0; i < list.size(); i++) {
+
+			String latitude = Double.toString(list.get(i).getLatitude());
+			String longitude = Double.toString(list.get(i).getLongitude());
+
+			listDist.add(com.getDist(city_name, base_point, latitude, longitude));
+
+		}
+
+		for (int i = 0; i < listDist.size(); i++) {
+			map.put(listDist.get(i), list.get(i).getLand_idx());
+		}
+
+		TreeMap<Double, Integer> tm = new TreeMap<Double, Integer>(map);
+		Iterator<Double> iteratorKey = tm.keySet().iterator();
+		
+		while (iteratorKey.hasNext()) {
+			Double key = iteratorKey.next();
+
+			for (int i = 0; i < list.size(); i++) {
+				if (tm.get(key) == list.get(i).getLand_idx()) {
+					listSort.add(list.get(i));
+				}
+			}
+		}
+
+		return listSort;
+
+	}
+
 }
