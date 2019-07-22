@@ -99,6 +99,7 @@
 										aria-controls="collapseExample"> <i class="fas fa-map"></i>
 										모두보기
 									</a>
+									<button id = "follow" class = "btn btn-sm btn-primary" data-href = "/RestFeed/followAction/${user_idx}">구독</button>
 								</div>
 							</form>
 						</div>

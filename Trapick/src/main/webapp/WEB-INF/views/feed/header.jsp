@@ -1,4 +1,6 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -31,15 +33,15 @@
         <a class="nav-link" href="#">PARK GWANYONG</a>
       </li>
     </ul>
-    <span style="font-size: 3em;">
+    <span style="font-size: 1.7em;">
   <i class="fas fa-bell"><span style="font-size: 1rem; color: red">21</span></i>
 </span>
    
    <div class="search_menu">
 			<form action="list" method="get">
 				<aside style="float: right;">
-					<input type="text" name="word" placeholder="search">
-					<button type="submit">go</button>
+					<input type="text" name="word" placeholder="검색">
+					<button type="submit">확인</button>
 
 				</aside>
 			</form>
