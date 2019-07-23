@@ -13,6 +13,7 @@ import lombok.extern.log4j.Log4j;
 import trapick.recommend.domain.LandmarkVO;
 import trapick.recommend.mapper.LandMarkMapper;
 import trapick.recommend.service.CrawlingSortingService;
+import trapick.recommend.service.RecommendService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -25,6 +26,9 @@ public class recommendControllerTest {
 	@Setter(onMethod_ = @Autowired)
 	private CrawlingSortingService sort;
 	
+	@Setter(onMethod_ = @Autowired)
+	private RecommendService serviceRecomm;
+	/*
 	@Test
 	public void test() {
 		List<LandmarkVO> list = mapper.landMarkList("런던");
@@ -40,5 +44,12 @@ public class recommendControllerTest {
 			log.info(listsort.get(i));
 		}
 	}
-
+*/
+	/*
+	@Test
+	public void test(){
+		LandmarkVO vo = serviceRecomm.recommendLand("런던", "런던아이");
+		log.info(vo);
+	}
+	*/
 }

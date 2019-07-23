@@ -154,6 +154,28 @@ public class CrawlingSortingServiceImpl implements CrawlingSortingService {
       return list;
    }
    
+   //review
+   @Override
+   public List<HotelVO> hotelReviewSort(List<HotelVO> list){
+	   
+	   Collections.sort(list, new Comparator<HotelVO>() {
+		   @Override
+		   public int compare(HotelVO o1, HotelVO o2){
+			   
+			   double obj1 = Double.valueOf(o1.getReview());
+			   double obj2 = Double.valueOf(o2.getReview());
+			   
+			   if(obj1 > obj2){
+				   return -1;
+			   }else if(obj1 < obj2){
+				   return 1;
+			   }
+			   return 0;
+		   }
+	});
+	   return list;  
+   }
+   /*
    //star
    @Override
    public List<HotelVO> hotelStarSort(List<HotelVO> list){
@@ -175,7 +197,7 @@ public class CrawlingSortingServiceImpl implements CrawlingSortingService {
 	});
 	   return list;
    }
-   
+   */
    //거리순 정렬
    @Override
    public List<HotelVO> hotelDistSort(List<HotelVO> list){

@@ -21,7 +21,9 @@ public interface CrawlingSortingService {
    
    public List<HotelVO> hotelPriceSort(List<HotelVO> list);
    
-   public List<HotelVO> hotelStarSort(List<HotelVO> list);
+   public List<HotelVO> hotelReviewSort(List<HotelVO> list);
+   
+// public List<HotelVO> hotelStarSort(List<HotelVO> list);
    
    public List<HotelVO> hotelDistSort(List<HotelVO> list);
    

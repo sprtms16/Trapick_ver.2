@@ -29,25 +29,14 @@ public class RecommedController {
 	}
 	
 	@PostMapping("/scheduleDetail")
-	public String scheduleDetail(@RequestParam("city_name") String city_name, @RequestParam("country_name") String country_name, @RequestParam("day") int day, Model model){
-		model.addAttribute("city_name",city_name);
-		model.addAttribute("schd_idx",recommedService.schd_idx());
-//		model.addAttribute("itemList", serviceItem.crawling(city_name, ""));
-//		model.addAttribute("landMarkList", recommedService.landMarkList(city_name));
-		model.addAttribute("cityList", recommedService.cityList(country_name));
-		model.addAttribute("day",day);
-		return "recommend/item_sort";
-		
-	}
-	@PostMapping("/saveSchedule")
-	public String saveSchedule(@RequestParam("title") String title,@RequestParam("schd_idx") String schd_idx){
-		recommedService.saveSchedule(title,schd_idx);
-		return null;
-	}
-	
-	
-	
-	
-	
+	   public String scheduleDetail(@RequestParam String city_name, @RequestParam String country_name, @RequestParam int day,@RequestParam String start_time, @RequestParam String end_time, Model model){
+	      model.addAttribute("start_time",start_time);
+	      model.addAttribute("end_time",end_time);
+	      model.addAttribute("city_name",city_name);
+	      model.addAttribute("cityList", recommedService.cityList(country_name));
+	      model.addAttribute("day",day);
+	      return "recommend/item_sort";
+	      
+	   }
 
 }

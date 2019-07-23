@@ -10,8 +10,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
+import trapick.recommend.domain.HotelVO;
 import trapick.recommend.domain.ItemVO;
 import trapick.recommend.domain.LandmarkVO;
+import trapick.recommend.domain.RestaurantVO;
 import trapick.recommend.mapper.LandMarkMapper;
 import trapick.schedule.service.ScheduleService;
 
@@ -37,6 +39,9 @@ public class CrawlingServiceTest {
   
   @Setter(onMethod_ = @Autowired)
   private CrawlingSortingService serviceSort;
+  
+  @Setter(onMethod_ = @Autowired)
+  private RecommendService serviceRecommend;
 /*   
    @Setter(onMethod_ = @Autowired)
    private CrawlingRestService serviceRest;
@@ -82,7 +87,7 @@ public class CrawlingServiceTest {
 	   
    }
    */
-   
+   /*
    @Test
    public void testLandmark(){
 	   List<LandmarkVO> list = mapperLandmark.landMarkList("런던");
@@ -99,4 +104,44 @@ public class CrawlingServiceTest {
 		   
 	   }
    }
+   */
+   /*
+   @Test
+   public void test(){
+	   List<LandmarkVO> list = serviceRecommend.recommendLand("런던", "런던아이");
+	   
+	   log.info(list);
+	   
+   }
+   */
+   /*
+   @Test
+   public void test(){
+	   ItemVO vo = serviceRecommend.recommendItem("런던", "런던아이");
+	   log.info(vo);
+   }
+   
+   */
+   /*
+   @Test
+   public void test(){
+	   HotelVO vo = serviceRecommend.recommendHotel("런던", "런던아이");
+	   log.info(vo);
+   }
+   */
+  
+   @Test
+   public void test(){
+	   List<RestaurantVO> vo = serviceRecommend.recommendRest("런던", "런던아이");
+	   log.info(vo);
+   }
+
+   
+   
+   
+   
+   
+   
+   
+   
 }

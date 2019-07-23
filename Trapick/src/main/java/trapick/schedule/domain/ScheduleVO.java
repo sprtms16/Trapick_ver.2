@@ -3,6 +3,8 @@ package trapick.schedule.domain;
 import java.util.List;
 
 import lombok.Data;
+import trapick.recommend.domain.SelectedItemVO;
+import trapick.recommend.domain.SelectedLandMarkVO;
 
 @Data
 public class ScheduleVO {

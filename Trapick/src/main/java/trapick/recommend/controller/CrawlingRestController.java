@@ -31,7 +31,7 @@ public class CrawlingRestController {
 
    @RequestMapping("itemAjax")
    public List<ItemVO> itemAjax(@RequestParam("city_name") String city_name) {
-      return serviceItem.crawling(city_name, ""); //base point 파라미터 필요
+      return serviceItem.crawling(city_name, "");
    }
 
    @RequestMapping("hotelAjax")
@@ -48,17 +48,17 @@ public class CrawlingRestController {
  
    @RequestMapping("/itemPriceSort")
    public List<ItemVO> itemPriceSort(@RequestParam("city_name") String city_name){
-	   return serviceSort.itemPriceSort(serviceItem.crawling(city_name,"")); //base point 파라미터 필요
+	   return serviceSort.itemPriceSort(serviceItem.crawling(city_name,""));
    }
    
    @RequestMapping("/itemSalesSort")
    public List<ItemVO> itemSalesSort(@RequestParam("city_name") String city_name){
-	   return serviceSort.itemSalesSort(serviceItem.crawling(city_name, ""));  //base point 파라미터 필요
+	   return serviceSort.itemSalesSort(serviceItem.crawling(city_name, ""));
    }
 
    @RequestMapping("/itemHitsSort")
    public List<ItemVO> itemHitsSort(@RequestParam("city_name") String city_name){
-	   return serviceSort.itemHitsSort(serviceItem.crawling(city_name, ""));  //base point 파라미터 필요
+	   return serviceSort.itemHitsSort(serviceItem.crawling(city_name, ""));
    }
    
    @RequestMapping("/itemDistSort")
@@ -68,7 +68,6 @@ public class CrawlingRestController {
    
    @RequestMapping("/restDistSort")
    public List<RestaurantVO> restDistSort(@RequestParam("city_name") String city_name, @RequestParam("name") String name){
-	   System.out.println(name);
 	   return serviceSort.restDistSort(serviceRest.crawling(city_name, name));
    }
    
@@ -79,18 +78,21 @@ public class CrawlingRestController {
    
    @RequestMapping("/hotelPriceSort")
    public List<HotelVO> hotelPriceSort(@RequestParam("city_name") String city_name){
-	   return serviceSort.hotelPriceSort(serviceHotel.crawling(city_name, "")); //base point 파라미터 필요
+	   return serviceSort.hotelPriceSort(serviceHotel.crawling(city_name, ""));
    }
-   
+   @RequestMapping("/hotelReviewSort")
+   public List<HotelVO> hotelStarSort(@RequestParam("city_name") String city_name){
+	   return serviceSort.hotelReviewSort(serviceHotel.crawling(city_name, ""));
+   }
+   /*
    @RequestMapping("/hotelStarSort")
    public List<HotelVO> hotelStarSort(@RequestParam("city_name") String city_name){
-	   return serviceSort.hotelStarSort(serviceHotel.crawling(city_name, "")); //base point 파라미터 필요
+	   return serviceSort.hotelStarSort(serviceHotel.crawling(city_name, ""));
    }
-   
+   */
    @RequestMapping("/hotelDistSort")
    public List<HotelVO> hotelDistSort(@RequestParam("city_name") String city_name, @RequestParam("name") String name){
-	   System.out.println(name);
-	   return serviceSort.hotelDistSort(serviceHotel.crawling(city_name, name)); //base point 파라미터 필요
+	   return serviceSort.hotelDistSort(serviceHotel.crawling(city_name, name));
    }
 
    @RequestMapping("/landmarkDistSort")
@@ -101,6 +103,26 @@ public class CrawlingRestController {
    @RequestMapping("/landmarkHitsSort")
    public List<LandmarkVO> landmarkHitsSort(@RequestParam("city_name") String city_name){
 	   return recommedService.landMarkList(city_name);
+   }
+   
+   @RequestMapping("/landmarkRecommend")
+   public List<LandmarkVO> landmarkRecommend(@RequestParam("city_name") String city_name, @RequestParam("name") String name){
+	   return recommedService.recommendLand(city_name, name);
+   }
+   
+   @RequestMapping("/itemRecommend")
+   public List<ItemVO> itemRecommend(@RequestParam("city_name") String city_name, @RequestParam("name") String name){
+	   return recommedService.recommendItem(city_name, name);
+   }
+   
+   @RequestMapping("/restRecommend")
+   public List<RestaurantVO> restRecommend(@RequestParam("city_name") String city_name, @RequestParam("name") String name){
+	   return recommedService.recommendRest(city_name, name);
+   }
+   
+   @RequestMapping("/hotelRecommend")
+   public List<HotelVO> hotelRecommend(@RequestParam("city_name") String city_name, @RequestParam("name") String name){
+	   return recommedService.recommendHotel(city_name, name);
    }
    
    

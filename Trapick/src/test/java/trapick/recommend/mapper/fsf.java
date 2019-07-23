@@ -44,6 +44,5 @@ public class fsf {
 
 //   @Test
    public void test5(){
-      log.info(mapper.schd_idx());
    }
 }

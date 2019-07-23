@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import trapick.recommend.domain.LandmarkVO;
+import trapick.recommend.domain.SelectedItemVO;
+import trapick.recommend.domain.SelectedLandMarkVO;
 
 public interface LandMarkMapper {
 
@@ -12,10 +14,7 @@ public interface LandMarkMapper {
    
    public List<String> cityList(String country_name);
    
-   public void saveSchedule(@Param("title") String title, @Param("schd_idx") String schd_idx);
-   
-   public void saveLandMark(@Param("land_idx") String land_idx, @Param("position") String position, @Param("schd_idx") String schd_idx);
-   
-   public String schd_idx();
-   
+   public void saveSchedule(@Param("title") String title, @Param("landList") List<SelectedLandMarkVO> landList,
+	         @Param("itemList") List<SelectedItemVO> itemList, @Param("start_day") String start_day,@Param("end_day") String end_day);   
+      
 }
