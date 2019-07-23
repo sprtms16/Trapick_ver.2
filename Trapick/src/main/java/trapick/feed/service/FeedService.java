@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
 import trapick.feed.domain.SubscribeVO;
+import trapick.recommend.domain.SelectedItemVO;
 
 public interface FeedService {
 
@@ -26,5 +27,7 @@ public interface FeedService {
 	public List<String> selectFeedUrl(int feed_idx);
 	
 	public int switchingSubscribe(SubscribeVO sb);
+
+	public List<SelectedItemVO> getSelectedItem(int schd_idx);
 
 }

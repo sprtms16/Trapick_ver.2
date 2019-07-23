@@ -20,10 +20,11 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/style/css/list.css" />
 <link rel="stylesheet" type="text/css"
-	href="/resources/style/css/scheduler.css" />
+	href="/resources/css/scheduler.css" />
 <script type="text/javascript" src="/resources/style/js/list.js"></script>
 
-
+<style type="text/css">
+</style>
 </head>
 <body>
 
@@ -54,7 +55,73 @@
 						<div class="carousel-inner">
 							<div class="carousel-item active"
 								style="width: 100%; height: 500px; overflow: hidden; position: relative;">
-								${feed.html }</div>
+								<table id="mySheduleTable" class="SheduleTable" border=2
+									data-href="/RestFeed/getSelectedItem/${feed.schd_idx }">
+									<tr>
+										<th>일정</th>
+										<c:forEach begin="1" end="${feed.travelDates }"
+											varStatus="index">
+											<th>${index.count }일차</th>
+										</c:forEach>
+									</tr>
+									<tr>
+										<td class="time">06:00<br> <br>&nbsp;&nbsp; ~
+											09:00
+										</td>
+										<c:forEach begin="1" end="${feed.travelDates  }"
+											varStatus="index">
+											<td name="${index.count }-1"></td>
+										</c:forEach>
+									</tr>
+									<tr>
+										<td class="time">09:00<br> <br>&nbsp;&nbsp; ~
+											12:00
+										</td>
+										<c:forEach begin="1" end="${feed.travelDates  }"
+											varStatus="index">
+											<td name="${index.count }-2"></td>
+										</c:forEach>
+									</tr>
+									<tr>
+										<td class="time">12:00<br> <br>&nbsp;&nbsp; ~
+											15:00
+										</td>
+										<c:forEach begin="1" end="${feed.travelDates  }"
+											varStatus="index">
+											<td name="${index.count }-3"></td>
+										</c:forEach>
+									</tr>
+									<tr>
+										<td class="time">15:00<br> <br>&nbsp;&nbsp; ~
+											18:00
+										</td>
+										<c:forEach begin="1" end="${feed.travelDates  }"
+											varStatus="index">
+											<td name="${index.count }-4"></td>
+										</c:forEach>
+									</tr>
+									<tr>
+										<td class="time">18:00<br> <br>&nbsp;&nbsp; ~
+											21:00
+										</td>
+										<c:forEach begin="1" end="${feed.travelDates  }"
+											varStatus="index">
+											<td name="${index.count }-5"></td>
+										</c:forEach>
+									</tr>
+									<tr>
+										<td class="time">21:00<br> <br>&nbsp;&nbsp; ~
+											24:00
+										</td>
+										<c:forEach begin="1" end="${feed.travelDates  }"
+											varStatus="index">
+											<td name="${index.count }-6"></td>
+										</c:forEach>
+									</tr>
+								</table>
+
+
+							</div>
 							<c:forEach var="img" items="${feed.url }" varStatus="status">
 								<div class="carousel-item"
 									style="width: 100%; height: 500px; overflow: hidden; position: relative;">

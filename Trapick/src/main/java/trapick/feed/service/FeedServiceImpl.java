@@ -14,6 +14,7 @@ import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
 import trapick.feed.domain.SubscribeVO;
 import trapick.feed.mapper.FeedMapper;
+import trapick.recommend.domain.SelectedItemVO;
 
 @Log4j
 @Service
@@ -91,6 +92,11 @@ public class FeedServiceImpl implements FeedService {
 		mapper.addSubscriber(sb);
 		}
 		return mapper.selectSubscriberCount(sb.getFeeder());
+	}
+
+	@Override
+	public List<SelectedItemVO> getSelectedItem(int schd_idx) {
+		return mapper.selectSchdItemList(schd_idx);
 	}
 
 }

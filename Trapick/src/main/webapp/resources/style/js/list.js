@@ -44,8 +44,38 @@ $(function() {
 		return false;
 	})
 
-});
+	});
 $(function() {
+	$('.SheduleTable').each(function() {
+		var href = $(this).data("href");
+		var $this = $(this);
+		$.ajax({
+			url : href,
+			type : 'GET',
+			dataType : 'json',
+			success : function(data) {
+				$.each(data, function(index, item) {
+					$this.find('td[name="'+item.position+'"]').append(
+							$('<input>').attr('type','button').addClass('detailbt').addClass('liveInput').val('상세보기')
+					).append(
+							$('<div>').addClass('list_thumb')
+							.append(
+									$('<img>').attr('src',item.image).addClass('img')
+							)
+					).append(
+							$('<div>').addClass('list_detail').attr('id','landDetail').append(
+									$('<div>').addClass('name').attr('id','name').text(item.name)
+							).append(
+									$('<div>').addClass('detail').attr('id','detail').text(item.detail)
+							).append(
+									$('<div>').addClass('detail').attr('id','price').text(item.price)
+							)
+					);
+				});
+			}
+		});
+	});
+
 	$('.getReplyList')
 			.click(
 					function(data) {
@@ -193,9 +223,9 @@ $(function() {
 				var idx = $this.data("idx");
 				
 				if ($this.text() == "구독") {
-					$('.'+idx).text("구독중");
+					$('.' + idx).text("구독중");
 				} else {
-					$('.'+idx).text("구독");
+					$('.' + idx).text("구독");
 				}
 
 			}
