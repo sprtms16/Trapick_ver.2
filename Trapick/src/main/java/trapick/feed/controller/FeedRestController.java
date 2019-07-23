@@ -29,17 +29,6 @@ public class FeedRestController {
 
 	FeedService feedService;
 	ReplyService replyService;
-	
-	@RequestMapping("followAction/{user_idx}")
-	public int followAction(@PathVariable("user_idx") int feeder, HttpSession session){
-		int subscriber = 2; //(int) session.getAttribute("user_idx");
-		SubscribeVO sb = new SubscribeVO();
-		sb.setFeeder(feeder);
-		sb.setSubscriber(subscriber);
-		int count = feedService.switchingSubscribe(sb);
-		return count;
-		
-	}
 
 	@RequestMapping("hearAction/{feed_idx}")
 	public int heartAction(@PathVariable("feed_idx") int feed_idx, HttpSession session) {
@@ -83,6 +72,18 @@ public class FeedRestController {
 		feedService.insertFeed(vo, uploadFile, uploadPath);
 		return new ResponseEntity<String>("success!!", HttpStatus.OK);
 
+	}
+	
+	
+	@RequestMapping("followAction/{user_idx}")
+	public int followAction(@PathVariable("user_idx") int feeder, HttpSession session){
+		int subscriber = 2; //(int) session.getAttribute("user_idx");
+		SubscribeVO sb = new SubscribeVO();
+		sb.setFeeder(feeder);
+		sb.setSubscriber(subscriber);
+		int count = feedService.switchingSubscribe(sb);
+		return count;
+		
 	}
 
 }
