@@ -114,7 +114,9 @@ $(function() {
 			}
 		},submitHandler: function(form) {
 		    // do other things for a valid form
-		    
+		    $.ajax({
+		    	url : 
+		    })
 				alert("dfdfdf");
 				return fales;
 			
