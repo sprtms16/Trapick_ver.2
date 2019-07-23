@@ -32,6 +32,15 @@ public class FeedController {
 
 	}
 
+	@GetMapping("join")
+	public void join() {
+
+	}
+	@GetMapping("login")
+	public void login() {
+		
+	}
+
 	@GetMapping("/list")
 	public void feedList(Model model, @RequestParam HashMap<String, String> paramMap) {
 		log.info("list");

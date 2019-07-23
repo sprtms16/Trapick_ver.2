@@ -10,13 +10,15 @@
 		nvl2(h.user_idx,1,0) as islike, nvl2(s.subscriber,1,0) as issubs,
 		(select COUNT(*) from
 		feed_heart where feed_heart.FEED_IDX = f.FEED_IDX) as
-		heart
+		heart,
+		TO_DATE(c.schd_end,'YYYY-MM-DD') -  TO_DATE(c.schd_start, 'YYYY-MM-DD')as travelDates
 		from
 		feed f
 		left JOIN FEED_HEART h
 		on
-		f.feed_idx = h.feed_idx and h.user_idx = #{user_idx}
-		left JOIN feed_subscribe s on f.user_idx = s.feeder and s.subscriber = #{user_idx}
+		f.feed_idx = h.feed_idx and h.user_idx =1
+		left JOIN feed_subscribe s on f.user_idx = s.feeder and s.subscriber = 1
+		JOIN schedule c on f.schd_idx = c.schd_idx
 		<where>
 			<if test="keyword != null">
 				REGEXP_LIKE(replace(f.contents,' ',''), #{keyword}) OR

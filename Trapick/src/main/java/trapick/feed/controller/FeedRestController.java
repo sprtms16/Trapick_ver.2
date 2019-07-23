@@ -1,5 +1,7 @@
 package trapick.feed.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +22,7 @@ import trapick.feed.domain.ReplyLikeVO;
 import trapick.feed.domain.SubscribeVO;
 import trapick.feed.service.FeedService;
 import trapick.feed.service.ReplyService;
+import trapick.recommend.domain.SelectedItemVO;
 
 @RestController
 @RequestMapping("/RestFeed/")
@@ -84,6 +87,11 @@ public class FeedRestController {
 		int count = feedService.switchingSubscribe(sb);
 		return count;
 		
+	}
+	
+	@RequestMapping("getSelectedItem/{schd_idx}")
+	public List<SelectedItemVO> getSelectedItem(@PathVariable("schd_idx") int schd_idx){
+		return feedService.getSelectedItem(schd_idx);
 	}
 
 }
