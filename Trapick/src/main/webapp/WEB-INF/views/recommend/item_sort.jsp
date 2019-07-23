@@ -23,7 +23,7 @@
    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript"
-   src="http://maps.google.com/maps/api/js?key=AIzaSyC3G1qQMeFpartaXg_UguoBElqDEDYu3Rg"></script>
+   src="http://maps.google.com/maps/api/js?key=AIzaSyDb_uxF2qi4zB5K51p-m6WDNrnTeTchSOw"></script>
    <script type="text/javascript">
  //Category Click Event
 	$(function() {
@@ -94,11 +94,11 @@
 	                                                new google.maps.Size(size_x, size_y));
 	     
 	    // Geocoding ******
-	    var address = "러시아";
-	    var marker = null;
+	    var address	 = "이노플렉스 가산"; //주소
+	    var marker = null; 
 	    var geocoder = new google.maps.Geocoder();
 
-	    geocoder.geocode( { 'address': address}, function(results, status) {
+	     geocoder.geocode( { 'address': address}, function(results, status) {
 	        if (status == google.maps.GeocoderStatus.OK) {
 	            map.setCenter(results[0].geometry.location);
 	            marker = new google.maps.Marker({
@@ -107,7 +107,6 @@
 	                            title: '한밭도서관', // 마커에 마우스 포인트를 갖다댔을 때 뜨는 타이틀
 	                            position: results[0].geometry.location
 	                        });
-
 	            var content = "위치"; // 말풍선 안에 들어갈 내용
 	         
 	            var infowindow = new google.maps.InfoWindow({ content: content});
@@ -116,7 +115,7 @@
 	            alert("Geocode was not successful for the following reason: " + status);
 	        }
 	        
-	    });     
+	    });      
 	}
 	google.maps.event.addDomListener(window, 'load', initialize);
    </script>
@@ -195,13 +194,15 @@
               
               $('#landmarkDiv').empty();
               $.each(data, function(index, item){
-                 var text = '<div class="row drag"><div class="list_thumb"><img src='
-                 +item.image+' class ="img"></div><div class="list_detail" id="landDetail"><div class="name" id="name">'
-                 +item.name+'</div><div   class="detail"  id="detail">'
-                 +item.detail+'</div>'
-                 +'</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/></div>';
-                 
-                 $('#landmarkDiv').append(text);
+            	  var text = '<div class="row drag"><div class="list_thumb"><img src='
+                      +item.image+' class ="img"></div><div class="list_detail" id="landDetail"><div class="name" id="name">'
+                      +item.name+'</div><div   class="detail"  id="detail">'
+                      +item.detail+'</div>'
+                      +'</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
+                      +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+                      +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                      +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+             $('#landmarkDiv').append(text);
               })
               dragFun();
            }
@@ -215,11 +216,17 @@
                
                $('#itemList').empty();
                $.each(data, function(index, item){
-                     var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                         +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
-                         +item.name+'</div><div  style = "display : none"  id ="detail" class="row">'
-                         +item.detail+'<div  id="price" class="row">'
-                         +item.price+'</div></div></div>';
+            	   var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                       +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
+                       +item.name+'</div><div  style = "display : none"  id ="detail" class="row">'
+                       +item.detail+'<div  id="price" class="row">'
+                       +item.price+'</div></div>'
+                       +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+                       +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+                       +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+                       +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+                       +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                       +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
                   $('#itemList').append(text);
                })
                dragFun();
@@ -235,10 +242,17 @@
                  
                  $('#restList').empty();
                    $.each(data, function(index, item){
-                      var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                	   var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
                            +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
                            +item.name+'</div><div  style = "display : none"  id ="detail" class="row">'
-                           +item.detail+'</div></div></div>';
+                           +item.detail+'<div  id="price" class="row">'
+                           +item.price+'</div></div>'
+                           +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+                           +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+                           +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+                           +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+                           +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                           +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
                       $('#restList').append(text);
                    }) 
                    dragFun();
@@ -254,11 +268,17 @@
               
               $('#hotelList').empty();
                 $.each(data, function(index, item){
-                   var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
                         +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
                         +item.name+'</div><div  style = "display : none"  id ="detail" class="row">'
                         +item.detail+'<div  id="price" class="row">'
-                        +item.price+'</div></div></div>';
+                        +item.price+'</div></div>'
+                        +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+                        +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+                        +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+                        +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+                        +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                        +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
                    $('#hotelList').append(text);
                    console.log(text);
                 }) 
@@ -308,9 +328,17 @@
             }); 
       }
         
+      var testMarker = new Array();
+      
         $('table td:not(.time)').droppable({
              accept: "div",
              drop: function(event, ui) {
+            	var lon = $(ui.draggable).find('input[name=longitude]').val();
+            	var lat = $(ui.draggable).find('input[name=latitude]').val();
+            	var name = $(ui.draggable).find('input[name=item_name]').val();
+            	testMarker.push({item_name: name, latitude: lat, longitude: lon });
+            	console.log(lat, lon);
+            	console.log(testMarker);
                 $(this).addClass('select');
                 $(this).empty();
                 var te = $(this).attr('name');
@@ -350,12 +378,16 @@
                
                $('#landmarkDiv').empty();
                $.each(data, function(index, item){
-                  var text = '<div class="row drag"><div class="list_thumb"><img src='
+            	   var text = '<div class="row drag"><div class="list_thumb"><img src='
                        +item.image+' class ="img"></div><div class="list_detail" id="landDetail"><div class="name" id="name">'
                        +item.name+'</div><div   class="detail"  id="detail">'
                        +item.detail+'</div>'
-                       +'</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/></div>';
+                       +'</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
+                       +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+                       +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                       +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
                   $('#landmarkDiv').append(text);
+                  
                })
                dragFun();
             }
@@ -370,11 +402,17 @@
                
                $('#itemList').empty();
                $.each(data, function(index, item){
-                     var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                         +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
-                         +item.name+'</div><div  style = "display : none"  id ="detail" class="row">'
-                         +item.detail+'<div  id="price" class="row">'
-                         +item.price+'</div></div></div>';
+            	   var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                       +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
+                       +item.name+'</div><div  style = "display : none"  id ="detail" class="row">'
+                       +item.detail+'<div  id="price" class="row">'
+                       +item.price+'</div></div>'
+                       +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+                       +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+                       +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+                       +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+                       +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                       +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
                   $('#itemList').append(text);
                })
                dragFun();
@@ -390,10 +428,17 @@
                  
                  $('#restList').empty();
                    $.each(data, function(index, item){
-                      var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                	   var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
                            +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
                            +item.name+'</div><div  style = "display : none"  id ="detail" class="row">'
-                           +item.detail+'</div></div></div>';
+                           +item.detail+'<div  id="price" class="row">'
+                           +item.price+'</div></div>'
+                           +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+                           +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+                           +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+                           +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+                           +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                           +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
                       $('#restList').append(text);
                    }) 
                    dragFun();
@@ -409,11 +454,17 @@
               
               $('#hotelList').empty();
                 $.each(data, function(index, item){
-                   var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
                         +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
                         +item.name+'</div><div  style = "display : none"  id ="detail" class="row">'
                         +item.detail+'<div  id="price" class="row">'
-                        +item.price+'</div></div></div>';
+                        +item.price+'</div></div>'
+                        +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+                        +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+                        +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+                        +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+                        +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                        +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
                    $('#hotelList').append(text);
                    console.log(text);
                 }) 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ include file="../schedule/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +32,7 @@ var city = {}; */
       $(".datepicker").datepicker();
       //
       var availableTags = [];
-      var uniqueAvailableTags = [];
+      var uniqueAvailableTags = [];//국가 배열
       $.getJSON('/schedule/country', function(data) {
          $.each(data, function(index, item) {
             availableTags.push(item.name);
@@ -39,15 +40,19 @@ var city = {}; */
          $.each(availableTags, function(i, el) {
             if ($.inArray(el, uniqueAvailableTags) === -1)
                uniqueAvailableTags.push(el);
-         });
-      });
+         });	
+      });// 국가 배열안에 국가리스트 넣음
+      
       var availableTags2 = [];
-      var uniqueAvailableTags2 = [];
+      var uniqueAvailableTags2 = [];//도시 리스트
 
        $("#target").autocomplete({
          source : uniqueAvailableTags,
          select : function(e, ui) {
-            $.getJSON('city_name?country_name=' + $(this).val(), function(data) {
+        	 if(ui.item.value == '')
+        		 return false;
+        	var selectValue = ui.item.value;	 
+            $.getJSON('city_name?country_name=' + selectValue, function(data) {
                $.each(data, function(index, item) {availableTags2.push(item.name);
                });
                $('#target2').empty();
@@ -57,12 +62,10 @@ var city = {}; */
                   $('#target2').append("<option value =" + availableTags2[i] + ">" + availableTags2[i] + "</opeion>");
                   }
                });
-
-               
             });
             
             $.ajax({
-            	url : 'country_iso?country_name=' + $(this).val(),
+            	url : 'country_iso?country_name=' + selectValue,
             	datatype : "text",
             	success : function(data) {
 	                 $.getJSON("https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRW" + data, function(d) {
@@ -75,9 +78,7 @@ var city = {}; */
          }
 
       }); 
-       $("#target2").autocomplete({
-       source : uniqueAvailableTags2
-       });  
+       
 
       $("#today").text(new Date().toLocaleDateString());
       $.datepicker.setDefaults($.datepicker.regional['ko']);
