@@ -25,5 +25,6 @@ public class FeedServiceTest {
 		map.put("user_idx", 1);
 		service.getList(map).forEach(feed -> log.info(feed));
 	}
+	
 
 }

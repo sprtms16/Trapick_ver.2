@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
+import trapick.feed.domain.SubscribeVO;
 
 public interface FeedService {
 
@@ -23,5 +24,7 @@ public interface FeedService {
 	public int insertFeed(FeedVO vo, MultipartFile[] uploadFile, String uploadPath);
 
 	public List<String> selectFeedUrl(int feed_idx);
+	
+	public int switchingSubscribe(SubscribeVO sb);
 
 }

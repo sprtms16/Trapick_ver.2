@@ -17,6 +17,7 @@ public class FeedVO{
 	List<ReplyVO> replys;
 	int rating;
 	int islike;
+	int issubs;
 	String html;
 
 }

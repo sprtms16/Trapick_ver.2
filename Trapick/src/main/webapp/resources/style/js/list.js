@@ -3,7 +3,7 @@ function pop($selector) {
 	var winWidth = 700;
 	var winHeight = 600;
 	var popupOption = "width=" + winWidth + ", height=" + winHeight; // 팝업창
-																		// 옵션(optoin)
+	// 옵션(optoin)
 	var detail = $selector.parent().find('#detail').text();
 	var name = $selector.parent().find('#name').text();
 	var price = $selector.parent().find('#price').text();
@@ -46,50 +46,113 @@ $(function() {
 
 });
 $(function() {
-	   $('.getReplyList').click(function(data) {
-		   var $reply = $(this);
-	      $.ajax({
-	         url : '/reply/replyList.json',
-	         type : 'GET',
-	         dataType : 'json',
-	         data : {
-	            feed_idx : $(this).data('href')
-	         },
-	         success : function(data) {
-	            var $replyContainer = $reply.closest('.container').parent().find('#collapseExample').find('.card-body');
-	            $replyContainer.html("");
-	            if (!$reply.hasClass('.collapsed')){
-		            $.each(data, function(key, reply) {
-		            	 console.log(reply);
-	                	 $replyContainer.append(
-		                       $('<div>').append( 
-		                                 $('<a>').text(reply.contents)
-	                           ).append(
-	                                 $('<a>').attr("data-href","/RestFeed/replyLikeAction/"+reply.feed_idx+"/"+reply.reply_idx).append(
-	                                		 $('<i>').addClass("far").addClass("fa-thumbs-up").text(reply.like)//<i class="fas fa-thumbs-up">${reply.like }</i>
-	                                 )
-	                           ).append(
-	                                 $('<a>').attr("data-href","/RestFeed/replyDislikeAction/"+reply.feed_idx+"/"+reply.reply_idx).append(
-	                                		 $('<i>').addClass("far").addClass("fa-thumbs-down").text(reply.dislike)//<i class="fas fa-thumbs-down">${reply.dislike }</i>
-	                                 )
-	                           )
-		                 );
-	                	 if(reply.isLike==1){
-	                		 $replyContainer.find('.fa-thumbs-up').toggleClass("far");
-	                		 $replyContainer.find('.fa-thumbs-up').toggleClass("fas");
-	                	 }
-	                	 if(reply.isDislike==1){
-	                		 $replyContainer.find('.fa-thumbs-down').toggleClass("far");
-	                		 $replyContainer.find('.fa-thumbs-down').toggleClass("fas");
-	                	 }
-	            	});//each close
-	            }//if close
-	         }//success close
-	      });//ajax close
-	   });//click event close
-	});
-
- 
+	$('.getReplyList')
+			.click(
+					function(data) {
+						var $reply = $(this);
+						$
+								.ajax({
+									url : '/reply/replyList.json',
+									type : 'GET',
+									dataType : 'json',
+									data : {
+										feed_idx : $(this).data('href')
+									},
+									success : function(data) {
+										var $replyContainer = $reply.closest(
+												'.container').parent().find(
+												'#collapseExample').find(
+												'.card-body');
+										$replyContainer.html("");
+										if (!$reply.hasClass('.collapsed')) {
+											$
+													.each(
+															data,
+															function(key, reply) {
+																console
+																		.log(reply);
+																$replyContainer
+																		.append($(
+																				'<div>')
+																				.append(
+																						$(
+																								'<a>')
+																								.text(
+																										reply.contents))
+																				.append(
+																						$(
+																								'<a>')
+																								.attr(
+																										"data-href",
+																										"/RestFeed/replyLikeAction/"
+																												+ reply.feed_idx
+																												+ "/"
+																												+ reply.reply_idx)
+																								.append(
+																										$(
+																												'<i>')
+																												.addClass(
+																														"far")
+																												.addClass(
+																														"fa-thumbs-up")
+																												.text(
+																														reply.like)// <i
+																								// class="fas
+																								// fa-thumbs-up">${reply.like
+																								// }</i>
+																								))
+																				.append(
+																						$(
+																								'<a>')
+																								.attr(
+																										"data-href",
+																										"/RestFeed/replyDislikeAction/"
+																												+ reply.feed_idx
+																												+ "/"
+																												+ reply.reply_idx)
+																								.append(
+																										$(
+																												'<i>')
+																												.addClass(
+																														"far")
+																												.addClass(
+																														"fa-thumbs-down")
+																												.text(
+																														reply.dislike)// <i
+																								// class="fas
+																								// fa-thumbs-down">${reply.dislike
+																								// }</i>
+																								)));
+																if (reply.isLike == 1) {
+																	$replyContainer
+																			.find(
+																					'.fa-thumbs-up')
+																			.toggleClass(
+																					"far");
+																	$replyContainer
+																			.find(
+																					'.fa-thumbs-up')
+																			.toggleClass(
+																					"fas");
+																}
+																if (reply.isDislike == 1) {
+																	$replyContainer
+																			.find(
+																					'.fa-thumbs-down')
+																			.toggleClass(
+																					"far");
+																	$replyContainer
+																			.find(
+																					'.fa-thumbs-down')
+																			.toggleClass(
+																					"fas");
+																}
+															});// each close
+										}// if close
+									}// success close
+								});// ajax close
+					});// click event close
+});
 
 $(function() {
 	$(window).scroll(function() {
@@ -117,7 +180,28 @@ function scrollMove(seq) {
 	}, 1000);
 
 }
+
 $(function() {
+
+	$('.follow').click(function() {
+		var $this = $(this);
+		var href = $this.data('href');
+		$.ajax({
+			url : href,
+			dataType : 'json',
+			success : function(data) {
+				var idx = $this.data("idx");
+				alert($this.text());
+				if ($this.text() == "구독") {
+					$('.'+idx).text("구독중");
+				} else {
+					$('.'+idx).text("구독");
+				}
+
+			}
+		});
+	});
+
 	$('.fa-heart').click(function() {
 		var href = $(this).parents('a').data("href");
 		var $this = $(this);
@@ -133,7 +217,7 @@ $(function() {
 		});
 		return false;
 	});
-	$('.card.card-body').on('click','.fa-thumbs-up', function() {
+	$('.card.card-body').on('click', '.fa-thumbs-up', function() {
 		var href = $(this).parents('a').data("href");
 		var up = $(this);
 		$.ajax({
@@ -147,7 +231,7 @@ $(function() {
 		});
 		return false;
 	});
-	$('.card.card-body').on('click','.fa-thumbs-down',function() {
+	$('.card.card-body').on('click', '.fa-thumbs-down', function() {
 		var href = $(this).parents('a').data("href");
 		var down = $(this);
 		$.ajax({
