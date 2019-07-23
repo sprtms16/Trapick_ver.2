@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
+import trapick.feed.domain.SubscribeVO;
 import trapick.feed.mapper.FeedMapper;
 
 @Log4j
@@ -80,6 +81,16 @@ public class FeedServiceImpl implements FeedService {
 	@Override
 	public List<String> selectFeedUrl(int feed_idx) {
 		return mapper.selectFeedUrl(feed_idx);
+	}
+
+	@Override
+	public int switchingSubscribe(SubscribeVO sb) {
+		if(mapper.selectSubscriberCheck(sb)>=1){
+			mapper.deleteSubscribe(sb);
+		}else{
+		mapper.addSubscriber(sb);
+		}
+		return mapper.selectSubscriberCount(sb.getFeeder());
 	}
 
 }

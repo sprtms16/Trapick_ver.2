@@ -17,6 +17,7 @@ import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
 import trapick.feed.domain.ReplyDislikeVO;
 import trapick.feed.domain.ReplyLikeVO;
+import trapick.feed.domain.SubscribeVO;
 import trapick.feed.service.FeedService;
 import trapick.feed.service.ReplyService;
 
@@ -28,6 +29,17 @@ public class FeedRestController {
 
 	FeedService feedService;
 	ReplyService replyService;
+	
+	@RequestMapping("followAction/{user_idx}")
+	public int followAction(@PathVariable("user_idx") int feeder, HttpSession session){
+		int subscriber = 2; //(int) session.getAttribute("user_idx");
+		SubscribeVO sb = new SubscribeVO();
+		sb.setFeeder(feeder);
+		sb.setSubscriber(subscriber);
+		int count = feedService.switchingSubscribe(sb);
+		return count;
+		
+	}
 
 	@RequestMapping("hearAction/{feed_idx}")
 	public int heartAction(@PathVariable("feed_idx") int feed_idx, HttpSession session) {

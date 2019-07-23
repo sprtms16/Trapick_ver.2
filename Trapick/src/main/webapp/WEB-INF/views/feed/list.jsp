@@ -29,7 +29,7 @@
 
 	<div class="container">
 		<a id="MOVE_TOP_BTN" href="#">TOP</a>
-<jsp:include page="header.jsp"></jsp:include> 
+		<jsp:include page="header.jsp"></jsp:include>
 
 		<div class="dropdown">
 			<button type="button" class="btn btn-primary dropdown-toggle"
@@ -99,7 +99,21 @@
 										aria-controls="collapseExample"> <i class="fas fa-map"></i>
 										모두보기
 									</a>
-									<button id = "follow" class = "btn btn-sm btn-primary" data-href = "/RestFeed/followAction/${user_idx}">구독</button>
+
+									<c:choose>
+										<c:when test="${feed.issubs eq 1}">
+											<button
+												class="btn btn-sm btn-primary ${feed.user_idx} follow"
+												data-idx="${feed.user_idx}"
+												data-href="/RestFeed/followAction/${feed.user_idx}">구독중</button>
+										</c:when>
+										<c:otherwise>
+											<button
+												class="btn btn-sm btn-primary ${feed.user_idx} follow"
+												data-idx="${feed.user_idx}"
+												data-href="/RestFeed/followAction/${feed.user_idx}">구독</button>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</form>
 						</div>

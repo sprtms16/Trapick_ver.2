@@ -41,7 +41,7 @@ public class FeedControllerTests {
 				.getModelMap());
 	}
 	
-	@Test
+	//@Test
 	public void testModify() throws Exception{
 		String resultPage = mockMvc
 				.perform(MockMvcRequestBuilders.post("/feed/modify")

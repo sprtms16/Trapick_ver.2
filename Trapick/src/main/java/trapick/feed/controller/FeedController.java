@@ -36,7 +36,7 @@ public class FeedController {
 	public void feedList(Model model, @RequestParam HashMap<String, String> paramMap) {
 		log.info("list");
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("user_idx", 1);
+		map.put("user_idx", 2);
 		if (paramMap.get("keyword") != null) // hashtag
 			map.put("keyword", "#" + paramMap.get("keyword"));
 		if (paramMap.get("word") != null) // �˻�â�� �Է��� text��
@@ -45,7 +45,7 @@ public class FeedController {
 
 		list.forEach(feed -> {
 			Map<String, Object> replyInfo = new HashMap<>();
-			replyInfo.put("user_idx", 1);
+			replyInfo.put("user_idx", 2);
 			replyInfo.put("feed_idx", feed.getFeed_idx());
 			feed.setReplys(replyService.replyListService(replyInfo));
 			feed.setUrl(feedService.selectFeedUrl(feed.getFeed_idx()));

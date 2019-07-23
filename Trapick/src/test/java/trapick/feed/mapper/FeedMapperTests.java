@@ -1,5 +1,9 @@
 package trapick.feed.mapper;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +27,7 @@ public class FeedMapperTests {
 		log.info("delete count:" + mapper.deleteFeed(61));
 	}
 	
-	@Test
+	//@Test
 	public void testUpdate(){
 		FeedVO feed = new FeedVO();
 	
@@ -31,13 +35,15 @@ public class FeedMapperTests {
 		feed.setTitle("수정제목");
 		feed.setContents("수정쓰"); 
 		feed.setFeed_idx(62);
-		
 		log.info("update count:" + mapper.updateFeed(feed));
-		
-		
-		
-		
+	}
 	
+	@Test
+	public void testissubs(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_idx", 2);
+		List<FeedVO> feedVOs = mapper.feedList(map);
+		feedVOs.forEach(feed->log.info(feed));
 	}
 
 }
