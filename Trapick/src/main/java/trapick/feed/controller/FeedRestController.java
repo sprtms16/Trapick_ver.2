@@ -72,5 +72,9 @@ public class FeedRestController {
 		return new ResponseEntity<String>("success!!", HttpStatus.OK);
 
 	}
+	
+	
+	
+	
 
 }

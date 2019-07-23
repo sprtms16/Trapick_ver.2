@@ -16,7 +16,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <meta charset="UTF-8">
 <title>TraPick</title>
-<link rel="stylesheet" type="text/css" href="../resources/css/scheduler.css" />
+<link rel="stylesheet" type="text/css" href="/resources/css/scheduler.css" />
 <link rel="stylesheet"
    href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet"
