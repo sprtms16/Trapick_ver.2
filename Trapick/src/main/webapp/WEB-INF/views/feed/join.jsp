@@ -76,42 +76,35 @@ html, body {
 }
 </style>
 <script type="text/javascript">
-	$(".login-form").validate({
-		rules : {
-			username : {
-				required : true,
-				minlength : 4
+	$(function() {
+		$(".login-form").validate({
+			rules : {
+				username : {
+					required : true,
+					minlength : 4
+				},
+				password : {
+					required : true,
+					minlength : 5
+				}
 			},
-			email : {
-				required : true,
-				email : true
+			//For custom messages
+			messages : {
+				username : {
+					required : "Enter a username",
+					minlength : "Enter at least 4 characters"
+				}
 			},
-			password : {
-				required : true,
-				minlength : 5
-			},
-			cpassword : {
-				required : true,
-				minlength : 5,
-				equalTo : "#password"
+			errorElement : 'div',
+			errorPlacement : function(error, element) {
+				var placement = $(element).data('error');
+				if (placement) {
+					$(placement).append(error)
+				} else {
+					error.insertAfter(element);
+				}
 			}
-		},
-		//For custom messages
-		messages : {
-			username : {
-				required : "Enter a username",
-				minlength : "Enter at least 4 characters"
-			}
-		},
-		errorElement : 'div',
-		errorPlacement : function(error, element) {
-			var placement = $(element).data('error');
-			if (placement) {
-				$(placement).append(error)
-			} else {
-				error.insertAfter(element);
-			}
-		}
+		});
 	});
 </script>
 </head>
@@ -121,60 +114,60 @@ html, body {
 			<form class="login-form">
 				<div class="row">
 					<div class="input-field col s12 center">
-						<h4>Register</h4>
-						<p class="center">Join to our community now !</p>
+						<!-- <img src="images/login-logo.png" alt="" class="circle responsive-img valign profile-image-login"/> -->
+						<p class="center login-form-text">LOGIN</p>
 					</div>
 				</div>
-
 				<div class="row margin">
 					<div class="input-field col s12">
 						<!-- <i class="mdi-social-person-outline prefix"></i> -->
 						<i class="material-icons prefix">account_circle</i> <input
-							id="username" name="username" type="text" /> <label
-							for="username">Username</label>
+							id="username" name="username" type="text"
+							style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=&quot;); cursor: auto;" />
+						<label for="username" data-error="wrong" class="center-align"
+							data-success="right">Username</label>
 					</div>
 				</div>
-
-				<div class="row margin">
-					<div class="input-field col s12">
-						<!-- <i class="mdi-social-person-outline prefix"></i> -->
-						<i class="material-icons prefix">email</i> <input id="email"
-							name="email" type="text" style="cursor: auto;" /> <label
-							for="email">Email</label>
-					</div>
-				</div>
-
 				<div class="row margin">
 					<div class="input-field col s12">
 						<!-- <i class="mdi-action-lock-outline prefix"></i> -->
 						<i class="material-icons prefix">vpn_key</i> <input id="password"
-							name="password" type="password" /> <label for="password">Password</label>
+							name="password" type="password"
+							style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=&quot;);" />
+						<label for="password">Password</label>
 					</div>
 				</div>
 
-				<div class="row margin">
-					<div class="input-field col s12">
-						<!-- <i class="mdi-action-lock-outline prefix"></i> -->
-						<i class="material-icons prefix">vpn_key</i> <input
-							id="password_a" name="cpassword" type="password" /> <label
-							for="password_a">Password again</label>
+				<div class="row">
+					<div class="input-field col s12 login-text">
+						<input type="checkbox" id="test6" checked="checked" /> <label
+							for="test6" class="pointer-events">Remember me</label>
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="input-field col s12">
-						<button type="submit" class="btn waves-effect waves-light col s12">REGISTER
-							NOW</button>
-
+						<button type="submit" class="btn waves-effect waves-light col s12">Login</button>
 					</div>
 					<div class="input-field col s12">
-						<p class="margin center medium-small sign-up">
-							Already have an account? <a href="./login">Login</a>
-						</p>
+						<a href="index.html"
+							class="btn waves-effect waves-light col s12 light-blue darken-4">FACEBOOK
+							Login</a>
 					</div>
 				</div>
 
-
+				<div class="row">
+					<div class="input-field col s6 m6 l6">
+						<p class="margin medium-small">
+							<a href="page-register.html">Register Now!</a>
+						</p>
+					</div>
+					<div class="input-field col s6 m6 l6">
+						<p class="margin right-align medium-small">
+							<a href="page-forgot-password.html">Forgot password ?</a>
+						</p>
+					</div>
+				</div>
 			</form>
 		</div>
 	</div>
