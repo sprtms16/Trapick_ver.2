@@ -103,6 +103,12 @@ html, body {
 				error.insertAfter(element);
 			}
 		}
+		/* ,
+		submitHandler : function(form) {
+			// do other things for a valid form
+			console.log('afassf');
+			return false;
+		} */
 	});
 </script>
 </head>

@@ -6,6 +6,7 @@ import java.util.Map;
 import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
 import trapick.feed.domain.SubscribeVO;
+import trapick.feed.domain.UserVO;
 import trapick.recommend.domain.SelectedItemVO;
 
 public interface FeedMapper {
@@ -45,6 +46,8 @@ public interface FeedMapper {
 	int selectSubscriberCheck(SubscribeVO sb);
 
 	void deleteSubscribe(SubscribeVO sb);
+	
+	int joinTrapick(UserVO user);
 
 
 	

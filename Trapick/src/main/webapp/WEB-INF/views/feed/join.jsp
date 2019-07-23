@@ -76,6 +76,7 @@ html, body {
 }
 </style>
 <script type="text/javascript">
+$(function() {
 	$(".login-form").validate({
 		rules : {
 			username : {
@@ -111,8 +112,17 @@ html, body {
 			} else {
 				error.insertAfter(element);
 			}
-		}
+		},submitHandler: function(form) {
+		    // do other things for a valid form
+		    
+				alert("dfdfdf");
+				return fales;
+			
+		  }
 	});
+});
+
+	
 </script>
 </head>
 <body>

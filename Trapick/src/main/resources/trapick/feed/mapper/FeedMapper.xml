@@ -40,6 +40,11 @@
 			</foreach>
 		</if>
 	</insert>
+	
+	<insert id="joinTrapick" >
+		insert into users(user_idx,id,pw,name,email) values(#{user_idx},#{id},#{pw},#{email})
+	</insert>
+	
 
 	<delete id="deleteFeed">
 		delete from feed where
