@@ -34,9 +34,11 @@
 	<mybatis-spring:scan base-package="trapick.feed.mapper" />
 	<mybatis-spring:scan base-package="trapick.recommend.mapper" />
 	<mybatis-spring:scan base-package="trapick.schedule.mapper" />
+	<mybatis-spring:scan base-package="trapick.mypage.mapper" />
 
 	<context:component-scan base-package="trapick.feed.service" />
 	<context:component-scan base-package="trapick.recommend.service" />
 	<context:component-scan base-package="trapick.schedule.service" />
+	<context:component-scan base-package="trapick.mypage.service" />
 	
 </beans>
