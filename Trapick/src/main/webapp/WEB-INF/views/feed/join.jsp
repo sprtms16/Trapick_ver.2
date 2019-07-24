@@ -103,9 +103,35 @@ html, body {
 				} else {
 					error.insertAfter(element);
 				}
+			},
+		//For custom messages
+		messages : {
+			username : {
+				required : "Enter a username",
+				minlength : "Enter at least 4 characters"
 			}
-		});
+		},
+		errorElement : 'div',
+		errorPlacement : function(error, element) {
+			var placement = $(element).data('error');
+			if (placement) {
+				$(placement).append(error)
+			} else {
+				error.insertAfter(element);
+			}
+		},submitHandler: function(form) {
+		    // do other things for a valid form
+		    $.ajax({
+		    	url : 
+		    })
+				alert("dfdfdf");
+				return fales;
+			
+		  }
 	});
+});
+
+	
 </script>
 </head>
 <body>

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import trapick.feed.domain.FeedVO;
+import trapick.feed.domain.UserVO;
 import trapick.feed.service.FeedService;
 import trapick.feed.service.ReplyService;
 
@@ -34,9 +35,10 @@ public class FeedController {
 
 	}
 
-	@GetMapping("join")
-	public void join() {
-
+	@PostMapping("join")
+	public String postJoin(UserVO user) {
+		feedService.join(user);
+		return "redirect:/login";
 	}
 
 	@GetMapping("login")
