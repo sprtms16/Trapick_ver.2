@@ -196,6 +196,8 @@
                       +'</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
                       +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
                       +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                      +'<input type ="hidden" name ="item_image" value = '+item.image+'>'
+                      +'<input type ="hidden" name ="item_detail" value = '+item.detail+'>'
                       +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
 
                  $('#landmarkDiv').append(text);
@@ -206,7 +208,7 @@
         })
         
         $.ajax({
-            url : 'itemAjax',
+            url : '/Rest/recommend/itemAjax',
             type: 'post',
             dataType:'json',
             data :{city_name : '<c:out value="${city_name}"/>'} ,
@@ -234,7 +236,7 @@
          })
          //식당 ajax
           $.ajax({
-              url : 'restAjax',
+              url : '/Rest/recommend/restAjax',
               type : 'post',
               dataType : 'json',
               data :{city_name : '<c:out value="${city_name}"/>'} ,
@@ -262,7 +264,7 @@
         })
         //숙박 ajax
        $.ajax({
-          url : 'hotelAjax',
+          url : '/Rest/recommend/hotelAjax',
           type : 'post',
           dataType : 'json',
           data :{city_name : '<c:out value="${city_name}"/>'} ,
@@ -349,7 +351,7 @@
                   
             //4개 추천하기
             //landmark
-           $.ajax({
+           /* $.ajax({
                url : 'landmarkRecommend.json',
                type : 'post',
                dataType : 'json',
@@ -449,7 +451,7 @@
                })
                dragFun();
                }
-           });
+           }); */
                         
                         
            //거리 순 정렬
@@ -562,6 +564,7 @@
                 dataType:'json',
                 data :te ,
                 success : function(data){
+                	alert("성공");
                 }
              })  
           
@@ -570,7 +573,8 @@
         //경로 추천
           $('#course').on("click",function(){
            var te = $('#savet').serialize();
-           te = decodeURIComponent(te);
+           /* te = decodeURIComponent(te); */
+           te = decodeURI(te);
            alert(te);
             $.ajax({
                 url : '/Rest/recommend/course',
@@ -578,8 +582,40 @@
                 dataType:'json',
                 data :te ,
                 success : function(data){
-                   
-                }
+                   alert("성공");
+                   $.each(data, function(index, item){
+                	  if(item.item_price == 0){
+                		   var text = '<div class="list_thumb"><img src='
+                              +item.image+' class ="img"></div><div class="list_detail" style ="display: none" id="landDetail"><div class="name" id="name">'
+                              +item.item_name+'<div   class="detail"  id="detail">'
+                              +item.item_detail+'</div>'
+                              +'</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
+                              +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+                              +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                              +'<input type ="hidden" name ="item_image" value = '+item.image+'>'
+                              +'<input type ="hidden" name ="item_detail" value = '+item.detail+'>'
+                              +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+                              
+                              $('.select:eq('+index+')').empty().append(text); 
+                	  }else{
+                		  var text = '<div class="list_thumb" ><img class="img" src='
+                              +item.image+'><div class="list_detail" style ="display: none"><div id = "name" class="row">'
+                              +item.item_name+'</div><div  style = "display : none"  id ="detail" class="row">'
+                              +item.item_detail+'<div  id="price" class="row">'
+                              +item.item_price+'</div></div>'
+                              +'<input type = "hidden" name ="item_name" value ="'+item.item_name+'"/>'
+                              +'<input type = "hidden" name ="item_price" value ="'+item.item_price+'"/>'
+                              +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+                              +'<input type = "hidden" name ="item_detail" value ="'+item.item_detail+'"/>'
+                              +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                              +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+                		  $('.select:eq('+index+')').empty().append(text); 
+                	  }
+                   })
+                },
+                error:function(request,status,error){
+                    alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+                   }
              }) 
              return false;
         })  
@@ -588,7 +624,7 @@
       $('#city_search').on("click",function(){
          //랜드마크 ajax
          $.ajax({
-            url : '/Ajax/landMarkAjax.json',
+            url : '/Rest/recommend/landMarkAjax.json',
             type: 'post',
             dataType:'json',
             data :{city_name : $('#city option:selected').val()} ,
@@ -614,7 +650,7 @@
          })
          //아이템 ajax
          $.ajax({
-            url : 'itemAjax',
+            url : '/Rest/recommend/itemAjax',
             type: 'post',
             dataType:'json',
             data :{city_name : $('#city option:selected').val()} ,
@@ -643,7 +679,7 @@
          })
          //식당 ajax
           $.ajax({
-              url : 'restAjax',
+              url : '/Rest/recommend/restAjax',
               type : 'post',
               dataType : 'json',
               data :{city_name : $('#city option:selected').val()} ,
@@ -672,7 +708,7 @@
         })
         //숙박 ajax
        $.ajax({
-          url : 'hotelAjax',
+          url : '/Rest/recommend/hotelAjax',
           type : 'post',
           dataType : 'json',
           data :{city_name : $('#city option:selected').val()} ,
@@ -1113,61 +1149,27 @@ $(document).ready(function() {
             <form id="savet" action="/Rest/recommend/saveLandMarkt"
                method="post">
                <div>
-                  <table id="mySheduleTable" border=2>
+                   <table id="mySheduleTable" border=2>
                      <tr>
                         <th>일정</th>
-                        <c:forEach begin="1" end="${day }" varStatus="index">
-                           <th>${index.count }일차</th>
-                        </c:forEach>
+                        <th>06:00 ~ 09:00</th>
+						<th>09:00 ~ 12:00</th>
+						<th>12:00 ~ 15:00</th>
+						<th>15:00 ~ 18:00</th>
+						<th>18:00 ~ 21:00</th>
+						<th>21:00 ~ 24:00</th>
                      </tr>
-                     <tr>
-                        <td class="time">06:00<br> <br>&nbsp;&nbsp; ~
-                           09:00
-                        </td>
-                        <c:forEach begin="1" end="${day }" varStatus="index">
-                           <td name="${index.count }-1"></td>
-                        </c:forEach>
-                     </tr>
-                     <tr>
-                        <td class="time">09:00<br> <br>&nbsp;&nbsp; ~
-                           12:00
-                        </td>
-                        <c:forEach begin="1" end="${day }" varStatus="index">
-                           <td name="${index.count }-2"></td>
-                        </c:forEach>
-                     </tr>
-                     <tr>
-                        <td class="time">12:00<br> <br>&nbsp;&nbsp; ~
-                           15:00
-                        </td>
-                        <c:forEach begin="1" end="${day }" varStatus="index">
-                           <td name="${index.count }-3"></td>
-                        </c:forEach>
-                     </tr>
-                     <tr>
-                        <td class="time">15:00<br> <br>&nbsp;&nbsp; ~
-                           18:00
-                        </td>
-                        <c:forEach begin="1" end="${day }" varStatus="index">
-                           <td name="${index.count }-4"></td>
-                        </c:forEach>
-                     </tr>
-                     <tr>
-                        <td class="time">18:00<br> <br>&nbsp;&nbsp; ~
-                           21:00
-                        </td>
-                        <c:forEach begin="1" end="${day }" varStatus="index">
-                           <td name="${index.count }-5"></td>
-                        </c:forEach>
-                     </tr>
-                     <tr>
-                        <td class="time">21:00<br> <br>&nbsp;&nbsp; ~
-                           24:00
-                        </td>
-                        <c:forEach begin="1" end="${day }" varStatus="index">
-                           <td name="${index.count }-6"></td>
-                        </c:forEach>
-                     </tr>
+					 <c:forEach begin="1" end="${day }" varStatus="index">
+						 <tr>
+							<td>${index.count} 일차</td>
+							<td name="${index.count }-1"></td>
+							<td name="${index.count }-2"></td>
+							<td name="${index.count }-3"></td>
+							<td name="${index.count }-4"></td>
+							<td name="${index.count }-5"></td>
+							<td name="${index.count }-6"></td>
+						 </tr>
+					 </c:forEach>
                   </table>
 
                   <br> <label>일정제목</label> <input type="text" name="title">

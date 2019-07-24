@@ -57,4 +57,6 @@ public class RecommendServiceImpl implements RecommendService {
 		return (rad * 180 / Math.PI);
 	}
 
+		
+
 }

@@ -28,7 +28,7 @@ td .img{
 	top:0px;
 	left: 0px;
 }
-.list_detail{
+body .list_detail{
 	display: none;
 }
 

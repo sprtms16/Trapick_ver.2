@@ -19,4 +19,5 @@ public interface RecommendService {
 	   public double deg2rad(double deg);
 	   
 	   public  double rad2deg(double rad);
+	   
 }
