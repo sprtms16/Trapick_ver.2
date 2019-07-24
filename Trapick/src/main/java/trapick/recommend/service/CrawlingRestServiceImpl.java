@@ -15,45 +15,47 @@ import trapick.recommend.domain.RestaurantVO;
 
 @Service
 public class CrawlingRestServiceImpl implements CrawlingService {
-   
-   @Setter(onMethod_ = @Autowired)
-   private CrawlingCommonService com;
-   
-   @Override
-      public List<RestaurantVO> crawling(String city_name, String base_point) {
 
-         List<RestaurantVO> list = new ArrayList<RestaurantVO>();
-         String name, detail, img;
+	@Setter(onMethod_ = @Autowired)
+	private CrawlingCommonService com;
 
-         try {
+	@Override
+	public List<RestaurantVO> crawling(String city_name, String base_point) {
 
-            String url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=" + city_name + "맛집";
+		List<RestaurantVO> list = new ArrayList<RestaurantVO>();
+		String name, detail, img;
 
-            Document doc = Jsoup.connect(url).ignoreHttpErrors(true).get();
+		try {
 
-            Elements doc_el = doc.select(".list_top ul");
-            Elements doc_rest = doc_el.select("li");
+			String url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=" + city_name
+					+ "맛집";
 
-            for (Element el : doc_rest) {
+			Document doc = Jsoup.connect(url).ignoreHttpErrors(true).get();
 
-               // name
-               name = el.select(".list_title").select("strong").text();
-               // detail
-               detail = el.select(".list_title").select(".list_cate").text();
-               // img
-               img = el.select(".list_thumb").select("img").attr("src");
-               
-               String latitude = com.getLatitude(city_name, name);
-               String longitude = com.getLongitude(city_name, name);
+			Elements doc_el = doc.select(".list_top ul");
+			Elements doc_rest = doc_el.select("li");
 
-               RestaurantVO rest = new RestaurantVO(name, detail, img, latitude,longitude, com.getDist(city_name, base_point, latitude, longitude),"Rest");
-               list.add(rest);
-            }
-         } catch (Exception e) {
-            e.printStackTrace();
-         }
+			for (Element el : doc_rest) {
 
-         return list;
-      }
+				// name
+				name = el.select(".list_title").select("strong").text();
+				// detail
+				detail = el.select(".list_title").select(".list_cate").text();
+				// img
+				img = el.select(".list_thumb").select("img").attr("src");
+
+				String latitude = com.getLatitude(city_name, name);
+				String longitude = com.getLongitude(city_name, name);
+
+				RestaurantVO rest = new RestaurantVO(name, detail, img, latitude, longitude,
+						com.getDist(city_name, base_point, latitude, longitude), "Rest");
+				list.add(rest);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
 
 }

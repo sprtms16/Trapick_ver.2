@@ -3,6 +3,8 @@ package trapick.recommend.service;
 import java.util.List;
 
 import trapick.recommend.domain.LandmarkVO;
+import trapick.recommend.domain.SelectedItemVO;
+import trapick.recommend.domain.SelectedLandMarkVO;
 
 public interface RecommendService {
 
@@ -10,11 +12,12 @@ public interface RecommendService {
 	   
 	   public List<String> cityList(String country_name);
 	   
-	   public void saveSchedule(String title,String schd_idx);
+	   public void saveSchedule(String title, List<SelectedLandMarkVO> landList, List<SelectedItemVO> itemList,String start_day, String end_day);
 	   
-	   public void saveLandMark(String land_idx, String position,String schd_idx);
+	   public double distance(double lat1, double lon1, double lat2, double lon2);
 	   
-	   public String schd_idx();
+	   public double deg2rad(double deg);
 	   
+	   public  double rad2deg(double rad);
 	   
 }

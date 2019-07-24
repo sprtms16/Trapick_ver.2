@@ -26,23 +26,20 @@
 			co.name = #{country_name}
 	</select>
 	
-	
-	<insert id="saveSchedule">
-<!-- 		<selectKey keyProperty="max" order="BEFORE" resultType="int">
-			select nvl(max(schd_idx)+1,1) from schedule
-		</selectKey> -->
-		insert into SCHEDULE values(#{schd_idx},#{title},sysdate,sysdate,1)
+	<insert id = "saveSchedule">
+		insert all
+			into SCHEDULE values(schedule_seq.nextval,#{title},#{start_day},#{end_day},1)
+			<if test="landList != null">
+				<foreach collection="landList" item="item" separator=" ">
+					into selected_landmark values(schedule_seq.currval,#{item.land_idx},#{item.position})
+				</foreach>
+			</if>
+			<if test="landList != null">
+				<foreach collection="itemList" item="item" separator=" ">
+					into selected_item values(get_item_seq(),#{item.name},#{item.image},#{item.detail},#{item.price},schedule_seq.currval,#{item.position})
+				</foreach>
+			</if>
+			SELECT * FROM DUAL
 	</insert>
-	
-	<insert id ="saveLandMark">
-<!-- 		<selectKey keyProperty="max" order="BEFORE" resultType="int">
-			select nvl(max(schd_idx),1) from schedule
-		</selectKey> -->
-		insert into selected_landmark values(#{schd_idx},#{land_idx},null,null,null,null,1,#{position})
-	</insert>
-	
-	<select id="schd_idx" resultType = "String">
-		select nvl(max(schd_idx)+1,1) from schedule
-	</select>
 
 </mapper>

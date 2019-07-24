@@ -28,7 +28,7 @@ td .img{
 	top:0px;
 	left: 0px;
 }
-.list_detail{
+body .list_detail{
 	display: none;
 }
 
@@ -227,9 +227,14 @@ td .img{
  
  #save{
     position: relative;
-    left: 300px;
+    left: 220px;
     margin-bottom: 20px;
  }
+#course{
+	position: relative;
+    left: 200px;
+    margin-bottom: 20px;
+}
  
 #map-canvas{
    position: relative;
@@ -256,4 +261,3 @@ td .img{
     left: 620px;
     margin-bottom: 15px;
  }
- 
