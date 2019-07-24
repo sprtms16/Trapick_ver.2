@@ -29,6 +29,7 @@
 	<context:component-scan base-package="trapick.feed.controller" />
 	<context:component-scan base-package="trapick.recommend.controller" />
 	<context:component-scan base-package="trapick.schedule.controller" />
+	<context:component-scan base-package="trapick.mypage.controller" />
 	
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
