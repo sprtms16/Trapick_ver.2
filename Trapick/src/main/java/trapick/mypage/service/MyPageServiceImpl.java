@@ -18,8 +18,14 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	@Override
 	public List<ScheduleVO> scheduleList() {
-		log.info("------------스케줄 리스트------------");
+		
 		return mapper.scheduleList();
+	}
+
+	@Override
+	public boolean remove(int schd_idx) {
+		
+		return mapper.delete(schd_idx) == 1;
 	}
 
 }

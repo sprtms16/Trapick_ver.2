@@ -7,4 +7,7 @@ import trapick.schedule.domain.ScheduleVO;
 public interface MyPageMapper {
 
 	public List<ScheduleVO> scheduleList();
+	
+	public int delete(int schd_idx);
+	
 }

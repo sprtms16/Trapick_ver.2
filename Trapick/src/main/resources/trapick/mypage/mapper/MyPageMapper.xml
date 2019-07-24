@@ -6,5 +6,12 @@
 	<select id="scheduleList" resultType="trapick.schedule.domain.ScheduleVO">	
 		select * from schedule
 	</select>
+	
+	<delete id="delete">
+		delete
+			schedule
+		where
+			schd_idx = #{schd_idx}
+	</delete>
 
 </mapper>
