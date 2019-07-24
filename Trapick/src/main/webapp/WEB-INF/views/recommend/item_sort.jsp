@@ -72,15 +72,18 @@
    </script>
    
    <script type="text/javascript">
+   var map;
+   var testMarker = new Array();
+   
    function initialize() {
 	    
 	    var mapOptions = {
-	                        zoom: 18, // 지도를 띄웠을 때의 줌 크기
+	                        zoom: 6	, // 지도를 띄웠을 때의 줌 크기
 	                        mapTypeId: google.maps.MapTypeId.ROADMAP
 	                    };
 	     
 	     
-	    var map = new google.maps.Map(document.getElementById("map-canvas"), // div의 id과 값이 같아야 함. "map-canvas"
+	    map = new google.maps.Map(document.getElementById("map-canvas"), // div의 id과 값이 같아야 함. "map-canvas"
 	                                mapOptions);
 	     
 	    var size_x = 40; // 마커로 사용할 이미지의 가로 크기
@@ -94,7 +97,7 @@
 	                                                new google.maps.Size(size_x, size_y));
 	     
 	    // Geocoding ******
-	    var address	 = "이노플렉스 가산"; //주소
+	    var address	 = "한국"; //주소
 	    var marker = null; 
 	    var geocoder = new google.maps.Geocoder();
 
@@ -118,6 +121,23 @@
 	    });      
 	}
 	google.maps.event.addDomListener(window, 'load', initialize);
+	
+	function addMarker(name, lat,lon){
+		var lat = parseFloat(lat);
+		var lon = parseFloat(lon);
+		var marker = new google.maps.Marker({
+			title: name,
+			//position: {lat: parseFloat(lon) ,lon: parseFloat(lat)},
+			//position : {lat: 37.769, lng: -122.446},
+			//position : {lat: 34.0194543, lng: -118.4911912},
+			position : {lat: lat, lng: lon},
+			map: map
+		});
+		testMarker.push(marker)
+		map.setCenter({lat: lat, lng: lon });
+	}
+	
+
    </script>
 <script>
 
@@ -302,6 +322,13 @@
       
       function event(){
          $("table .delete_schedule").click(function(){
+        	  for(var i = 0 ; i < testMarker.length; i++){
+        		 if($(this).parents("td").find('input[name=item_name]').val() == testMarker[i].title){
+        			 testMarker[i].setMap(null);
+        		 }
+        	 } 
+        	 
+         	  
                $(this).parent().removeClass('select');
                  $(this).parent().empty();
               })
@@ -327,18 +354,20 @@
               }
             }); 
       }
-        
-      var testMarker = new Array();
+      
       
         $('table td:not(.time)').droppable({
              accept: "div",
              drop: function(event, ui) {
+            	 
             	var lon = $(ui.draggable).find('input[name=longitude]').val();
             	var lat = $(ui.draggable).find('input[name=latitude]').val();
             	var name = $(ui.draggable).find('input[name=item_name]').val();
-            	testMarker.push({item_name: name, latitude: lat, longitude: lon });
-            	console.log(lat, lon);
-            	console.log(testMarker);
+            	/* testMarker.push({item_name: name, latitude: lat, longitude: lon });
+            	console.log(lat, lon); */
+            	console.log(name ,lat, lon);
+            	addMarker(name ,lat, lon);
+            	
                 $(this).addClass('select');
                 $(this).empty();
                 var te = $(this).attr('name');
@@ -365,6 +394,9 @@
            }) 
         
       })
+      
+      
+      
       
       //도시선택시 ajax 구동
       $('#city_search').on("click",function(){
