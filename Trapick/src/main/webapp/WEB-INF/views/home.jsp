@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-	<meta http-equiv="refresh" content="5; url=http://www.netmarble.net/">
+	<meta http-equiv="refresh" content="50; url=http://www.netmarble.net/">
 <html>
 <head>
 	<title>Home</title>
@@ -143,5 +143,7 @@
 		<input type = "hidden" name = "day" value = "5">
 		<input type="submit" value="생성">
 	</form>
+	
+	<a href="mypage/list">ddasdf</a>
 </body>
 </html>

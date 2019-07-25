@@ -51,8 +51,10 @@ public class CrawlingHotelServiceImpl implements CrawlingService {
 	            stars = el.select(".info").select(".rating_wrap").select(".grade").text();
 	            // price
 	            price = el.select(".sub_area").select(".price").text();
-	            String latitude = com.getLatitude(city_name, name);
-	            String longitude = com.getLongitude(city_name, name);
+/*	            String latitude = com.getLatitude(city_name, name);
+	            String longitude = com.getLongitude(city_name, name);*/
+	            String latitude = "52.003928";
+	            String longitude = "49.239840";
 
 	            HotelVO hotel = new HotelVO(name, detail, img, location, review, latitude, longitude, stars, price, com.getDist(city_name, base_point, latitude, longitude), "Hotel");
 	    

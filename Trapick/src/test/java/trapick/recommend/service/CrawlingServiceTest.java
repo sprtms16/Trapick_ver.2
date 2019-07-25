@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
+import trapick.feed.domain.UserVO;
+import trapick.mypage.service.MyPageService;
 import trapick.recommend.domain.HotelVO;
 import trapick.recommend.domain.ItemVO;
 import trapick.recommend.domain.LandmarkVO;
@@ -42,6 +44,9 @@ public class CrawlingServiceTest {
   
   @Setter(onMethod_ = @Autowired)
   private RecommendService serviceRecommend;
+  
+  @Setter(onMethod_ = @Autowired)
+  private MyPageService serviceMy;
 /*   
    @Setter(onMethod_ = @Autowired)
    private CrawlingRestService serviceRest;
@@ -54,15 +59,15 @@ public class CrawlingServiceTest {
       log.info(list);
    }
    */
-
-//   @Test
+  /*
+   @Test
    public void testHotelCrwaling(){
       List<ItemVO> list = serviceItem.crawling("런던", "");
-/*      for(int i= 0; i<list.size(); i++){
+      for(int i= 0; i<list.size(); i++){
     	  log.info(list.get(i));  
-      }*/
+      }
    }
-   
+   */
 /*
    @Test
    public void testRestCrwaling(){
@@ -129,18 +134,27 @@ public class CrawlingServiceTest {
 	   log.info(vo);
    }
    */
-  
+/*  
    @Test
    public void test(){
 	   List<RestaurantVO> vo = serviceRecommend.recommendRest("런던", "런던아이");
 	   log.info(vo);
    }
-
+*/
+   /*
+   @Test
+   public void test(){
+	   List<LandmarkVO> list = serviceRecommend.userRecommendLand("시카고", 2);
+	   log.info(list);
+   }
+   */
    
-   
-   
-   
-   
+   @Test
+   public void test(){
+	   List<UserVO> list = serviceMy.findUser();
+	   
+	   log.info(list);
+   }
    
    
    

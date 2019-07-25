@@ -11,7 +11,6 @@ import trapick.recommend.domain.HotelVO;
 import trapick.recommend.domain.ItemVO;
 import trapick.recommend.domain.LandmarkVO;
 import trapick.recommend.domain.RestaurantVO;
-import trapick.recommend.mapper.LandMarkMapper;
 import trapick.recommend.service.CrawlingHotelServiceImpl;
 import trapick.recommend.service.CrawlingItemServiceImpl;
 import trapick.recommend.service.CrawlingRestServiceImpl;
@@ -123,6 +122,26 @@ public class CrawlingRestController {
    @RequestMapping("/hotelRecommend")
    public List<HotelVO> hotelRecommend(@RequestParam("city_name") String city_name, @RequestParam("name") String name){
 	   return recommedService.recommendHotel(city_name, name);
+   }
+   
+   @RequestMapping("/landmarkUserRecommend")
+   public List<LandmarkVO> landmarkUserRecommend(String city_name, int user_idx){
+	   return recommedService.userRecommendLand(city_name, 2); //user idx 대신 2로함
+   }
+   
+   @RequestMapping("/itemUserRecommend")
+   public List<ItemVO> itemUserRecommend(String city_name, int user_idx){
+	   return recommedService.recommendItem(city_name, recommedService.userRecommendLand(city_name, user_idx).get(0).getName());
+   }
+   
+   @RequestMapping("/hotelUserRecommend")
+   public List<HotelVO> hotelUserRecommend(String city_name, int user_idx){
+	   return recommedService.recommendHotel(city_name, recommedService.userRecommendLand(city_name, user_idx).get(0).getName());
+   }
+   
+   @RequestMapping("/restUserRecommend")
+   public List<RestaurantVO> restUserRecommend(String city_name, int user_idx){
+	   return recommedService.recommendRest(city_name, recommedService.userRecommendLand(city_name, user_idx).get(0).getName());
    }
    
    

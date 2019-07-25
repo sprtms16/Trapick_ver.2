@@ -10,7 +10,7 @@ public class CrawlingCommonServiceImpl implements CrawlingCommonService {
 	@Override
 	   public String getLatitude(String cityName, String placeName) {
 
-	      String url_location = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + placeName + "&key=AIzaSyDb_uxF2qi4zB5K51p-m6WDNrnTeTchSOw";
+	      String url_location = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + placeName + "&key=AIzaSyCafdAtR2qeRHV-G6art-6-guHlmJBL_1s";
 
 	      String latitude = "";
 
@@ -21,7 +21,7 @@ public class CrawlingCommonServiceImpl implements CrawlingCommonService {
 	         latitude = doc_location.select("location").select("lat").text();
 	       
 	         if (latitude.length() < 10 || latitude == null) {
-	            String url_temp = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + cityName + "&key=AIzaSyDb_uxF2qi4zB5K51p-m6WDNrnTeTchSOw";
+	            String url_temp = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + cityName + "&key=AIzaSyCafdAtR2qeRHV-G6art-6-guHlmJBL_1s";
 	            Document doc_temp = Jsoup.connect(url_temp).ignoreHttpErrors(true).get();
 	            latitude = doc_temp.select("location").select("lat").text();
 	         }
@@ -40,7 +40,7 @@ public class CrawlingCommonServiceImpl implements CrawlingCommonService {
 	   public String getLongitude(String cityName, String placeName) {
 
 	      String url_location = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + placeName
-	            + "&key=AIzaSyDb_uxF2qi4zB5K51p-m6WDNrnTeTchSOw";
+	            + "&key=AIzaSyDb_AIzaSyCafdAtR2qeRHV-G6art-6-guHlmJBL_1s";
 
 	      String longitude = "";
 
@@ -50,7 +50,7 @@ public class CrawlingCommonServiceImpl implements CrawlingCommonService {
 
 	         if (longitude.length() < 10) {
 	            String url_temp = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + cityName
-	                  + "&key=AIzaSyDb_uxF2qi4zB5K51p-m6WDNrnTeTchSOw";
+	                  + "&key=AIzaSyCafdAtR2qeRHV-G6art-6-guHlmJBL_1s";
 	            Document doc_temp = Jsoup.connect(url_temp).ignoreHttpErrors(true).get();
 	            longitude = doc_temp.select("location").select("lng").text();
 	         }
@@ -74,7 +74,7 @@ public class CrawlingCommonServiceImpl implements CrawlingCommonService {
 		   
 		   try {
 			   
-			   String urlBase = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + city_name+base_point + "&key=AIzaSyDb_uxF2qi4zB5K51p-m6WDNrnTeTchSOw";
+			   String urlBase = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + city_name+base_point + "&key=AIzaSyCafdAtR2qeRHV-G6art-6-guHlmJBL_1s";
 			   
 			   Document docBase = Jsoup.connect(urlBase).ignoreHttpErrors(true).get();
 			   
@@ -82,7 +82,7 @@ public class CrawlingCommonServiceImpl implements CrawlingCommonService {
 			   String lonBaseTemp = docBase.select("location").select("lng").text();
 			   
 		       if (latBaseTemp.length() < 10 || latBaseTemp == null) {
-				   urlBase = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + city_name+base_point + "&key=AIzaSyDb_uxF2qi4zB5K51p-m6WDNrnTeTchSOw";
+				   urlBase = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + city_name+base_point + "&key=AIzaSyCafdAtR2qeRHV-G6art-6-guHlmJBL_1s";
 				   
 				   docBase = Jsoup.connect(urlBase).ignoreHttpErrors(true).get();
 			          latBaseTemp = docBase.select("location").select("lat").text();
@@ -92,7 +92,7 @@ public class CrawlingCommonServiceImpl implements CrawlingCommonService {
 			       }
 			       
 			    if (lonBaseTemp.length() < 10) {
-					   urlBase = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + city_name+base_point + "&key=AIzaSyDb_uxF2qi4zB5K51p-m6WDNrnTeTchSOw";
+					   urlBase = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + city_name+base_point + "&key=AIzaSyCafdAtR2qeRHV-G6art-6-guHlmJBL_1s";
 					   
 					   docBase = Jsoup.connect(urlBase).ignoreHttpErrors(true).get();
 				        lonBaseTemp = docBase.select("location").select("lng").text();

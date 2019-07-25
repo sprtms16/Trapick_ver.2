@@ -31,5 +31,7 @@ public interface RecommendService {
 	   
 	   public List<RestaurantVO> recommendRest(String city_name, String base_point);
 	   
+	   public List<LandmarkVO> userRecommendLand(String city_name, int user_idx);
+	   
 	   
 }
