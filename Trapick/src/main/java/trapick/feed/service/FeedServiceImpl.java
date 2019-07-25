@@ -13,6 +13,7 @@ import lombok.extern.log4j.Log4j;
 import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
 import trapick.feed.domain.SubscribeVO;
+import trapick.feed.domain.UserVO;
 import trapick.feed.mapper.FeedMapper;
 import trapick.recommend.domain.SelectedItemVO;
 
@@ -97,6 +98,12 @@ public class FeedServiceImpl implements FeedService {
 	@Override
 	public List<SelectedItemVO> getSelectedItem(int schd_idx) {
 		return mapper.selectSchdItemList(schd_idx);
+	}
+
+	@Override
+	public int join(UserVO user) {
+		// TODO Auto-generated method stub
+		return mapper.joinTrapick(user);
 	}
 
 }

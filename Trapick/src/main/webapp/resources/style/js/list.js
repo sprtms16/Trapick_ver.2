@@ -221,7 +221,7 @@ $(function() {
 			dataType : 'json',
 			success : function(data) {
 				var idx = $this.data("idx");
-				alert($this.text());
+				
 				if ($this.text() == "구독") {
 					$('.' + idx).text("구독중");
 				} else {

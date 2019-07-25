@@ -16,7 +16,7 @@ import trapick.recommend.service.CrawlingRestServiceImpl;
 import trapick.recommend.service.CrawlingSortingService;
 
 @RestController
-@RequestMapping("recommend")
+@RequestMapping("Rest/recommend")
 @AllArgsConstructor
 public class CrawlingRestController {
 
