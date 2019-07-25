@@ -13,10 +13,10 @@
 	<h2>회원 정보</h2>
 	<div class="user">
 		<c:forEach items="${user }" var="user">
-			<li>Idx</li>
-			<li>ID</li>
-			<li>PW</li>
-			<li>Email</li>
+			<li>Idx		<c:out value="${user.user_idx }"></c:out></li>
+			<li>ID		<c:out value="${user.id }"></c:out></li>
+			<li>PW		<c:out value="${user.pw }"></c:out></li>
+			<li>Email	<c:out value="${user.email }"></c:out></li>
 		</c:forEach>
 	</div>
 	
@@ -36,8 +36,10 @@
 				<tr>
 					<td><c:out value="${schedule.schd_idx }"></c:out></td>
 					<td><c:out value="${schedule.title }"></c:out></td>
-					<td><c:out value="${schedule.schd_start }"></c:out></td>
-					<td><c:out value="${schedule.schd_end }"></c:out></td>
+			 		<td><c:out value="${schedule.schd_start }"></c:out></td>
+					<td><c:out value="${schedule.schd_end }"></c:out></td> 
+					<td><button id="mypage">삭제</button></td>
+					<td><button id="mypage">공유</button></td>
 				</tr>
 			</c:forEach>
 		</table>

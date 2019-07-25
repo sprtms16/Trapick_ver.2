@@ -3,15 +3,22 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="trapick.mypage.mapper.MyPageMapper">
 
-	<select id="scheduleList" resultType="trapick.schedule.domain.ScheduleVO">	
-		select * from schedule
+	<select id="scheduleList" resultType="trapick.schedule.domain.ScheduleVO">
+		select * from schedule where
+		user_idx = #{user_idx}
 	</select>
-	
+
+	<select id="userInfo" resultType="trapick.feed.domain.UserVO">
+		select * from users
+		where
+		user_idx = #{user_idx}
+	</select>
+
 	<delete id="delete">
 		delete
-			schedule
+		schedule
 		where
-			schd_idx = #{schd_idx}
+		schd_idx = #{schd_idx}
 	</delete>
 
 </mapper>
