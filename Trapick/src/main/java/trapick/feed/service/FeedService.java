@@ -3,6 +3,8 @@ package trapick.feed.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import trapick.feed.domain.FeedVO;
@@ -26,11 +28,13 @@ public interface FeedService {
 	public int insertFeed(FeedVO vo, MultipartFile[] uploadFile, String uploadPath);
 
 	public List<String> selectFeedUrl(int feed_idx);
-	
+
 	public int switchingSubscribe(SubscribeVO sb);
 
 	public List<SelectedItemVO> getSelectedItem(int schd_idx);
-	
-	public int join(UserVO user);
+
+	public void join(UserVO user);
+
+	public int loginCheck(UserVO user);
 
 }

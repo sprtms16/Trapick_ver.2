@@ -96,7 +96,7 @@
 
 	<div class="container">
 		<a id="MOVE_TOP_BTN" href="#">TOP</a>
-		<jsp:include page="header.jsp"></jsp:include>
+	
 
 		<div class="dropdown">
 			<button type="button" class="btn btn-primary dropdown-toggle"
