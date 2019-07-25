@@ -3,6 +3,8 @@ package trapick.feed.mapper;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
 import trapick.feed.domain.SubscribeVO;
@@ -48,6 +50,8 @@ public interface FeedMapper {
 	void deleteSubscribe(SubscribeVO sb);
 	
 	int joinTrapick(UserVO user);
+
+	int loginCheck(UserVO user);
 
 
 	
