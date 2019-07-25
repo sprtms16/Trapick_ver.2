@@ -22,6 +22,7 @@ import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.UserVO;
 import trapick.feed.service.FeedService;
 import trapick.feed.service.ReplyService;
+import trapick.feed.websocket.EchoHandler;
 
 @Controller
 @Log4j
@@ -31,9 +32,16 @@ public class FeedController {
 
 	private FeedService feedService;
 	private ReplyService replyService;
-
+	private EchoHandler handler;
+	
+	
 	@GetMapping("echo")
 	public void echo() {
+	}
+	
+	@GetMapping("echoSet")
+	public String echoSet(HttpSession session){
+		return "redirect:echo";
 	}
 
 	@GetMapping("/join")

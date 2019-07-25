@@ -40,19 +40,24 @@ public class FeedMapperTests {
 
 	}
 
-	@Test
+	//@Test
 	public void scheduleMapperTests() {
 		int schd_idx = 29;
 		List<SelectedItemVO> itemVOs = mapper.selectSchdItemList(schd_idx);
 		itemVOs.forEach(item -> log.info(item));
 	}
 
-	@Test
+	//@Test
 	public void testissubs() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("user_idx", 2);
 		List<FeedVO> feedVOs = mapper.feedList(map);
 		feedVOs.forEach(feed -> log.info(feed));
+	}
+	
+	@Test
+	public void alertTest(){
+		mapper.selectAlertList(2).forEach(alert->log.info(alert));
 	}
 
 }

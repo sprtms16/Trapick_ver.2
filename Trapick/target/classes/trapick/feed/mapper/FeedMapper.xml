@@ -140,6 +140,12 @@
 		#{subscriber}
 	</select>
 
+	<select id="selectSubscriber" resultType="int">
+		select feeder from
+		feed_subscribe where subscriber =
+		#{subscriber}
+	</select>
+
 	<delete id="deleteSubscribe">
 		delete from feed_subscribe
 		where feeder = #{feeder}
@@ -165,7 +171,23 @@
 		schd_idx = #{schd_idx}
 	</select>
 
+	<select id="selectAlertList" resultMap="alertsubscribe">
+		SELECT * FROM
+		alert_subscribe WHERE subscriber = #{user_idx}
+	</select>
 
+	<resultMap type="trapick.feed.domain.AlertSubscribeVO" id="alertsubscribe">
+		<result column="alert_type" property="alert_type" />
+		<collection property="feeder" ofType="trapick.feed.domain.UserVO"
+			column="feeder" select="getUser" />
+		<collection property="subscriber" ofType="trapick.feed.domain.UserVO"
+			column="subscriber" select="getUser" />
+		<collection property="feed" ofType="trapick.feed.domain.FeedVO"
+			column="feed_idx" select="getFeed" />
+	</resultMap>
 
-
+	<select id="getUser" resultType="trapick.feed.domain.UserVO">
+		select * from users where
+		user_idx = #{user_idx}
+	</select>
 </mapper>

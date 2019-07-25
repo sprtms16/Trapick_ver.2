@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ include file="../schedule/header.jsp" %>
+<%
+	if (session.getAttribute("user_idx") != null) {
+		session.removeAttribute("user_idx");
+	}
+	session.setAttribute("user_idx", 1);
+%>
 <!DOCTYPE html>
 <html>
 <head>
