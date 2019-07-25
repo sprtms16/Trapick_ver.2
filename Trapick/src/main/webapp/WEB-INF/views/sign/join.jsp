@@ -122,7 +122,7 @@ $(function() {
 <body>
 	<div id="join-page" class="row">
 		<div class="col s12 z-depth-4 card-panel">
-			<form  action = "/feed/joinPost" class="join-form" method = "post">
+			<form  action = "/sign/joinPost" class="join-form" method = "post">
 				<div class="row">
 					<div class="input-field col s12 center">
 						<h4>Register</h4>

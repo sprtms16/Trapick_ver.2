@@ -36,30 +36,7 @@ public class FeedController {
 	public void echo() {
 	}
 
-	@GetMapping("/join")
-	public String JoinGet() {
-		return "/feed/join";
-	}
 
-	@PostMapping("/joinPost")
-	public String joinPost(UserVO user) throws Exception {
-		feedService.join(user);
-		return "redirect:login";
-	}
-
-	@GetMapping("/login")
-	public void login(HttpSession session) {
-	}
-
-	@PostMapping("loginPost")
-	public String loginPost(HttpSession session, UserVO user) {
-		int user_idx = feedService.loginCheck(user);
-		if (user_idx != 0) {
-			session.setAttribute("user_idx", user_idx);
-			return "redirect:/schedule/MainPage";
-		} else
-			return "login";
-	}
 
 	@GetMapping("/list")
 	public void feedList(Model model, @RequestParam HashMap<String, String> paramMap) {
@@ -80,6 +57,7 @@ public class FeedController {
 			feed.setUrl(feedService.selectFeedUrl(feed.getFeed_idx()));
 		});
 		model.addAttribute("list", list);
+		
 	}
 
 	@GetMapping("insert")

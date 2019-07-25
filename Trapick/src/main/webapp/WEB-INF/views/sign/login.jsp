@@ -118,7 +118,7 @@ $(function(){
 <body>
 	<div id="login-page" class="row">
 		<div class="col s12 z-depth-4 card-panel">
-			<form action = "/feed/loginPost" class="login-form" method = "post">
+			<form action = "/sign/loginPost" class="login-form" method = "post">
 				<div class="row">
 					<div class="input-field col s12 center">
 						<!-- <img src="images/login-logo.png" alt="" class="circle responsive-img valign profile-image-login"/> -->

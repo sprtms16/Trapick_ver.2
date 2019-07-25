@@ -1,35 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
-	
-	<header>
-		<script type="text/javascript">
-			$(function(){
-				$('.fa-bell')
-			})
-		</script>
-	</header>
-<nav class="navbar navbar-expand navbar-dark bg-info fixed-top">
-  <a class="navbar-brand" href="#">Feed</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-  <div class="collapse navbar-collapse" id="navbarsExample02">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">my page <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">PARK GWANYONG</a>
-      </li>
-    </ul>
-    <span style="font-size: 1.7em;">
-  <i class="fas fa-bell"><span style="font-size: 1rem; color: red"></span></i>
-</span>
-   
-   <div class="search_menu">
-			<form action="list" method="get">
+
+<header>
+	<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+</header>
+<nav class="navbar navbar-expand navbar-dark bg-info fixed-top">
+	<a class="navbar-brand" href="/schedule/MainPage">Home</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+		data-target="#navbarsExample02" aria-controls="navbarsExample02"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarsExample02">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active"><a class="nav-link"
+				href="/feed/list">feedList <span class="sr-only">(current)</span></a>
+			</li>
+	
+		</ul>
+		
+		<c:choose>
+			<c:when test="${sessionScope.user_idx ne null}">
+				<a class="nav-link text-light" href="/sign/logout">로그아웃</a>
+			</c:when>
+			<c:otherwise>
+			<a class="nav-link text-light" href="/sign/join">회원가입</a>
+				<a class="nav-link text-light" href="/sign/login">로그인</a>
+			</c:otherwise>
+		</c:choose>
+	
+		<span style="font-size: 1.7em;"> <i class="fas fa-bell"><span
+				style="font-size: 1rem; color: red"></span></i>
+		</span>
+
+		<div class="search_menu">
+			<form action="/feed/list" method="get">
 				<aside style="float: right;">
 					<input type="text" name="word" placeholder="검색">
 					<button type="submit">확인</button>
@@ -37,5 +46,5 @@
 				</aside>
 			</form>
 		</div>
-  </div>
+	</div>
 </nav>

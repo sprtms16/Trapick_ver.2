@@ -20,6 +20,7 @@ public class ScheduleController {
 
 	@GetMapping("MainPage")
 	public void mainPage() {
+		
 	}
 
 }
