@@ -1,21 +1,14 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">	
-</head>
-<body> --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	
+	
+	<header>
+		<script type="text/javascript">
+			$(function(){
+				$('.fa-bell')
+			})
+		</script>
+	</header>
 <nav class="navbar navbar-expand navbar-dark bg-info fixed-top">
   <a class="navbar-brand" href="#">Feed</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,15 +24,15 @@
         <a class="nav-link" href="#">PARK GWANYONG</a>
       </li>
     </ul>
-    <span style="font-size: 3em;">
-  <i class="fas fa-bell"><span style="font-size: 1rem; color: red">21</span></i>
+    <span style="font-size: 1.7em;">
+  <i class="fas fa-bell"><span style="font-size: 1rem; color: red"></span></i>
 </span>
    
    <div class="search_menu">
 			<form action="list" method="get">
 				<aside style="float: right;">
-					<input type="text" name="word" placeholder="search">
-					<button type="submit">go</button>
+					<input type="text" name="word" placeholder="검색">
+					<button type="submit">확인</button>
 
 				</aside>
 			</form>

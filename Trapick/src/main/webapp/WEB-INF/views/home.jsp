@@ -38,5 +38,9 @@
 		<input type = "hidden" name = "day" value = "5">
 		<input type="submit" value="생성">
 	</form>
+	
+	<form action="mypage/list">
+		<button id="mypage">MyPage</button>
+	</form>
 </body>
 </html>

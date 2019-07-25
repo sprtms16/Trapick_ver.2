@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.ReplyVO;
 import trapick.feed.service.ReplyService;
 
@@ -40,5 +41,7 @@ public class ReplyController {
 		map.put("user_idx", 1);
 		return service.replyListService(map);
 	}
+	
+		
 
 }

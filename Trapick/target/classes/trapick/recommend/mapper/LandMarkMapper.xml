@@ -2,14 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="trapick.recommend.mapper.LandMarkMapper">
+
 	<select id="landMarkList" resultType="trapick.recommend.domain.LandmarkVO">
-		select l.land_idx, l.name, l.image "image", l.latitude, l.longitude, l.detail, l.city_idx, c.name "city_name", c.time_difference 
-		from landmark l, city c 
-		where l.city_idx = c.city_idx and c.name = #{city_name}
+		select 
+			l.land_idx, l.name, l.image "image", l.latitude, l.longitude, l.detail, l.city_idx, 
+			c.name "city_name", c.time_difference 
+		from 
+			landmark l, city c 
+		where 
+			l.city_idx = c.city_idx 
+			and 
+			c.name = #{city_name}
 	</select>
 	
 	<select id="cityList" resultType="String">
-		select c.name from city c,country co where c.country_idx = co.country_idx and co.name = #{country_name}
+		select 
+			c.name 
+		from 
+			city c,country co 
+		where 
+			c.country_idx = co.country_idx 
+			and 
+			co.name = #{country_name}
 	</select>
 	
 	<insert id = "saveSchedule">
