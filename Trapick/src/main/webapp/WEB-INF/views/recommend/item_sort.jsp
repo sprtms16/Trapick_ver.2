@@ -634,13 +634,15 @@
                
                $.each(data, function(index, item){
           
-                  var text = '<div class="row drag"><div class="list_thumb"><img src='
+            	   var text = '<div class="row drag"><div class="list_thumb"><img src='
                        +item.image+' class ="img"></div><div class="list_detail" id="landDetail"><div class="name" id="name">'
                        +item.name+'</div><div   class="detail"  id="detail">'
                        +item.detail+'</div>'
                        +'</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
                        +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
                        +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                       +'<input type ="hidden" name ="item_image" value = '+item.image+'>'
+                       +'<input type ="hidden" name ="item_detail" value = '+item.detail+'>'
                        +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
 
                   $('#landmarkDiv').append(text);
