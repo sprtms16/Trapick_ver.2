@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import trapick.feed.domain.FeedVO;
+import trapick.feed.domain.UserVO;
 import trapick.feed.service.FeedService;
 import trapick.feed.service.ReplyService;
 
@@ -32,11 +35,22 @@ public class FeedController {
 
 	}
 
+	@PostMapping("join")
+	public String postJoin(UserVO user) {
+		feedService.join(user);
+		return "redirect:/login";
+	}
+
+	@GetMapping("login")
+	public void login() {
+
+	}
+
 	@GetMapping("/list")
 	public void feedList(Model model, @RequestParam HashMap<String, String> paramMap) {
 		log.info("list");
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("user_idx", 1);
+		map.put("user_idx", 2);
 		if (paramMap.get("keyword") != null) // hashtag
 			map.put("keyword", "#" + paramMap.get("keyword"));
 		if (paramMap.get("word") != null) // �˻�â�� �Է��� text��
@@ -45,7 +59,7 @@ public class FeedController {
 
 		list.forEach(feed -> {
 			Map<String, Object> replyInfo = new HashMap<>();
-			replyInfo.put("user_idx", 1);
+			replyInfo.put("user_idx", 2);
 			replyInfo.put("feed_idx", feed.getFeed_idx());
 			feed.setReplys(replyService.replyListService(replyInfo));
 			feed.setUrl(feedService.selectFeedUrl(feed.getFeed_idx()));

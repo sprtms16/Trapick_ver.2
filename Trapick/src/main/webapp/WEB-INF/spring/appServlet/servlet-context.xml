@@ -29,16 +29,19 @@
 	<context:component-scan base-package="trapick.feed.controller" />
 	<context:component-scan base-package="trapick.recommend.controller" />
 	<context:component-scan base-package="trapick.schedule.controller" />
+	<context:component-scan base-package="trapick.mypage.controller" />
 	
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
 	</beans:bean>
 
 	<beans:bean id="echoHandler" class="trapick.feed.handler.EchoHandler" />
+	<beans:bean id="echoHandler2" class="trapick.feed.handler.EchoHandler" />
 
 	<websocket:handlers>
 
 		<websocket:mapping handler="echoHandler" path="/echoHandshake" />
+		<websocket:mapping handler="echoHandler2" path="/echoHandshake2" />
 
 		<websocket:sockjs />
 

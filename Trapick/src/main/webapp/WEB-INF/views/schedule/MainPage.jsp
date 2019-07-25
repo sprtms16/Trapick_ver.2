@@ -151,7 +151,8 @@ var city = {}; */
 	            $("#start_time").datepicker("option", "maxDate", sdate);
 	            $("#start_time").datepicker("option", "minDate", mdate);
 	         	} 
-	         });	    $('#submit').click(function(){
+	         });
+	    $('#submit').click(function(){
 	  	  var start = $('#start_time').datepicker('getDate');
 	  		var end = $('#end_time').datepicker('getDate');
 	  		var cDay = 24*60*60*1000;

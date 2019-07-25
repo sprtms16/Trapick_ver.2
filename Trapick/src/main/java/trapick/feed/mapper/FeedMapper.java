@@ -5,6 +5,9 @@ import java.util.Map;
 
 import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
+import trapick.feed.domain.SubscribeVO;
+import trapick.feed.domain.UserVO;
+import trapick.recommend.domain.SelectedItemVO;
 
 public interface FeedMapper {
 
@@ -33,5 +36,20 @@ public interface FeedMapper {
 	List<String> selectFeedUrl(int feed_idx);
 
 	List<FeedVO> selectMySchdList(int user_idx);
+
+	List<SelectedItemVO> selectSchdItemList(int schd_idx);
+
+	int selectSubscriberCount(int subscriber);
+	
+	int addSubscriber(SubscribeVO sb);
+	
+	int selectSubscriberCheck(SubscribeVO sb);
+
+	void deleteSubscribe(SubscribeVO sb);
+	
+	int joinTrapick(UserVO user);
+
+
+	
 
 }

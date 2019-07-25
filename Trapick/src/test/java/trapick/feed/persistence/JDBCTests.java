@@ -24,7 +24,7 @@ public class JDBCTests {
       
       try(Connection con = DriverManager.getConnection(
             "jdbc:oracle:thin:@localhost:1521:XE",
-            "kostajava",
+            "trapick",
             "1234")) {
          
          log.info(con);

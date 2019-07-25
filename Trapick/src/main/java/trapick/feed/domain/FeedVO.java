@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class FeedVO{
+public class FeedVO {
 	int feed_idx;
 	int user_idx;
 	int schd_idx;
@@ -17,6 +17,7 @@ public class FeedVO{
 	List<ReplyVO> replys;
 	int rating;
 	int islike;
-	String html;
+	int issubs;
+	int travelDates;
 
 }

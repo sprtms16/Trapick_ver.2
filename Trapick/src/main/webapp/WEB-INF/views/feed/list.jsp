@@ -20,16 +20,83 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/style/css/list.css" />
 <link rel="stylesheet" type="text/css"
-	href="/resources/style/css/scheduler.css" />
+	href="/resources/css/scheduler.css" />
 <script type="text/javascript" src="/resources/style/js/list.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('.btn-group-fab').on('click', '.btn', function() {
+			/* $('.btn-group-fab').toggleClass('active'); */
+			
+		});
+		$('has-tooltip').tooltip();
+	});
+</script>
 
+<style type="text/css">
+.btn-group-fab {
+	position: fixed;
+	width: 50px;
+	height: auto;
+	right: 20px;
+	bottom: 20px;
+}
 
+.btn-group-fab div {
+	position: relative;
+	width: 100%;
+	height: auto;
+}
+
+.btn-group-fab .btn {
+	position: absolute;
+	bottom: 0;
+	border-radius: 50%;
+	display: block;
+	margin-bottom: 4px;
+	width: 40px;
+	height: 40px;
+	margin: 4px auto;
+}
+
+.btn-group-fab .btn-main {
+	width: 50px;
+	height: 50px;
+	right: 50%;
+	margin-right: -25px;
+	z-index: 9;
+}
+
+.btn-group-fab .btn-sub {
+	bottom: 0;
+	z-index: 8;
+	right: 50%;
+	margin-right: -20px;
+	-webkit-transition: all 2s;
+	transition: all 0.5s;
+}
+
+.btn-group-fab.active .btn-sub:nth-child(2) {
+	bottom: 60px;
+}
+
+.btn-group-fab.active .btn-sub:nth-child(3) {
+	bottom: 110px;
+}
+
+.btn-group-fab.active .btn-sub:nth-child(4) {
+	bottom: 160px;
+}
+
+.btn-group-fab .btn-sub:nth-child(5) {
+	bottom: 210px;
+}
+</style>
 </head>
 <body>
 
 	<div class="container">
 		<a id="MOVE_TOP_BTN" href="#">TOP</a>
-<jsp:include page="header.jsp"></jsp:include> 
+		<jsp:include page="header.jsp"></jsp:include>
 
 		<div class="dropdown">
 			<button type="button" class="btn btn-primary dropdown-toggle"
@@ -54,7 +121,73 @@
 						<div class="carousel-inner">
 							<div class="carousel-item active"
 								style="width: 100%; height: 500px; overflow: hidden; position: relative;">
-								${feed.html }</div>
+								<table id="mySheduleTable" class="SheduleTable" border=2
+									data-href="/RestFeed/getSelectedItem/${feed.schd_idx }">
+									<tr>
+										<th>일정</th>
+										<c:forEach begin="1" end="${feed.travelDates }"
+											varStatus="index">
+											<th>${index.count }일차</th>
+										</c:forEach>
+									</tr>
+									<tr>
+										<td class="time">06:00<br> <br>&nbsp;&nbsp; ~
+											09:00
+										</td>
+										<c:forEach begin="1" end="${feed.travelDates  }"
+											varStatus="index">
+											<td name="${index.count }-1"></td>
+										</c:forEach>
+									</tr>
+									<tr>
+										<td class="time">09:00<br> <br>&nbsp;&nbsp; ~
+											12:00
+										</td>
+										<c:forEach begin="1" end="${feed.travelDates  }"
+											varStatus="index">
+											<td name="${index.count }-2"></td>
+										</c:forEach>
+									</tr>
+									<tr>
+										<td class="time">12:00<br> <br>&nbsp;&nbsp; ~
+											15:00
+										</td>
+										<c:forEach begin="1" end="${feed.travelDates  }"
+											varStatus="index">
+											<td name="${index.count }-3"></td>
+										</c:forEach>
+									</tr>
+									<tr>
+										<td class="time">15:00<br> <br>&nbsp;&nbsp; ~
+											18:00
+										</td>
+										<c:forEach begin="1" end="${feed.travelDates  }"
+											varStatus="index">
+											<td name="${index.count }-4"></td>
+										</c:forEach>
+									</tr>
+									<tr>
+										<td class="time">18:00<br> <br>&nbsp;&nbsp; ~
+											21:00
+										</td>
+										<c:forEach begin="1" end="${feed.travelDates  }"
+											varStatus="index">
+											<td name="${index.count }-5"></td>
+										</c:forEach>
+									</tr>
+									<tr>
+										<td class="time">21:00<br> <br>&nbsp;&nbsp; ~
+											24:00
+										</td>
+										<c:forEach begin="1" end="${feed.travelDates  }"
+											varStatus="index">
+											<td name="${index.count }-6"></td>
+										</c:forEach>
+									</tr>
+								</table>
+
+
+							</div>
 							<c:forEach var="img" items="${feed.url }" varStatus="status">
 								<div class="carousel-item"
 									style="width: 100%; height: 500px; overflow: hidden; position: relative;">
@@ -99,6 +232,21 @@
 										aria-controls="collapseExample"> <i class="fas fa-map"></i>
 										모두보기
 									</a>
+
+									<c:choose>
+										<c:when test="${feed.issubs eq 1}">
+											<button
+												class="btn btn-sm btn-primary ${feed.user_idx} follow"
+												data-idx="${feed.user_idx}"
+												data-href="/RestFeed/followAction/${feed.user_idx}">구독중</button>
+										</c:when>
+										<c:otherwise>
+											<button
+												class="btn btn-sm btn-primary ${feed.user_idx} follow"
+												data-idx="${feed.user_idx}"
+												data-href="/RestFeed/followAction/${feed.user_idx}">구독</button>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</form>
 						</div>
@@ -174,6 +322,13 @@
 			<div class="modal-content"></div>
 		</div>
 	</div>
-
+	<div class="btn-group-fab" role="group" aria-label="FAB Menu">
+		<div>
+			<button type="button" class="btn btn-main btn-primary has-tooltip"
+				data-placement="left" title="Menu">
+				<i class="fa fa-bars"></i>
+			</button>
+		</div>
+	</div>
 </body>
 </html>
