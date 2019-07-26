@@ -31,16 +31,10 @@
 	<context:component-scan base-package="trapick.recommend.controller" />
 	<context:component-scan base-package="trapick.schedule.controller" />
 	<context:component-scan base-package="trapick.mypage.controller" />
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> refs/remotes/origin/jb
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
 	</beans:bean>
 
-<<<<<<< HEAD
 	<!-- Tiles -->
 	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
@@ -58,21 +52,13 @@
 	</beans:bean>
 
 	<beans:bean id="echoHandler" class="trapick.feed.websocket.EchoHandler" />
-=======
-	<beans:bean id="echoHandler" class="trapick.feed.handler.EchoHandler" />
-	<beans:bean id="echoHandler2" class="trapick.feed.handler.EchoHandler" />
->>>>>>> refs/remotes/origin/jb
 
 	<websocket:handlers>
 
 		<websocket:mapping handler="echoHandler" path="/echoHandshake" />
-<<<<<<< HEAD
 		<websocket:handshake-interceptors>
 			<beans:bean class="trapick.feed.websocket.HandshakeInterceptor" />
 		</websocket:handshake-interceptors>
-=======
-		<websocket:mapping handler="echoHandler2" path="/echoHandshake2" />
->>>>>>> refs/remotes/origin/jb
 
 		<websocket:sockjs />
 
