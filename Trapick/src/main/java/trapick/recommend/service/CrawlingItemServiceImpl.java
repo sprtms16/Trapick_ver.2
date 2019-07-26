@@ -44,23 +44,27 @@ public class CrawlingItemServiceImpl implements CrawlingService {
 			Elements ul_pack = doc_pack.select("._page_group ul");
 			Elements li_pack = ul_pack.select("li");
 			/*
-			 * for (item_idx = 0; item_idx < 3; item_idx++) { // idx item_idx++; // name
-			 * name =
-			 * li_ticket.select(".detail_area").select(".tit").select("a").attr("title"); //
-			 * detail detail =
-			 * li_ticket.select(".detail_area").select(".mall_area").select("a").text(); //
-			 * price price = li_ticket.select(".detail_area").select(".price_num").text();
-			 * // img img = li_ticket.select(".thumb_area").select("img").attr("src"); //
+			 * for (item_idx = 0; item_idx < 3; item_idx++) { // idx item_idx++;
+			 * // name name =
+			 * li_ticket.select(".detail_area").select(".tit").select("a").attr(
+			 * "title"); // detail detail =
+			 * li_ticket.select(".detail_area").select(".mall_area").select("a")
+			 * .text(); // price price =
+			 * li_ticket.select(".detail_area").select(".price_num").text(); //
+			 * img img =
+			 * li_ticket.select(".thumb_area").select("img").attr("src"); //
 			 * sales String sales_temp =
-			 * li_ticket.select(".detail").select(".txt_review").select("em").text().
-			 * replace(" ", ""); if (sales_temp.length() < 1) { sales = 0; } else { sales =
-			 * Integer.parseInt(sales_temp); } if (sales == 0) { sales = (int)
-			 * (Math.random() * 76) + 1; }
+			 * li_ticket.select(".detail").select(".txt_review").select("em").
+			 * text(). replace(" ", ""); if (sales_temp.length() < 1) { sales =
+			 * 0; } else { sales = Integer.parseInt(sales_temp); } if (sales ==
+			 * 0) { sales = (int) (Math.random() * 76) + 1; }
 			 * 
-			 * ItemVO item = new ItemVO(item_idx, name,com.getLatitude(city_name, name),
-			 * com.getLongitude(city_name, name), detail, city_name, price, img, sales,
-			 * hits, com.getDist(city_name, base_point, com.getLatitude(city_name, name),
-			 * com.getLongitude(city_name, name)), "Item"); list.add(item); }
+			 * ItemVO item = new ItemVO(item_idx,
+			 * name,com.getLatitude(city_name, name),
+			 * com.getLongitude(city_name, name), detail, city_name, price, img,
+			 * sales, hits, com.getDist(city_name, base_point,
+			 * com.getLatitude(city_name, name), com.getLongitude(city_name,
+			 * name)), "Item"); list.add(item); }
 			 */
 
 			for (Element el : li_ticket) {
@@ -88,6 +92,7 @@ public class CrawlingItemServiceImpl implements CrawlingService {
 
 				String latitude = com.getLatitude(city_name, name);
 				String longitude = com.getLongitude(city_name, name);
+
 				ItemVO item = new ItemVO(item_idx, name, latitude, longitude, detail, city_name, price, img, sales,
 						hits, com.getDist(city_name, base_point, latitude, longitude), "Item");
 				list.add(item);

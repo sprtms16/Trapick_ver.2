@@ -1,5 +1,6 @@
 package trapick.mypage.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -18,20 +19,50 @@ public class MyPageServiceImpl implements MyPageService {
 	private MyPageMapper mapper;
 
 	@Override
-	public boolean remove(int schd_idx) {
-		
-		return mapper.delete(schd_idx) == 1;
+	public List<ScheduleVO> scheduleList(UserVO userVO) {
+
+		List<ScheduleVO> listTemp = mapper.scheduleList(userVO);
+		List<ScheduleVO> list = new ArrayList<ScheduleVO>();
+
+		String tempStart = null;
+		String tempEnd = null;
+
+		for (int i = 0; i < listTemp.size(); i++) {
+
+			tempStart = listTemp.get(i).getSchd_start().substring(0, 10);
+			tempEnd = listTemp.get(i).getSchd_end().substring(0, 10);
+
+			ScheduleVO vo = new ScheduleVO(listTemp.get(i).getSchd_idx(), listTemp.get(i).getTitle(), tempStart,
+					tempEnd, listTemp.get(i).getUser_idx(), listTemp.get(i).getSelectedLandmarkds(),
+					listTemp.get(i).getSelectedItems());
+
+			list.add(vo);
+		}
+
+		return list;
+
 	}
 
 	@Override
 	public UserVO userInfo(int user_idx) {
+
 		return mapper.userInfo(user_idx);
 	}
 
 	@Override
-	public List<ScheduleVO> scheduleList(UserVO userVO) {
-		return mapper.scheduleList(userVO);
+	public boolean remove(int schd_idx) {
+
+		return mapper.delete(schd_idx) == 1;
 	}
 
+	@Override
+	public boolean share(int user_idx, int schd_idx, int share) {
+		return mapper.shareSchd(user_idx, schd_idx, share) == 1;
+	}
+
+	@Override
+	public List<UserVO> findUser() {
+		return mapper.findUser();
+	}
 
 }

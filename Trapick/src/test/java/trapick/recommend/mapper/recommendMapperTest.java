@@ -1,5 +1,10 @@
 package trapick.recommend.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -67,8 +72,9 @@ public class recommendMapperTest {
 	 * }
 	 */
 
-	/*
-	 * @Test public void test(){ mapperMy.shareSchd(3, 61, 1); }
-	 */
+	@Test
+	public void test() {
+		mapperMy.shareSchd(3, 61, 1);
+	}
 
 }

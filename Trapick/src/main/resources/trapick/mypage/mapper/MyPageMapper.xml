@@ -4,8 +4,13 @@
 <mapper namespace="trapick.mypage.mapper.MyPageMapper">
 
 	<select id="scheduleList" resultType="trapick.schedule.domain.ScheduleVO">
-		select * from schedule where
+		select * from schedule
+		where
 		user_idx = #{user_idx}
+	</select>
+
+	<select id="findUser" resultType="trapick.feed.domain.UserVO">
+		select * from users
 	</select>
 
 	<select id="userInfo" resultType="trapick.feed.domain.UserVO">
@@ -20,5 +25,14 @@
 		where
 		schd_idx = #{schd_idx}
 	</delete>
+
+	<select id="findUserIdx" parameterType="int" resultType="int">
+		select schd_idx from schedule where user_idx = #{user_idx}
+	</select>
+
+	<insert id="shareSchd">
+		insert into shareSchd values (#{user_idx},#{schd_idx},#{sharer})
+	</insert>
+
 
 </mapper>
