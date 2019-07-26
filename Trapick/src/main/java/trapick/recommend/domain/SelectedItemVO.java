@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SelectedItemVO {
+public class SelectedItemVO implements Selected {
 	private int item_idx;
 	private String name;
 	private String detail;
