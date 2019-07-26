@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<%@ include file="../schedule/header.jsp" %>
+<%
+   if (session.getAttribute("user_idx") != null) {
+      session.removeAttribute("user_idx");
+   }
+   session.setAttribute("user_idx", 1);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +37,7 @@ var city = {}; */
       $(".datepicker").datepicker();
       //
       var availableTags = [];
-      var uniqueAvailableTags = [];//국가 배열
+      var uniqueAvailableTags = [];
       $.getJSON('/schedule/country', function(data) {
          $.each(data, function(index, item) {
             availableTags.push(item.name);
@@ -40,19 +45,15 @@ var city = {}; */
          $.each(availableTags, function(i, el) {
             if ($.inArray(el, uniqueAvailableTags) === -1)
                uniqueAvailableTags.push(el);
-         });	
-      });// 국가 배열안에 국가리스트 넣음
-      
+         });
+      });
       var availableTags2 = [];
-      var uniqueAvailableTags2 = [];//도시 리스트
+      var uniqueAvailableTags2 = [];
 
        $("#target").autocomplete({
          source : uniqueAvailableTags,
          select : function(e, ui) {
-        	 if(ui.item.value == '')
-        		 return false;
-        	var selectValue = ui.item.value;	 
-            $.getJSON('city_name?country_name=' + selectValue, function(data) {
+            $.getJSON('city_name?country_name=' + $(this).val(), function(data) {
                $.each(data, function(index, item) {availableTags2.push(item.name);
                });
                $('#target2').empty();
@@ -62,10 +63,12 @@ var city = {}; */
                   $('#target2').append("<option value =" + availableTags2[i] + ">" + availableTags2[i] + "</opeion>");
                   }
                });
+
+               
             });
             
             $.ajax({
-            	url : 'country_iso?country_name=' + selectValue,
+            	url : 'country_iso?country_name=' + $(this).val(),
             	datatype : "text",
             	success : function(data) {
 	                 $.getJSON("https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRW" + data, function(d) {
@@ -78,7 +81,9 @@ var city = {}; */
          }
 
       }); 
-       
+       $("#target2").autocomplete({
+       source : uniqueAvailableTags2
+       });  
 
       $("#today").text(new Date().toLocaleDateString());
       $.datepicker.setDefaults($.datepicker.regional['ko']);
@@ -151,8 +156,7 @@ var city = {}; */
 	            $("#start_time").datepicker("option", "maxDate", sdate);
 	            $("#start_time").datepicker("option", "minDate", mdate);
 	         	} 
-	         });
-	    $('#submit').click(function(){
+	         });	    $('#submit').click(function(){
 	  	  var start = $('#start_time').datepicker('getDate');
 	  		var end = $('#end_time').datepicker('getDate');
 	  		var cDay = 24*60*60*1000;

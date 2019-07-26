@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -87,10 +90,10 @@ public class FeedServiceImpl implements FeedService {
 
 	@Override
 	public int switchingSubscribe(SubscribeVO sb) {
-		if(mapper.selectSubscriberCheck(sb)>=1){
+		if (mapper.selectSubscriberCheck(sb) >= 1) {
 			mapper.deleteSubscribe(sb);
-		}else{
-		mapper.addSubscriber(sb);
+		} else {
+			mapper.addSubscriber(sb);
 		}
 		return mapper.selectSubscriberCount(sb.getFeeder());
 	}
@@ -101,9 +104,14 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	@Override
-	public int join(UserVO user) {
+	public void join(UserVO user) {
 		// TODO Auto-generated method stub
-		return mapper.joinTrapick(user);
+		mapper.joinTrapick(user);
+	}
+
+	@Override
+	public int loginCheck(UserVO user) {
+		return mapper.loginCheck(user);
 	}
 
 }

@@ -4,7 +4,7 @@
 	if (session.getAttribute("user_idx") != null) {
 		session.removeAttribute("user_idx");
 	}
-	session.setAttribute("user_idx", 1);
+	session.setAttribute("user_idx", 2);
 %>
 <!DOCTYPE html>
 <html>
