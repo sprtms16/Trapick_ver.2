@@ -25,11 +25,12 @@
 		feed_subscribe s on f.user_idx = s.feeder and s.subscriber = 1
 		JOIN
 		schedule c on f.schd_idx = c.schd_idx
-		<if test="keyword != null">
-			REGEXP_LIKE(replace(f.contents,' ',''), #{keyword}) OR
-			REGEXP_LIKE(replace(f.title,' ',''), #{keyword})
-		</if>
-	</where>
+		<where>
+			<if test="keyword != null">
+				REGEXP_LIKE(replace(f.contents,' ',''), #{keyword}) OR
+				REGEXP_LIKE(replace(f.title,' ',''), #{keyword})
+			</if>
+		</where>
 		order by f.regdate desc
 	</select>
 
