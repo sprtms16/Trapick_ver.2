@@ -11,5 +11,8 @@ public interface MyPageService {
 	
 	public UserVO userInfo(int user_idx);
 	
-	public boolean remove(int schd_idx);
+	public boolean updateUserInfo(UserVO userVO);
+	
+	public boolean remove(int schd_idx);  
+
 }

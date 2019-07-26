@@ -11,6 +11,8 @@ public interface MyPageMapper {
 	
 	public UserVO userInfo(int user_idx);
 	
+	public int updateUserInfo(UserVO userVO);
+	
 	public int delete(int schd_idx);
 	
 }

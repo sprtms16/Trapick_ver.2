@@ -9,7 +9,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import trapick.feed.domain.UserVO;
-import trapick.recommend.service.CrawlingServiceTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -25,8 +24,19 @@ public class MyPageServiceTests {
 		userVO.setUser_idx(1);
 		service.scheduleList(userVO).forEach(schedule -> log.info(schedule));
 	}
+	
+//	@Test
+	public void testUpdateUser(){
+		UserVO vo = service.userInfo(3);
+		
+		vo.setId("ruthjiin");
+		vo.setPw("moonjiin");
+		vo.setEmail("ruthjiin@gmail.com");
+		
+		log.info("User Info 수정 : " + service.updateUserInfo(vo));
+	}
 
-	@Test
+//	@Test
 	public void testGetUserInfo() {
 		int user_idx = 1;
 		log.info(service.userInfo(user_idx));

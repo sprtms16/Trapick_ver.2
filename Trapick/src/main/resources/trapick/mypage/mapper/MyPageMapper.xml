@@ -4,21 +4,31 @@
 <mapper namespace="trapick.mypage.mapper.MyPageMapper">
 
 	<select id="scheduleList" resultType="trapick.schedule.domain.ScheduleVO">
-		select * from schedule where
-		user_idx = #{user_idx}
+		select * from schedule
+		where
+			user_idx = #{user_idx}
 	</select>
 
 	<select id="userInfo" resultType="trapick.feed.domain.UserVO">
 		select * from users
 		where
-		user_idx = #{user_idx}
+			user_idx = #{user_idx}
 	</select>
+	
+	<update id="updateUserInfo">
+		update users
+		set
+			id = #{id},
+			pw = #{pw},
+			email = #{email}
+		where 
+			user_idx = #{user_idx}
+	</update>
 
 	<delete id="delete">
-		delete
-		schedule
+		delete schedule
 		where
-		schd_idx = #{schd_idx}
+			schd_idx = #{schd_idx}
 	</delete>
 
 </mapper>
