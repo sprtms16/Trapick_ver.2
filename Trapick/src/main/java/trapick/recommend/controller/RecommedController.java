@@ -37,6 +37,7 @@ public class RecommedController {
 		model.addAttribute("city_name",city_name);
 		model.addAttribute("cityList", recommedService.cityList(country_name));
 		model.addAttribute("day",day);
+		System.out.println("test1");
 		return "recommend/item_sort";
 		
 	}

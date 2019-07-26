@@ -85,9 +85,17 @@ public class CrawlingItemServiceImpl implements CrawlingService {
 				if (sales == 0) {
 					sales = (int) (Math.random() * 76) + 1;
 				}
-
+				
+				
+				
 				String latitude = com.getLatitude(city_name, name);
 				String longitude = com.getLongitude(city_name, name);
+				System.out.println(name);
+				System.out.println(city_name);
+				System.out.println(base_point);
+				System.out.println(latitude);
+				System.out.println(longitude);
+				
 				ItemVO item = new ItemVO(item_idx, name, latitude, longitude, detail, city_name, price, img, sales,
 						hits, com.getDist(city_name, base_point, latitude, longitude), "Item");
 				list.add(item);
