@@ -12,10 +12,7 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import trapick.feed.domain.UserVO;
 import trapick.mypage.service.MyPageService;
-import trapick.recommend.domain.HotelVO;
 import trapick.recommend.domain.ItemVO;
-import trapick.recommend.domain.LandmarkVO;
-import trapick.recommend.domain.RestaurantVO;
 import trapick.recommend.mapper.LandMarkMapper;
 import trapick.schedule.service.ScheduleService;
 
@@ -51,14 +48,13 @@ public class CrawlingServiceTest {
    @Setter(onMethod_ = @Autowired)
    private CrawlingRestService serviceRest;
    */
-/*   
+  
    @Test
    public void testItemCrwaling(){
-      List<ItemVO> list = service.itemCrawling("홍콩");
+      List<ItemVO> list = serviceItem.crawling("파리", null);
       log.info("----------------------------------------Item----------------------------------------");
       log.info(list);
    }
-   */
   /*
    @Test
    public void testHotelCrwaling(){

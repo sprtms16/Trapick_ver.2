@@ -4,19 +4,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import trapick.feed.domain.FeedVO;
+import trapick.feed.domain.UserVO;
 import trapick.feed.service.FeedService;
 import trapick.feed.service.ReplyService;
+import trapick.feed.websocket.EchoHandler;
 
 @Controller
 @Log4j
@@ -26,9 +32,28 @@ public class FeedController {
 
 	private FeedService feedService;
 	private ReplyService replyService;
-
+	private EchoHandler handler;
+	
+	
 	@GetMapping("echo")
 	public void echo() {
+	}
+	
+	@GetMapping("echoSet")
+	public String echoSet(HttpSession session){
+		return "redirect:echo";
+	}
+
+
+
+	@PostMapping("join")
+	public String postJoin(UserVO user) {
+		feedService.join(user);
+		return "redirect:/login";
+	}
+
+	@GetMapping("login")
+	public void login() {
 
 	}
 
@@ -36,7 +61,7 @@ public class FeedController {
 	public void feedList(Model model, @RequestParam HashMap<String, String> paramMap) {
 		log.info("list");
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("user_idx", 1);
+		map.put("user_idx", 2);
 		if (paramMap.get("keyword") != null) // hashtag
 			map.put("keyword", "#" + paramMap.get("keyword"));
 		if (paramMap.get("word") != null) // �˻�â�� �Է��� text��
@@ -45,12 +70,13 @@ public class FeedController {
 
 		list.forEach(feed -> {
 			Map<String, Object> replyInfo = new HashMap<>();
-			replyInfo.put("user_idx", 1);
+			replyInfo.put("user_idx", 2);
 			replyInfo.put("feed_idx", feed.getFeed_idx());
 			feed.setReplys(replyService.replyListService(replyInfo));
 			feed.setUrl(feedService.selectFeedUrl(feed.getFeed_idx()));
 		});
 		model.addAttribute("list", list);
+		
 	}
 
 	@GetMapping("insert")

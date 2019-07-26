@@ -1,5 +1,7 @@
 package trapick.feed.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -17,8 +19,10 @@ import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
 import trapick.feed.domain.ReplyDislikeVO;
 import trapick.feed.domain.ReplyLikeVO;
+import trapick.feed.domain.SubscribeVO;
 import trapick.feed.service.FeedService;
 import trapick.feed.service.ReplyService;
+import trapick.recommend.domain.SelectedItemVO;
 
 @RestController
 @RequestMapping("/RestFeed/")
@@ -71,6 +75,23 @@ public class FeedRestController {
 		feedService.insertFeed(vo, uploadFile, uploadPath);
 		return new ResponseEntity<String>("success!!", HttpStatus.OK);
 
+	}
+	
+	
+	@RequestMapping("followAction/{user_idx}")
+	public int followAction(@PathVariable("user_idx") int feeder, HttpSession session){
+		int subscriber = 2; //(int) session.getAttribute("user_idx");
+		SubscribeVO sb = new SubscribeVO();
+		sb.setFeeder(feeder);
+		sb.setSubscriber(subscriber);
+		int count = feedService.switchingSubscribe(sb);
+		return count;
+		
+	}
+	
+	@RequestMapping("getSelectedItem/{schd_idx}")
+	public List<SelectedItemVO> getSelectedItem(@PathVariable("schd_idx") int schd_idx){
+		return feedService.getSelectedItem(schd_idx);
 	}
 
 }

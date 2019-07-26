@@ -15,27 +15,29 @@ import trapick.recommend.domain.RestaurantVO;
 
 @Service
 public class CrawlingRestServiceImpl implements CrawlingService {
-	
+
 	@Setter(onMethod_ = @Autowired)
 	private CrawlingCommonService com;
-	
+
 	@Override
-	   public List<RestaurantVO> crawling(String city_name, String base_point) {
+	public List<RestaurantVO> crawling(String city_name, String base_point) {
 
-	      List<RestaurantVO> list = new ArrayList<RestaurantVO>();
-	      String name, detail, img;
+		List<RestaurantVO> list = new ArrayList<RestaurantVO>();
+		String name, detail, img;
 
-	      try {
+		try {
 
-	         String url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=" + city_name + "맛집";
+			String url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=" + city_name
+					+ "맛집";
 
-	         Document doc = Jsoup.connect(url).ignoreHttpErrors(true).get();
+			Document doc = Jsoup.connect(url).ignoreHttpErrors(true).get();
 
-	         Elements doc_el = doc.select(".list_top ul");
-	         Elements doc_rest = doc_el.select("li");
+			Elements doc_el = doc.select(".list_top ul");
+			Elements doc_rest = doc_el.select("li");
 
-	         for (Element el : doc_rest) {
+			for (Element el : doc_rest) {
 
+<<<<<<< HEAD
 	            // name
 	            name = el.select(".list_title").select("strong").text();
 	            // detail
@@ -47,15 +49,39 @@ public class CrawlingRestServiceImpl implements CrawlingService {
 	            String longitude = com.getLongitude(city_name, name);*/
 	            String latitude = "52.003928";
 	            String longitude = "49.239840";
+=======
+				// name
+				name = el.select(".list_title").select("strong").text();
+				// detail
+				detail = el.select(".list_title").select(".list_cate").text();
+				// img
+				img = el.select(".list_thumb").select("img").attr("src");
+>>>>>>> branch 'master' of https://github.com/sprtms16/Trapick_ver.2.git
 
+<<<<<<< HEAD
 	            RestaurantVO rest = new RestaurantVO(name, detail, img, latitude,longitude, 0,"Rest");
 	            list.add(rest);
 	         }
 	      } catch (Exception e) {
 	         e.printStackTrace();
 	      }
+=======
+//				String latitude = com.getLatitude(city_name, name);
+//				String longitude = com.getLongitude(city_name, name);
+				
+				String latitude = "36.7211348";
+				String longitude = "-4.4158666";
+>>>>>>> branch 'master' of https://github.com/sprtms16/Trapick_ver.2.git
 
-	      return list;
-	   }
+				RestaurantVO rest = new RestaurantVO(name, detail, img, latitude, longitude,
+						com.getDist(city_name, base_point, latitude, longitude), "Rest");
+				list.add(rest);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
 
 }

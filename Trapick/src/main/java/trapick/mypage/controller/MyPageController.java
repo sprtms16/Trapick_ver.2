@@ -53,4 +53,8 @@ public class MyPageController {
 	      return "redirect:/mypage/list";
    }
    
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> branch 'master' of https://github.com/sprtms16/Trapick_ver.2.git

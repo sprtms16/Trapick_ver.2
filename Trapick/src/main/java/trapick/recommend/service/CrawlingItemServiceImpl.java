@@ -15,80 +15,82 @@ import trapick.recommend.domain.ItemVO;
 
 @Service
 public class CrawlingItemServiceImpl implements CrawlingService {
-	
+
 	@Setter(onMethod_ = @Autowired)
 	private CrawlingCommonService com;
 
 	// 상품Crawling Method
-	   @Override
-	   public List<ItemVO> crawling(String city_name, String base_point) {
+	@Override
+	public List<ItemVO> crawling(String city_name, String base_point) {
 
-	      List<ItemVO> list = new ArrayList<ItemVO>();
-	      int item_idx = 0;
-	      String name, detail, img, price;
-	      int sales, hits = 0;
+		List<ItemVO> list = new ArrayList<ItemVO>();
+		int item_idx = 0;
+		String name, detail, img, price;
+		int sales, hits = 0;
 
-	      try {
+		try {
 
-	         Document doc_ticket = Jsoup.connect("https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=" + city_name + "입장권").ignoreHttpErrors(true).get();
-	         Document doc_pack = Jsoup.connect("https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=" + city_name + "여행 패키지").ignoreHttpErrors(true).get();
+			Document doc_ticket = Jsoup
+					.connect(
+							"https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=" + city_name + "입장권")
+					.ignoreHttpErrors(true).get();
+			Document doc_pack = Jsoup.connect(
+					"https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=" + city_name + "여행 패키지")
+					.ignoreHttpErrors(true).get();
 
-	         Elements ul_ticket = doc_ticket.select("._page_group ul");
-	         Elements li_ticket = ul_ticket.select("li");
+			Elements ul_ticket = doc_ticket.select("._page_group ul");
+			Elements li_ticket = ul_ticket.select("li");
 
-	         Elements ul_pack = doc_pack.select("._page_group ul");
-	         Elements li_pack = ul_pack.select("li");
-	      /*   
-	         for (item_idx = 0; item_idx < 3; item_idx++) {
-	             // idx
-	                  item_idx++;
-	                  // name
-	                  name = li_ticket.select(".detail_area").select(".tit").select("a").attr("title");
-	                  // detail
-	                  detail = li_ticket.select(".detail_area").select(".mall_area").select("a").text();
-	                  // price
-	                  price = li_ticket.select(".detail_area").select(".price_num").text();
-	                  // img
-	                  img = li_ticket.select(".thumb_area").select("img").attr("src");
-	                  // sales
-	                  String sales_temp = li_ticket.select(".detail").select(".txt_review").select("em").text().replace(" ", "");
-	                  if (sales_temp.length() < 1) {
-	                     sales = 0;
-	                  } else {
-	                     sales = Integer.parseInt(sales_temp);
-	                  }
-	                  if (sales == 0) {
-	                     sales = (int) (Math.random() * 76) + 1;
-	                  }
+			Elements ul_pack = doc_pack.select("._page_group ul");
+			Elements li_pack = ul_pack.select("li");
+			/*
+			 * for (item_idx = 0; item_idx < 3; item_idx++) { // idx item_idx++;
+			 * // name name =
+			 * li_ticket.select(".detail_area").select(".tit").select("a").attr(
+			 * "title"); // detail detail =
+			 * li_ticket.select(".detail_area").select(".mall_area").select("a")
+			 * .text(); // price price =
+			 * li_ticket.select(".detail_area").select(".price_num").text(); //
+			 * img img =
+			 * li_ticket.select(".thumb_area").select("img").attr("src"); //
+			 * sales String sales_temp =
+			 * li_ticket.select(".detail").select(".txt_review").select("em").
+			 * text(). replace(" ", ""); if (sales_temp.length() < 1) { sales =
+			 * 0; } else { sales = Integer.parseInt(sales_temp); } if (sales ==
+			 * 0) { sales = (int) (Math.random() * 76) + 1; }
+			 * 
+			 * ItemVO item = new ItemVO(item_idx,
+			 * name,com.getLatitude(city_name, name),
+			 * com.getLongitude(city_name, name), detail, city_name, price, img,
+			 * sales, hits, com.getDist(city_name, base_point,
+			 * com.getLatitude(city_name, name), com.getLongitude(city_name,
+			 * name)), "Item"); list.add(item); }
+			 */
 
-	                  ItemVO item = new ItemVO(item_idx, name,com.getLatitude(city_name, name), com.getLongitude(city_name, name), detail, city_name, price, img, sales, hits, com.getDist(city_name, base_point, com.getLatitude(city_name, name), com.getLongitude(city_name, name)), "Item");
-	                  list.add(item);
-	         }
-       */
-       
-	         for (Element el : li_ticket) {
+			for (Element el : li_ticket) {
 
-	            // idx
-	            item_idx++;
-	            // name
-	            name = el.select(".detail_area").select(".tit").select("a").attr("title");
-	            // detail
-	            detail = el.select(".detail_area").select(".mall_area").select("a").text();
-	            // price
-	            price = el.select(".detail_area").select(".price_num").text();
-	            // img
-	            img = el.select(".thumb_area").select("img").attr("src");
-	            // sales
-	            String sales_temp = el.select(".detail").select(".txt_review").select("em").text().replace(" ", "");
-	            if (sales_temp.length() < 1) {
-	               sales = 0;
-	            } else {
-	               sales = Integer.parseInt(sales_temp);
-	            }
-	            if (sales == 0) {
-	               sales = (int) (Math.random() * 76) + 1;
-	            }
+				// idx
+				item_idx++;
+				// name
+				name = el.select(".detail_area").select(".tit").select("a").attr("title");
+				// detail
+				detail = el.select(".detail_area").select(".mall_area").select("a").text();
+				// price
+				price = el.select(".detail_area").select(".price_num").text();
+				// img
+				img = el.select(".thumb_area").select("img").attr("src");
+				// sales
+				String sales_temp = el.select(".detail").select(".txt_review").select("em").text().replace(" ", "");
+				if (sales_temp.length() < 1) {
+					sales = 0;
+				} else {
+					sales = Integer.parseInt(sales_temp);
+				}
+				if (sales == 0) {
+					sales = (int) (Math.random() * 76) + 1;
+				}
 
+<<<<<<< HEAD
 /*	            String latitude = com.getLatitude(city_name, name);
 	            String longitude = com.getLongitude(city_name, name);*/
 	            String latitude = "52.003928";
@@ -98,7 +100,12 @@ public class CrawlingItemServiceImpl implements CrawlingService {
 	            list.add(item);
 	            
 	         }
+=======
+				// String latitude = com.getLatitude(city_name, name);
+				// String longitude = com.getLongitude(city_name, name);
+>>>>>>> branch 'master' of https://github.com/sprtms16/Trapick_ver.2.git
 
+<<<<<<< HEAD
 	         for (Element el : li_pack) {
 	        	
 	        	// idx
@@ -126,7 +133,15 @@ public class CrawlingItemServiceImpl implements CrawlingService {
 		            String longitude = com.getLongitude(city_name, name);*/
 		            String latitude = "52.003928";
 		            String longitude = "49.239840";
+=======
+				String latitude = "51.5194133";
+				String longitude = "-0.1269566";
+				ItemVO item = new ItemVO(item_idx, name, latitude, longitude, detail, city_name, price, img, sales,
+						hits, com.getDist(city_name, base_point, latitude, longitude), "Item");
+				list.add(item);
+>>>>>>> branch 'master' of https://github.com/sprtms16/Trapick_ver.2.git
 
+<<<<<<< HEAD
 		            ItemVO item = new ItemVO(item_idx, name,latitude, longitude, detail, city_name, price, img, sales, hits, 0, "Item");
 		            list.add(item);
 		            
@@ -135,7 +150,49 @@ public class CrawlingItemServiceImpl implements CrawlingService {
 	      } catch (Exception e) {
 	         e.printStackTrace();
 	      }
+=======
+			}
+>>>>>>> branch 'master' of https://github.com/sprtms16/Trapick_ver.2.git
 
-	      return list;
-	   }
+			for (Element el : li_pack) {
+
+				// idx
+				item_idx++;
+				// name
+				name = el.select(".detail_area").select(".tit").select("a").attr("title");
+				// detail
+				detail = el.select(".detail_area").select(".mall_area").select("a").text();
+				// price
+				price = el.select(".detail_area").select(".price_num").text();
+				// img
+				img = el.select(".thumb_area").select("img").attr("src");
+				// sales
+				String sales_temp = el.select(".detail").select(".txt_review").select("em").text().replace(" ", "");
+				if (sales_temp.length() < 1) {
+					sales = 0;
+				} else {
+					sales = Integer.parseInt(sales_temp);
+				}
+				if (sales == 0) {
+					sales = (int) (Math.random() * 76) + 1;
+				}
+
+				// String latitude = com.getLatitude(city_name, name);
+				// String longitude = com.getLongitude(city_name, name);
+
+				String latitude = "51.5194133";
+				String longitude = "-0.1269566";
+
+				ItemVO item = new ItemVO(item_idx, name, latitude, longitude, detail, city_name, price, img, sales,
+						hits, com.getDist(city_name, base_point, latitude, longitude), "Item");
+				list.add(item);
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
 }

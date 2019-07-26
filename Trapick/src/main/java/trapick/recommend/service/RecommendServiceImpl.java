@@ -36,7 +36,7 @@ public class RecommendServiceImpl implements RecommendService {
 
 	@Setter(onMethod_ = @Autowired)
 	private CrawlingSortingService serviceSort;
-	
+
 	@Setter(onMethod_ = @Autowired)
 	private RecommendMapper mapperRecommend;
 
@@ -177,7 +177,7 @@ public class RecommendServiceImpl implements RecommendService {
 
 	@Override
 	public List<LandmarkVO> userRecommendLand(String city_name, int user_idx) {
-		
+
 		List<Integer> temp = new ArrayList<>();
 		List<Integer> feeder = new ArrayList<>();
 		List<Integer> feed = new ArrayList<>();
@@ -185,88 +185,53 @@ public class RecommendServiceImpl implements RecommendService {
 		List<Integer> wholeLand = new ArrayList<>();
 		List<Integer> checkCityList = new ArrayList<>();
 		List<LandmarkVO> list = new ArrayList<>();
-		
+
 		feeder = mapperRecommend.findFeeder(user_idx);
-		
-		for(int i=0; i<feeder.size();i++){
+
+		for (int i = 0; i < feeder.size(); i++) {
 			temp = mapperRecommend.findFeed(feeder.get(i));
-			for(int j=0; j<temp.size();j++){
+			for (int j = 0; j < temp.size(); j++) {
 				feed.add(temp.get(j));
 			}
 			temp.clear();
 		}
-		
-		for(int i=0; i<feed.size();i++){
+
+		for (int i = 0; i < feed.size(); i++) {
 			temp = mapperRecommend.findSchedule(feed.get(i));
-			for(int j=0; j<temp.size();j++){
+			for (int j = 0; j < temp.size(); j++) {
 				schd_idx.add(temp.get(j));
 			}
 			temp.clear();
 		}
-		
-		for(int i=0; i<schd_idx.size();i++){
+
+		for (int i = 0; i < schd_idx.size(); i++) {
 			temp = mapperRecommend.findLandmark(schd_idx.get(i));
-			for(int j=0; j<temp.size();j++){
+			for (int j = 0; j < temp.size(); j++) {
 				wholeLand.add(temp.get(j));
 			}
 			temp.clear();
 		}
-		
+
 		temp = mapperRecommend.checkCity(city_name);
-		
-		for(int i=0; i<temp.size();i++){
-			for(int j=0; j<wholeLand.size(); j++){
-				if(temp.get(i).equals(wholeLand.get(j))){
+
+		for (int i = 0; i < temp.size(); i++) {
+			for (int j = 0; j < wholeLand.size(); j++) {
+				if (temp.get(i).equals(wholeLand.get(j))) {
 					checkCityList.add(wholeLand.get(j));
 				}
 			}
 		}
-		
+
 		TreeSet<Integer> ts = new TreeSet<Integer>(checkCityList);
 		checkCityList = new ArrayList<Integer>(ts);
-		
+
 		for (int i = checkCityList.size() - 1; i > 0; i--) {
 			checkCityList.remove(i);
 		}
-		
+
 		list = mapperRecommend.userRecommendLandmark(checkCityList.get(0));
-		
+
 		return list;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

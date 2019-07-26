@@ -7,16 +7,24 @@
 	<select id="feedList" resultType="trapick.feed.domain.FeedVO">
 		select
 		f.*,
-		nvl2(h.user_idx,1,0) as islike,
+		nvl2(h.user_idx,1,0) as islike, nvl2(s.subscriber,1,0) as
+		issubs,
 		(select COUNT(*) from
-		feed_heart where feed_heart.FEED_IDX = f.FEED_IDX) as
-		heart
+		feed_heart where feed_heart.FEED_IDX =
+		f.FEED_IDX) as
+		heart,
+		TO_DATE(c.schd_end,'YYYY-MM-DD') -
+		TO_DATE(c.schd_start, 'YYYY-MM-DD')as travelDates
 		from
 		feed f
-		left JOIN FEED_HEART h
+		left JOIN
+		FEED_HEART h
 		on
-		f.feed_idx = h.feed_idx and h.user_idx =
-		#{user_idx}
+		f.feed_idx = h.feed_idx and h.user_idx =1
+		left JOIN
+		feed_subscribe s on f.user_idx = s.feeder and s.subscriber = 1
+		JOIN
+		schedule c on f.schd_idx = c.schd_idx
 		<where>
 			<if test="keyword != null">
 				REGEXP_LIKE(replace(f.contents,' ',''), #{keyword}) OR
@@ -38,6 +46,24 @@
 			</foreach>
 		</if>
 	</insert>
+
+	<insert id="joinTrapick">
+		insert into
+		users(user_idx,id,pw,name,email)
+		values(#{user_idx},#{id},#{pw},#{email})
+	</insert>
+
+
+	<insert id="joinTrapick">
+		insert into users(user_idx,id,pw,email)
+		values(users_seq.nextval,#{id},#{pw},#{email})
+	</insert>
+
+	<select id="loginCheck" resultType="int">
+		select user_idx from users
+		where id = #{id} AND pw = #{pw}
+	</select>
+
 
 	<delete id="deleteFeed">
 		delete from feed where
@@ -103,4 +129,118 @@
 		#{feed_idx})
 	</insert>
 
+	<insert id="addSubscriber">
+		insert into FEED_SUBSCRIBE
+		values(#{feeder},#{subscriber})
+	</insert>
+
+	<select id="selectSubscriberCount" resultType="int">
+		select
+		count(subscriber) from feed_subscribe where feeder = #{user_idx}
+	</select>
+
+	<select id="selectSubscriberCheck" resultType="int">
+		select count(*)
+		from feed_subscribe
+		where feeder = #{feeder}
+		and subscriber =
+		#{subscriber}
+	</select>
+
+	<delete id="deleteSubscribe">
+		delete from feed_subscribe
+		where feeder = #{feeder}
+		and subscriber = #{subscriber}
+	</delete>
+
+	<select id="selectSchdItemList" resultType="trapick.recommend.domain.SelectedItemVO">
+		select name ,
+		image ,
+		detail ,
+		REPLACE(price,'undefined') as price,
+		schd_idx ,
+		position from
+		selected_item where schd_idx = #{schd_idx}
+		union
+		select name ,
+		image ,
+		detail ,
+		'' as price ,
+		schd_idx ,
+		position from selected_landmark s join
+		landmark l using (land_idx) where
+		schd_idx = #{schd_idx}
+	</select>
+
+
+
+
+	<insert id="addSubscriber">
+		insert into FEED_SUBSCRIBE
+		values(#{feeder},#{subscriber})
+	</insert>
+
+	<select id="selectSubscriberCount" resultType="int">
+		select
+		count(subscriber) from feed_subscribe where feeder = #{user_idx}
+	</select>
+
+	<select id="selectSubscriberCheck" resultType="int">
+		select count(*)
+		from feed_subscribe
+		where feeder = #{feeder}
+		and subscriber =
+		#{subscriber}
+	</select>
+
+	<select id="selectSubscriber" resultType="int">
+		select feeder from
+		feed_subscribe where subscriber =
+		#{subscriber}
+	</select>
+
+	<delete id="deleteSubscribe">
+		delete from feed_subscribe
+		where feeder = #{feeder}
+		and subscriber = #{subscriber}
+	</delete>
+
+	<select id="selectSchdItemList" resultType="trapick.recommend.domain.SelectedItemVO">
+		select name ,
+		image ,
+		detail ,
+		REPLACE(price,'undefined') as price,
+		schd_idx ,
+		position from
+		selected_item where schd_idx = #{schd_idx}
+		union
+		select name ,
+		image ,
+		detail ,
+		'' as price ,
+		schd_idx ,
+		position from selected_landmark s join
+		landmark l using (land_idx) where
+		schd_idx = #{schd_idx}
+	</select>
+
+	<select id="selectAlertList" resultMap="alertsubscribe">
+		SELECT * FROM
+		alert_subscribe WHERE subscriber = #{user_idx}
+	</select>
+
+	<resultMap type="trapick.feed.domain.AlertSubscribeVO" id="alertsubscribe">
+		<result column="alert_type" property="alert_type" />
+		<collection property="feeder" ofType="trapick.feed.domain.UserVO"
+			column="feeder" select="getUser" />
+		<collection property="subscriber" ofType="trapick.feed.domain.UserVO"
+			column="subscriber" select="getUser" />
+		<collection property="feed" ofType="trapick.feed.domain.FeedVO"
+			column="feed_idx" select="getFeed" />
+	</resultMap>
+
+	<select id="getUser" resultType="trapick.feed.domain.UserVO">
+		select * from users where
+		user_idx = #{user_idx}
+	</select>
 </mapper>

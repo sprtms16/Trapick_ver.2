@@ -20,8 +20,6 @@ public interface RecommendService {
 	   public double distance(double lat1, double lon1, double lat2, double lon2);
       
        public double deg2rad(double deg);
-      
-       public  double rad2deg(double rad);
 	   
 	   public List<LandmarkVO> recommendLand(String city_name, String base_point);
 	   
@@ -33,5 +31,6 @@ public interface RecommendService {
 	   
 	   public List<LandmarkVO> userRecommendLand(String city_name, int user_idx);
 	   
+	   public  double rad2deg(double rad);
 	   
 }
