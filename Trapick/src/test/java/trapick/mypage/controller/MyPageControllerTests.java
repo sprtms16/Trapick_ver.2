@@ -32,10 +32,20 @@ public class MyPageControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 
-	@Test
+//	@Test
 	public void testRemove() throws Exception {
 
-		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/mypage/remove").param("schd_idx", "29"))
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders
+				.post("/mypage/remove").param("schd_idx", "29"))
 				.andReturn().getModelAndView().getViewName();
 	}
+	
+	@Test
+	public void testgetUser() throws Exception{
+		
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders
+				.post("/mypage/list").param("user_idx", "1"))
+				.andReturn().getModelAndView().getViewName();
+	}
+	
 }
