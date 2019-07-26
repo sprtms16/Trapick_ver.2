@@ -7,8 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script
@@ -26,7 +25,7 @@
 	$(function() {
 		$('.btn-group-fab').on('click', '.btn', function() {
 			/* $('.btn-group-fab').toggleClass('active'); */
-			
+
 		});
 		$('has-tooltip').tooltip();
 	});
@@ -96,7 +95,7 @@
 
 	<div class="container">
 		<a id="MOVE_TOP_BTN" href="#">TOP</a>
-		<jsp:include page="header.jsp"></jsp:include>
+
 
 		<div class="dropdown">
 			<button type="button" class="btn btn-primary dropdown-toggle"

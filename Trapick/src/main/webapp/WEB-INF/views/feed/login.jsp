@@ -76,46 +76,47 @@ html, body {
 }
 </style>
 <script type="text/javascript">
-	$(".login-form").validate({
-		rules : {
-			username : {
-				required : true,
-				minlength : 4
+	$(function() {
+		$(".login-form").validate({
+			rules : {
+				username : {
+					required : true,
+					minlength : 4
+				},
+				password : {
+					required : true,
+					minlength : 5
+				}
 			},
-			password : {
-				required : true,
-				minlength : 5
+			//For custom messages
+			messages : {
+				username : {
+					required : "Enter a username",
+					minlength : "Enter at least 4 characters"
+				}
+			},
+			errorElement : 'div',
+			errorPlacement : function(error, element) {
+				var placement = $(element).data('error');
+				if (placement) {
+					$(placement).append(error)
+				} else {
+					error.insertAfter(element);
+				}
+			},
+			submitHandler : function(form) {
+				// do other things for a valid form
+				form.submit();
+
 			}
-		},
-		//For custom messages
-		messages : {
-			username : {
-				required : "Enter a username",
-				minlength : "Enter at least 4 characters"
-			}
-		},
-		errorElement : 'div',
-		errorPlacement : function(error, element) {
-			var placement = $(element).data('error');
-			if (placement) {
-				$(placement).append(error)
-			} else {
-				error.insertAfter(element);
-			}
-		}
-		/* ,
-		submitHandler : function(form) {
-			// do other things for a valid form
-			console.log('afassf');
-			return false;
-		} */
+		});
 	});
 </script>
 </head>
 <body>
 	<div id="login-page" class="row">
 		<div class="col s12 z-depth-4 card-panel">
-			<form class="login-form">
+			<form action="/feed/loginPost" class="login-form" method="post">
 				<div class="row">
 					<div class="input-field col s12 center">
 						<!-- <img src="images/login-logo.png" alt="" class="circle responsive-img valign profile-image-login"/> -->
@@ -126,7 +127,7 @@ html, body {
 					<div class="input-field col s12">
 						<!-- <i class="mdi-social-person-outline prefix"></i> -->
 						<i class="material-icons prefix">account_circle</i> <input
-							id="username" name="username" type="text"
+							id="username" name="id" type="text"
 							style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=&quot;); cursor: auto;" />
 						<label for="username" data-error="wrong" class="center-align"
 							data-success="right">Username</label>
@@ -136,7 +137,7 @@ html, body {
 					<div class="input-field col s12">
 						<!-- <i class="mdi-action-lock-outline prefix"></i> -->
 						<i class="material-icons prefix">vpn_key</i> <input id="password"
-							name="password" type="password"
+							name="pw" type="password"
 							style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=&quot;);" />
 						<label for="password">Password</label>
 					</div>
@@ -163,7 +164,7 @@ html, body {
 				<div class="row">
 					<div class="input-field col s6 m6 l6">
 						<p class="margin medium-small">
-							<a href="page-register.html">Register Now!</a>
+							<a href="join">Register Now!</a>
 						</p>
 					</div>
 					<div class="input-field col s6 m6 l6">
