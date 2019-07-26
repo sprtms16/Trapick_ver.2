@@ -31,14 +31,14 @@ public class CrawlingServiceTest {
    @Setter(onMethod_ = @Autowired)
    private CrawlingRestService serviceRest;
    */
-/*   
+  
    @Test
    public void testItemCrwaling(){
-      List<ItemVO> list = service.itemCrawling("홍콩");
+      List<ItemVO> list = serviceItem.crawling("파리", null);
       log.info("----------------------------------------Item----------------------------------------");
       log.info(list);
    }
-   */
+   
 
 //   @Test
    public void testHotelCrwaling(){
@@ -57,7 +57,7 @@ public class CrawlingServiceTest {
    }
 */
    
-   @Test
+//   @Test
    public void dd(){
 	  System.out.println( scser.listCountryService());
    }

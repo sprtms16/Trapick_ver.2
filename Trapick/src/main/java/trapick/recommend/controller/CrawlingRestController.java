@@ -45,21 +45,25 @@ public class CrawlingRestController {
    
    @RequestMapping("/itemPriceSort")
    public List<ItemVO> itemPriceSort(@RequestParam("city_name") String city_name){
+	   
 	   return serviceSort.itemPriceSort(serviceItem.crawling(city_name,"")); //base point 파라미터 필요
    }
    
    @RequestMapping("/itemSalesSort")
    public List<ItemVO> itemSalesSort(@RequestParam("city_name") String city_name){
+	   
 	   return serviceSort.itemSalesSort(serviceItem.crawling(city_name, ""));  //base point 파라미터 필요
    }
 
    @RequestMapping("/itemHitsSort")
    public List<ItemVO> itemHitsSort(@RequestParam("city_name") String city_name){
+	   
 	   return serviceSort.itemHitsSort(serviceItem.crawling(city_name, ""));  //base point 파라미터 필요
    }
    
    @RequestMapping("/itemDistSort")
    public List<ItemVO> itemDistSort(@RequestParam("city_name") String city_name){
+	   
 	   return serviceSort.itemDistSort(serviceItem.crawling(city_name, ""));  //base point 파라미터 필요
    }
    
