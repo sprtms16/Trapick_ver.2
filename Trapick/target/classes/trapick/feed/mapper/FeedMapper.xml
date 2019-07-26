@@ -56,7 +56,11 @@
 		select user_idx from users
 		where id = #{id} AND pw = #{pw}
 	</select>
-
+	
+	<select id = "getPw" resultType = "String">
+		select	pw from users
+		where id = #{id}
+	</select>
 
 	<delete id="deleteFeed">
 		delete from feed where

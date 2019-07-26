@@ -52,6 +52,8 @@ public interface FeedMapper {
 	int joinTrapick(UserVO user);
 
 	int loginCheck(UserVO user);
+	
+	String getPw(UserVO user);
 
 
 	

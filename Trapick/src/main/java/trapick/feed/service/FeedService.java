@@ -36,5 +36,7 @@ public interface FeedService {
 	public void join(UserVO user);
 
 	public int loginCheck(UserVO user);
+	
+	public String getPw(UserVO user);
 
 }

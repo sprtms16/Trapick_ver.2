@@ -19,7 +19,8 @@ import lombok.extern.log4j.Log4j;
 @WebAppConfiguration
 @ContextConfiguration({
 	"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml",
-	"file:src/main/webapp/WEB-INF/spring/root-context.xml"
+	"file:src/main/webapp/WEB-INF/spring/root-context.xml",
+	"file:src/main/webapp/WEB-INF/spring/spring-security.xml"
 })
 @Log4j
 public class FeedControllerTests {
@@ -33,7 +34,7 @@ public class FeedControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 	
-	@Test
+	//@Test
 	public void testList() throws Exception{
 		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/feed/list"))
 				.andReturn()
@@ -58,6 +59,13 @@ public class FeedControllerTests {
 				.param("feed_idx", "62")).andReturn().getModelAndView().getViewName();
 		log.info(resultPage);
 	}
-	
+
+	@Test
+	public void testPW()throws Exception{
+		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/sign/loginPost")
+				.param("id","pgy9394")
+				.param("pw", "123123")).andReturn().getModelAndView().getViewName();
+		log.info(resultPage);
+	}
 	
 }
