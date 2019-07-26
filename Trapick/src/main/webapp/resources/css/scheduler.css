@@ -204,11 +204,11 @@ body .list_detail {
 	position: absolute;
 }
 
-#mySheduleTable {
+table {
 	text-align: center;
 }
 
-#mySheduleTable th {
+table th {
 	height: 50px;
 	background-color: #D8D8D8;
 	border-bottom-color: black;
@@ -241,13 +241,13 @@ body .list_detail {
 
 #save {
 	position: relative;
-	left: 220px;
+	left: 180px;
 	margin-bottom: 20px;
 }
 
 #course {
 	position: relative;
-	left: 200px;
+	left: 160px;
 	margin-bottom: 20px;
 }
 
