@@ -506,7 +506,7 @@ $(function(){
      })
      
      $.ajax({
-         url : '/Rest/recommend/itemAjax',
+         url : 'itemAjax',
          type: 'post',
          dataType:'json',
          data :{city_name : '<c:out value="${city_name}"/>'} ,
@@ -534,7 +534,7 @@ $(function(){
       })
       //식당 ajax
        $.ajax({
-           url : '/Rest/recommend/restAjax',
+           url : 'restAjax',
            type : 'post',
            dataType : 'json',
            data :{city_name : '<c:out value="${city_name}"/>'} ,
@@ -562,7 +562,7 @@ $(function(){
      })
      //숙박 ajax
     $.ajax({
-       url : '/Rest/recommend/hotelAjax',
+       url : 'hotelAjax',
        type : 'post',
        dataType : 'json',
        data :{city_name : '<c:out value="${city_name}"/>'} ,

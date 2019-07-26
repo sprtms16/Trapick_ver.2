@@ -15,22 +15,46 @@
    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
    src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style type="text/css">
+     /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%; /* Could be more or less, depending on screen size */                          
+    }
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
 <script type="text/javascript">
 
-   function deleteSchedule(schd_idx){
-      location.href = "/mypage/remove/"+schd_idx;
-   }
-   
-   function shareSchedule(user,schd_idx) {
-	   alert(schd_idx);
-	location.href = "/mypage/share/"+user+"/"+schd_idx;
-}
-</script>
-<script type="text/javascript">
-$(function() {
-	
-
-// Get the modal
+//Get the modal
 var modal = document.getElementById('myModal');
 
 // Get the button that opens the modal
@@ -41,11 +65,8 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal 
  btn.onclick = function() {
-		alert("ddd");
-		alert($(this).parent().find('#schd_idx'));
     modal.style.display = "block";
 }
-
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -58,45 +79,21 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
-})
+
+   function deleteSchedule(schd_idx){
+      location.href = "/mypage/remove/"+schd_idx;
+   }
+   
+   function shareSchedule(user,schd_index) {
+	alert("dasdfa"+schd_index);
+	location.href = "/mypage/share/"+user+"/"+schd_idx;
+	}
+   
+   	function openWin(schd_index) {
+	    modal.style.display = "block";
+		
+	}
 </script>
-<style type="text/css">
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-    
-        /* Modal Content/Box */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%; /* Could be more or less, depending on screen size */                          
-        }
-        /* The Close Button */
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-</style>
 </head>
 <body>
 
@@ -111,17 +108,9 @@ window.onclick = function(event) {
       </ul>
 
    </div>
+   
+   
 
-   <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-         <h5 class="card-title">회원 정보</h5>
-         <p class="card-text">
-            
-         </p>
-         <a href="#" class="btn btn-primary">수정</a>
-      </div>
-   </div>
 
    <h2>마이페이지</h2>
 
@@ -141,12 +130,13 @@ window.onclick = function(event) {
             <c:forEach items="${list }" var="schedule">
                <tr>
                   <th scope="row" id="schd_idx"><c:out value="${schedule.schd_idx }"></c:out></th>
+                  <c:set var = "schd_index" value="${schedule.schd_idx }"/>
                   <td><c:out value="${schedule.title }"></c:out></td>
                   <td><c:out value="${schedule.schd_start }"></c:out></td>
                   <td><c:out value="${schedule.schd_end }"></c:out></td>
                   <td>
                      <button type="button" class="btn btn-danger" 
-                        onclick="deleteSchedule('${schedule.schd_idx }')">
+                        onclick="deleteSchedule(schd_index)">
                         <i class="fas fa-trash"></i>
                      </button>
                   </td>
@@ -154,8 +144,8 @@ window.onclick = function(event) {
 <%--                      <button type="button" class="btn btn-primary" onclick="shareSchedule(4,'${schedule.schd_idx }')">
                         <i class="fas fa-share-alt"></i>
                      </button> --%>
-                     	
-                        <button id="myBtn" class="btn btn-primary"><i class="fas fa-share-alt"></i></button>
+                   <input id="shareBtn" value ="공유" type="button" onclick="openWin('${schedule.schd_idx }');">
+                   <%-- <button id="myBtn" class="btn btn-primary" onclick="openWin("${schedule.schd_idx }");"><i class="fas fa-share-alt"></i></button> --%>
                   </td>
                   <td>
                   </td>
@@ -163,8 +153,23 @@ window.onclick = function(event) {
             </c:forEach>
          </tbody>
       </table>
+      
+          <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
  
     <!-- The Modal -->
+    <div id="myModal" class="modal">
+ 
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>                                                               
+        <p>Some text in the Modal..</p>
+      </div>
+ 
+    </div>
+      
+ 
+<%--     <!-- The Modal -->
     <div id="myModal" class="modal">
  
       <!-- Modal content -->
@@ -178,9 +183,8 @@ window.onclick = function(event) {
 	       </c:forEach>
 	       <button type="button" class="btn btn-primary" onclick="shareSchedule(4,'${schd_idx }')">공유</button>
 	  </form>
-      </div>
- 
-    </div>
+      </div> 
+    </div> --%>
       
       
    </div>

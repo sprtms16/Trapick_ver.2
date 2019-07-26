@@ -89,10 +89,12 @@ public class CrawlingItemServiceImpl implements CrawlingService {
 	               sales = (int) (Math.random() * 76) + 1;
 	            }
 
-	            String latitude = com.getLatitude(city_name, name);
-	            String longitude = com.getLongitude(city_name, name);
+/*	            String latitude = com.getLatitude(city_name, name);
+	            String longitude = com.getLongitude(city_name, name);*/
+	            String latitude = "52.003928";
+	            String longitude = "49.239840";
 	            
-	            ItemVO item = new ItemVO(item_idx, name,latitude, longitude, detail, city_name, price, img, sales, hits, com.getDist(city_name, base_point, latitude, longitude), "Item");
+	            ItemVO item = new ItemVO(item_idx, name,latitude, longitude, detail, city_name, price, img, sales, hits, 0, "Item");
 	            list.add(item);
 	            
 	         }
@@ -120,10 +122,12 @@ public class CrawlingItemServiceImpl implements CrawlingService {
 		               sales = (int) (Math.random() * 76) + 1;
 		            }
 		            
-		            String latitude = com.getLatitude(city_name, name);
-		            String longitude = com.getLongitude(city_name, name);
+/*		            String latitude = com.getLatitude(city_name, name);
+		            String longitude = com.getLongitude(city_name, name);*/
+		            String latitude = "52.003928";
+		            String longitude = "49.239840";
 
-		            ItemVO item = new ItemVO(item_idx, name,latitude, longitude, detail, city_name, price, img, sales, hits, com.getDist(city_name, base_point, latitude, longitude), "Item");
+		            ItemVO item = new ItemVO(item_idx, name,latitude, longitude, detail, city_name, price, img, sales, hits, 0, "Item");
 		            list.add(item);
 		            
 	         }

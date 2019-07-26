@@ -151,9 +151,10 @@ public class CrawlingServiceTest {
    
    @Test
    public void test(){
-	   List<UserVO> list = serviceMy.findUser();
-	   
-	   log.info(list);
+	   List<ItemVO> list = serviceItem.crawling("뮌헨","");
+	   for(int i=0; i<list.size();i++){
+		   log.info(list.get(i).getName());
+	   }
    }
    
    

@@ -43,10 +43,12 @@ public class CrawlingRestServiceImpl implements CrawlingService {
 	            // img
 	            img = el.select(".list_thumb").select("img").attr("src");
 	            
-	            String latitude = com.getLatitude(city_name, name);
-	            String longitude = com.getLongitude(city_name, name);
+/*	            String latitude = com.getLatitude(city_name, name);
+	            String longitude = com.getLongitude(city_name, name);*/
+	            String latitude = "52.003928";
+	            String longitude = "49.239840";
 
-	            RestaurantVO rest = new RestaurantVO(name, detail, img, latitude,longitude, com.getDist(city_name, base_point, latitude, longitude),"Rest");
+	            RestaurantVO rest = new RestaurantVO(name, detail, img, latitude,longitude, 0,"Rest");
 	            list.add(rest);
 	         }
 	      } catch (Exception e) {
