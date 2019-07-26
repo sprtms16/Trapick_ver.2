@@ -22,6 +22,7 @@ import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.UserVO;
 import trapick.feed.service.FeedService;
 import trapick.feed.service.ReplyService;
+import trapick.feed.websocket.EchoHandler;
 
 @Controller
 @Log4j
@@ -31,34 +32,29 @@ public class FeedController {
 
 	private FeedService feedService;
 	private ReplyService replyService;
-
+	private EchoHandler handler;
+	
+	
 	@GetMapping("echo")
 	public void echo() {
 	}
-
-	@GetMapping("/join")
-	public String JoinGet() {
-		return "/feed/join";
+	
+	@GetMapping("echoSet")
+	public String echoSet(HttpSession session){
+		return "redirect:echo";
 	}
 
-	@PostMapping("/joinPost")
-	public String joinPost(UserVO user) throws Exception {
+
+
+	@PostMapping("join")
+	public String postJoin(UserVO user) {
 		feedService.join(user);
-		return "redirect:login";
+		return "redirect:/login";
 	}
 
-	@GetMapping("/login")
-	public void login(HttpSession session) {
-	}
+	@GetMapping("login")
+	public void login() {
 
-	@PostMapping("loginPost")
-	public String loginPost(HttpSession session, UserVO user) {
-		int user_idx = feedService.loginCheck(user);
-		if (user_idx != 0) {
-			session.setAttribute("user_idx", user_idx);
-			return "redirect:/schedule/MainPage";
-		} else
-			return "login";
 	}
 
 	@GetMapping("/list")
@@ -80,6 +76,7 @@ public class FeedController {
 			feed.setUrl(feedService.selectFeedUrl(feed.getFeed_idx()));
 		});
 		model.addAttribute("list", list);
+		
 	}
 
 	@GetMapping("insert")

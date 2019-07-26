@@ -396,7 +396,117 @@ $(function() {
       })  //경로추천 끝
 	
 	 //첫화면 ajax
-  
+  $.ajax({
+        url : '/Rest/recommend/landMarkAjax.json',
+        type: 'post',
+        dataType:'json',
+        data :{city_name :'<c:out value="${city_name}"/>'} ,
+        success : function(data){
+           
+           $('#landmarkDiv').empty();
+           $.each(data, function(index, item){
+              var text = '<div class="row drag"><div class="list_thumb"><img src='
+                   +item.image+' class ="img"></div><div class="list_detail" id="landDetail"><div class="name" id="name">'
+                   +item.name+'</div><div   class="detail"  id="detail">'
+                   +item.detail+'</div>'
+                   +'</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
+                   +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+                   +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                   +'<input type ="hidden" name ="item_image" value = '+item.image+'>'
+                   +'<input type ="hidden" name ="item_detail" value = '+item.detail+'>'
+                   +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+
+              $('#landmarkDiv').append(text);
+        })
+
+           dragFun();
+        }
+     })
+     
+     $.ajax({
+         url : '/Rest/recommend/itemAjax',
+         type: 'post',
+         dataType:'json',
+         data :{city_name : '<c:out value="${city_name}"/>'} ,
+         success : function(data){
+            
+            $('#itemList').empty();
+            $.each(data, function(index, item){
+    
+               var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                    +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
+                    +item.name+'</div><div  style = "display : none"  id ="detail" class="row">'
+                    +item.detail+'<div  id="price" class="row">'
+                    +item.price+'</div></div>'
+                    +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+                    +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+                    +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+                    +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+                    +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                    +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+                    
+                $('#itemList').append(text);
+            })
+           dragFun();
+         }
+      })
+      //식당 ajax
+       $.ajax({
+           url : '/Rest/recommend/restAjax',
+           type : 'post',
+           dataType : 'json',
+           data :{city_name : '<c:out value="${city_name}"/>'} ,
+           success : function(data){
+              
+              $('#restList').empty();
+                $.each(data, function(index, item){
+                
+                   var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                        +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
+                        +item.name+'</div><div  style = "display : none"  id ="detail" class="row">'
+                        +item.detail+'<div  id="price" class="row">'
+                        +item.price+'</div></div>'
+                        +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+                        +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+                        +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+                        +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+                        +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                        +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+                        
+                    $('#restList').append(text);
+                }) 
+                dragFun();
+           }
+     })
+     //숙박 ajax
+    $.ajax({
+       url : '/Rest/recommend/hotelAjax',
+       type : 'post',
+       dataType : 'json',
+       data :{city_name : '<c:out value="${city_name}"/>'} ,
+       success : function(data){
+           
+           $('#hotelList').empty();
+           
+             $.each(data, function(index, item){
+    
+                var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                     +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
+                     +item.name+'</div><div  style = "display : none"  id ="detail" class="row">'
+                     +item.detail+'<div  id="price" class="row">'
+                     +item.price+'</div></div>'
+                     +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+                     +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+                     +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+                     +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+                     +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+                     +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+                     
+                 $('#hotelList').append(text);
+             }) 
+             dragFun();
+        }
+     })
       
       //도시선택시 ajax 구동
       $('#city_search').on("click",function(){

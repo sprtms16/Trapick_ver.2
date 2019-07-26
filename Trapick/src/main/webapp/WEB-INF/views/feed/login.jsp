@@ -76,49 +76,47 @@ html, body {
 }
 </style>
 <script type="text/javascript">
-$(function(){
-	$(".login-form").validate({
-		rules : {
-			username : {
-				required : true,
-				minlength : 4
+	$(function() {
+		$(".login-form").validate({
+			rules : {
+				username : {
+					required : true,
+					minlength : 4
+				},
+				password : {
+					required : true,
+					minlength : 5
+				}
 			},
-			password : {
-				required : true,
-				minlength : 5
+			//For custom messages
+			messages : {
+				username : {
+					required : "Enter a username",
+					minlength : "Enter at least 4 characters"
+				}
+			},
+			errorElement : 'div',
+			errorPlacement : function(error, element) {
+				var placement = $(element).data('error');
+				if (placement) {
+					$(placement).append(error)
+				} else {
+					error.insertAfter(element);
+				}
+			},
+			submitHandler : function(form) {
+				// do other things for a valid form
+				form.submit();
+
 			}
-		},
-		//For custom messages
-		messages : {
-			username : {
-				required : "Enter a username",
-				minlength : "Enter at least 4 characters"
-			}
-		},
-		errorElement : 'div',
-		errorPlacement : function(error, element) {
-			var placement = $(element).data('error');
-			if (placement) {
-				$(placement).append(error)
-			} else {
-				error.insertAfter(element);
-			}
-		}
-		 ,
-		submitHandler : function(form) {
-			// do other things for a valid form
-		form.submit();
-		
-		} 
+		});
 	});
-});
-	
 </script>
 </head>
 <body>
 	<div id="login-page" class="row">
 		<div class="col s12 z-depth-4 card-panel">
-			<form action = "/feed/loginPost" class="login-form" method = "post">
+			<form action="/feed/loginPost" class="login-form" method="post">
 				<div class="row">
 					<div class="input-field col s12 center">
 						<!-- <img src="images/login-logo.png" alt="" class="circle responsive-img valign profile-image-login"/> -->

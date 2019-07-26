@@ -44,8 +44,11 @@ public class CrawlingRestServiceImpl implements CrawlingService {
 				// img
 				img = el.select(".list_thumb").select("img").attr("src");
 
-				String latitude = com.getLatitude(city_name, name);
-				String longitude = com.getLongitude(city_name, name);
+//				String latitude = com.getLatitude(city_name, name);
+//				String longitude = com.getLongitude(city_name, name);
+				
+				String latitude = "36.7211348";
+				String longitude = "-4.4158666";
 
 				RestaurantVO rest = new RestaurantVO(name, detail, img, latitude, longitude,
 						com.getDist(city_name, base_point, latitude, longitude), "Rest");

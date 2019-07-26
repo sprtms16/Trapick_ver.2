@@ -19,25 +19,6 @@ public class MyPageServiceImpl implements MyPageService {
 	private MyPageMapper mapper;
 
 	@Override
-	public boolean remove(int schd_idx) {
-		
-		return mapper.delete(schd_idx) == 1;
-	}
-
-	@Override
-	public UserVO userInfo(int user_idx) {
-		
-		return mapper.userInfo(user_idx);
-	}
-	
-
-	@Override
-	public boolean updateUserInfo(UserVO userVO) {
-		
-		return mapper.updateUserInfo(userVO) == 1;
-	}
-
-	@Override
 	public List<ScheduleVO> scheduleList(UserVO userVO) {
 
 		List<ScheduleVO> listTemp = mapper.scheduleList(userVO);
@@ -62,5 +43,31 @@ public class MyPageServiceImpl implements MyPageService {
 
 	}
 
+	@Override
+	public UserVO userInfo(int user_idx) {
+		return mapper.userInfo(user_idx);
+	}
+
+	@Override
+	public boolean updateUserInfo(UserVO userVO) {
+
+		return mapper.updateUserInfo(userVO) == 1;
+	}
+
+	@Override
+	public boolean remove(int schd_idx) {
+
+		return mapper.delete(schd_idx) == 1;
+	}
+
+	@Override
+	public boolean share(int user_idx, int schd_idx, int share) {
+		return mapper.shareSchd(user_idx, schd_idx, share) == 1;
+	}
+
+	@Override
+	public List<UserVO> findUser() {
+		return mapper.findUser();
+	}
 
 }
