@@ -44,30 +44,7 @@ public class FeedController {
 		return "redirect:echo";
 	}
 
-	@GetMapping("/join")
-	public String JoinGet() {
-		return "/feed/join";
-	}
 
-	@PostMapping("/joinPost")
-	public String joinPost(UserVO user) throws Exception {
-		feedService.join(user);
-		return "redirect:login";
-	}
-
-	@GetMapping("/login")
-	public void login(HttpSession session) {
-	}
-
-	@PostMapping("loginPost")
-	public String loginPost(HttpSession session, UserVO user) {
-		int user_idx = feedService.loginCheck(user);
-		if (user_idx != 0) {
-			session.setAttribute("user_idx", user_idx);
-			return "redirect:/schedule/MainPage";
-		} else
-			return "login";
-	}
 
 	@PostMapping("join")
 	public String postJoin(UserVO user) {
@@ -99,6 +76,7 @@ public class FeedController {
 			feed.setUrl(feedService.selectFeedUrl(feed.getFeed_idx()));
 		});
 		model.addAttribute("list", list);
+		
 	}
 
 	@GetMapping("insert")

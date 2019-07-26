@@ -7,8 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script
