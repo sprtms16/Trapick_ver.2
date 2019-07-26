@@ -55,6 +55,6 @@ public interface FeedMapper {
 	int loginCheck(UserVO user);
 
 	List<Integer> selectSubscriber(int subscriber);
-	
+
 	List<AlertSubscribeVO> selectAlertList(int user_idx);
 }

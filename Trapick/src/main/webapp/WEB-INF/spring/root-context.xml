@@ -42,7 +42,11 @@
 	<context:component-scan base-package="trapick.recommend.service" />
 	<context:component-scan base-package="trapick.schedule.service" />
 	<context:component-scan base-package="trapick.mypage.service" />
+<<<<<<< HEAD
 	<context:component-scan base-package="trapick.feed.aop" />
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
+=======
+	
+>>>>>>> refs/remotes/origin/jb
 </beans>

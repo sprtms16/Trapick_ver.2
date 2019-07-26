@@ -25,12 +25,11 @@
 		feed_subscribe s on f.user_idx = s.feeder and s.subscriber = 1
 		JOIN
 		schedule c on f.schd_idx = c.schd_idx
-		<where>
-			<if test="keyword != null">
-				REGEXP_LIKE(replace(f.contents,' ',''), #{keyword}) OR
-				REGEXP_LIKE(replace(f.title,' ',''), #{keyword})
-			</if>
-		</where>
+		<if test="keyword != null">
+			REGEXP_LIKE(replace(f.contents,' ',''), #{keyword}) OR
+			REGEXP_LIKE(replace(f.title,' ',''), #{keyword})
+		</if>
+	</where>
 		order by f.regdate desc
 	</select>
 
@@ -46,6 +45,13 @@
 			</foreach>
 		</if>
 	</insert>
+
+	<insert id="joinTrapick">
+		insert into
+		users(user_idx,id,pw,name,email)
+		values(#{user_idx},#{id},#{pw},#{email})
+	</insert>
+
 
 	<insert id="joinTrapick">
 		insert into users(user_idx,id,pw,email)
@@ -121,6 +127,52 @@
 		#{user_idx},
 		#{feed_idx})
 	</insert>
+
+	<insert id="addSubscriber">
+		insert into FEED_SUBSCRIBE
+		values(#{feeder},#{subscriber})
+	</insert>
+
+	<select id="selectSubscriberCount" resultType="int">
+		select
+		count(subscriber) from feed_subscribe where feeder = #{user_idx}
+	</select>
+
+	<select id="selectSubscriberCheck" resultType="int">
+		select count(*)
+		from feed_subscribe
+		where feeder = #{feeder}
+		and subscriber =
+		#{subscriber}
+	</select>
+
+	<delete id="deleteSubscribe">
+		delete from feed_subscribe
+		where feeder = #{feeder}
+		and subscriber = #{subscriber}
+	</delete>
+
+	<select id="selectSchdItemList" resultType="trapick.recommend.domain.SelectedItemVO">
+		select name ,
+		image ,
+		detail ,
+		REPLACE(price,'undefined') as price,
+		schd_idx ,
+		position from
+		selected_item where schd_idx = #{schd_idx}
+		union
+		select name ,
+		image ,
+		detail ,
+		'' as price ,
+		schd_idx ,
+		position from selected_landmark s join
+		landmark l using (land_idx) where
+		schd_idx = #{schd_idx}
+	</select>
+
+
+
 
 	<insert id="addSubscriber">
 		insert into FEED_SUBSCRIBE

@@ -9,7 +9,8 @@
 <script src="https://code.jquery.com/jquery-1.9.0.js"></script>
 <!-- Web socket CDN -->
 <!-- <script src="http://cdn.sockjs.org/sockjs-0.3.4.js"></script> -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.js"></script>
 </head>
 <body>
 	<input type="text" id="message" />
@@ -48,7 +49,6 @@
 	function onClose(evt) {
 		$("#data").append("연결 끊김");
 	}
-	
 </script>
 
 </html>

@@ -26,7 +26,7 @@
 	$(function() {
 		$('.btn-group-fab').on('click', '.btn', function() {
 			/* $('.btn-group-fab').toggleClass('active'); */
-			
+
 		});
 		$('has-tooltip').tooltip();
 	});
@@ -96,7 +96,7 @@
 
 	<div class="container">
 		<a id="MOVE_TOP_BTN" href="#">TOP</a>
-	
+
 
 		<div class="dropdown">
 			<button type="button" class="btn btn-primary dropdown-toggle"

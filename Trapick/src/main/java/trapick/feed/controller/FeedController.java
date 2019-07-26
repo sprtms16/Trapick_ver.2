@@ -69,6 +69,17 @@ public class FeedController {
 			return "login";
 	}
 
+	@PostMapping("join")
+	public String postJoin(UserVO user) {
+		feedService.join(user);
+		return "redirect:/login";
+	}
+
+	@GetMapping("login")
+	public void login() {
+
+	}
+
 	@GetMapping("/list")
 	public void feedList(Model model, @RequestParam HashMap<String, String> paramMap) {
 		log.info("list");
