@@ -36,6 +36,7 @@
 
 		<c:choose>
 			<c:when test="${sessionScope.user_idx ne null}">
+				<a class="nav-link text-light" >${user_idx }</a>
 				<a class="nav-link text-light" href="/sign/logout">로그아웃</a>
 			</c:when>
 			<c:otherwise>
@@ -44,7 +45,7 @@
 			</c:otherwise>
 		</c:choose>
 
-		<span style="font-size: 1.7em;"> <i class="fas fa-bell"><span
+		<span style="font-size: 1.7em;"> <i class="fas fa-bell" id = "alertCount"><span
 				style="font-size: 1rem; color: red"></span></i>
 		</span>
 

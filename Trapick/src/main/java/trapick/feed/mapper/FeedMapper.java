@@ -3,8 +3,6 @@ package trapick.feed.mapper;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import trapick.feed.domain.AlertSubscribeVO;
 import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
