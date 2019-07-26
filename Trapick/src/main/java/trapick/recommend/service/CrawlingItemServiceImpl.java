@@ -89,26 +89,12 @@ public class CrawlingItemServiceImpl implements CrawlingService {
 				if (sales == 0) {
 					sales = (int) (Math.random() * 76) + 1;
 				}
-<<<<<<< HEAD
-				
-				
-				
-				String latitude = com.getLatitude(city_name, name);
-				String longitude = com.getLongitude(city_name, name);
-				System.out.println(name);
-				System.out.println(city_name);
-				System.out.println(base_point);
-				System.out.println(latitude);
-				System.out.println(longitude);
-				
-=======
 
 				// String latitude = com.getLatitude(city_name, name);
 				// String longitude = com.getLongitude(city_name, name);
 
 				String latitude = "51.5194133";
 				String longitude = "-0.1269566";
->>>>>>> branch 'master' of https://github.com/sprtms16/Trapick_ver.2.git
 				ItemVO item = new ItemVO(item_idx, name, latitude, longitude, detail, city_name, price, img, sales,
 						hits, com.getDist(city_name, base_point, latitude, longitude), "Item");
 				list.add(item);
