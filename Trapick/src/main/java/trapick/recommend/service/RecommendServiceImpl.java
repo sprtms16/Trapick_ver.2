@@ -1,5 +1,7 @@
 package trapick.recommend.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -87,14 +89,13 @@ public class RecommendServiceImpl implements RecommendService {
 	@Override
 	public Map<String, List<Selected>> getSelectedList(List<Integer> land_idx, List<String> position,
 			List<String> item_name, List<String> item_price, List<String> item_detail, List<String> item_image,
-			String title, String start_time, String end_time) {
+			String title, String start_time, String end_time) throws UnsupportedEncodingException {
 		System.out.println("일정저장시작");
 		for(int a = 0 ;a<item_name.size();a++){
 			System.out.println(item_name.get(a));
 		}
 		List<Selected> landList = new ArrayList<>();
 		List<Selected> itemList = new ArrayList<>();
-
 		int i = 0;
 		int j = 0;
 		for (; i + j < item_price.size();) {
@@ -102,8 +103,8 @@ public class RecommendServiceImpl implements RecommendService {
 				landList.add(new SelectedLandMarkVO(0, land_idx.get(i), position.get(i + j)));
 				i++;
 			} else {
-				itemList.add(new SelectedItemVO(0, item_name.get(i+j), item_detail.get(i+j), item_price.get(i + j),
-						position.get(i + j), item_image.get(i+j), 0));
+				itemList.add(new SelectedItemVO(0, URLDecoder.decode(item_name.get(i+j), "UTF-8"), URLDecoder.decode(item_detail.get(i+j), "UTF-8"), URLDecoder.decode(item_price.get(i + j), "UTF-8"),
+						position.get(i + j), URLDecoder.decode(item_image.get(i + j), "UTF-8"), 0));
 				j++;
 			}
 		}
@@ -120,19 +121,18 @@ public class RecommendServiceImpl implements RecommendService {
 	@Override
 	public List<CourseItemVO> getCourse(List<String> land_idx, List<String> item_price, List<String> item_name,
 			List<String> item_detail, List<String> latitude, List<String> longitude, List<String> position,
-			List<String> item_image) {
-		
+			List<String> item_image) throws NumberFormatException, UnsupportedEncodingException {
 		List<CourseItemVO> list = new ArrayList<>();
 		int i = 0;
 		int j = 0;
 		for (; i + j < item_price.size();) {
 			if (item_price.get(i + j).equals("0")) {
-				list.add(new CourseItemVO(land_idx.get(i), item_detail.get(i + j), item_price.get(i + j),
-						item_name.get(i + j), Double.parseDouble(latitude.get(i+j)), Double.parseDouble(longitude.get(i+j)), position.get(i + j),
-						item_image.get(i + j)));
+				list.add(new CourseItemVO(land_idx.get(i), URLDecoder.decode(item_detail.get(i+j), "UTF-8"), URLDecoder.decode(item_price.get(i+j), "UTF-8"),
+						URLDecoder.decode(item_name.get(i+j), "UTF-8"), Double.parseDouble(latitude.get(i+j)), Double.parseDouble(longitude.get(i+j)), position.get(i + j),
+						URLDecoder.decode(item_image.get(i + j), "UTF-8")));
 				i++;
 			} else {
-				list.add(new CourseItemVO("0", item_detail.get(i+j), item_price.get(i+j), item_name.get(i+j), Double.parseDouble(latitude.get(i+j)), Double.parseDouble(longitude.get(i+j)), position.get(i+j), item_image.get(i+j)));
+				list.add(new CourseItemVO("0", URLDecoder.decode(item_detail.get(i+j), "UTF-8"), URLDecoder.decode(item_price.get(i+j), "UTF-8"), URLDecoder.decode(item_name.get(i+j), "UTF-8"), Double.parseDouble(latitude.get(i+j)), Double.parseDouble(longitude.get(i+j)), position.get(i+j), URLDecoder.decode(item_image.get(i + j), "UTF-8")));
 				j++;
 			}
 		}

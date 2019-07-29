@@ -1,5 +1,7 @@
 package trapick.recommend.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -30,9 +32,9 @@ public class RecommendRestController {
 	public void saveSchedule(@RequestParam(required=false) List<Integer> land_idx, @RequestParam List<String> position,
 			@RequestParam List<String> item_name, @RequestParam List<String> item_price,
 			@RequestParam List<String> item_detail, @RequestParam List<String> item_image, @RequestParam String title,
-			@RequestParam String start_time, @RequestParam String end_time) {
+			@RequestParam String start_time, @RequestParam String end_time) throws UnsupportedEncodingException {
 		Map<String, List<Selected>> map = recommedService.getSelectedList(land_idx, position, item_name, item_price, item_detail, item_image, title, start_time, end_time);
-		recommedService.saveSchedule(title, map.get("landList"), map.get("itemList"), start_time, end_time);
+		recommedService.saveSchedule(URLDecoder.decode(title, "UTF-8"), map.get("landList"), map.get("itemList"), start_time, end_time);
 		System.out.println("일정저장완료");
 	}
 
@@ -40,7 +42,7 @@ public class RecommendRestController {
 	public List<CourseItemVO> course(@RequestParam(required=false) List<String> land_idx, @RequestParam List<String> item_price,
 			@RequestParam List<String> item_name, @RequestParam List<String> item_detail,
 			@RequestParam List<String> latitude, @RequestParam List<String> longitude,
-			@RequestParam List<String> position, @RequestParam List<String> item_image) {
+			@RequestParam List<String> position, @RequestParam List<String> item_image) throws NumberFormatException, UnsupportedEncodingException {
 		
 		return recommedService.getCourse(land_idx, item_price, item_name, item_detail, latitude, longitude, position, item_image);
 	}

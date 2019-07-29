@@ -480,7 +480,7 @@
 		//일정 저장
 		$('#save').on("click", function() {
 			var te = $('#savet').serialize() + "&"+$('#courseData').serialize();
-			te = decodeURI(te);
+			te = encodeURI(te);
 			alert(te);
 			$.ajax({
 				url : '/Rest/recommend/saveLandMark',
@@ -500,8 +500,7 @@
 						"click",
 						function() {
 							var te = $('#courseData').serialize();
-							/* te = decodeURIComponent(te); */
-							te = decodeURI(te);
+							te = encodeURI(te);
 							alert(te);
 							$
 									.ajax({
