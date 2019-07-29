@@ -21,15 +21,81 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/scheduler.css" />
 <script type="text/javascript" src="/resources/style/js/list.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('.btn-group-fab').on('click', '.btn', function() {
+			/* $('.btn-group-fab').toggleClass('active'); */
+
+		});
+		$('has-tooltip').tooltip();
+	});
+</script>
 
 <style type="text/css">
+.btn-group-fab {
+	position: fixed;
+	width: 50px;
+	height: auto;
+	right: 20px;
+	bottom: 20px;
+}
+
+.btn-group-fab div {
+	position: relative;
+	width: 100%;
+	height: auto;
+}
+
+.btn-group-fab .btn {
+	position: absolute;
+	bottom: 0;
+	border-radius: 50%;
+	display: block;
+	margin-bottom: 4px;
+	width: 40px;
+	height: 40px;
+	margin: 4px auto;
+}
+
+.btn-group-fab .btn-main {
+	width: 50px;
+	height: 50px;
+	right: 50%;
+	margin-right: -25px;
+	z-index: 9;
+}
+
+.btn-group-fab .btn-sub {
+	bottom: 0;
+	z-index: 8;
+	right: 50%;
+	margin-right: -20px;
+	-webkit-transition: all 2s;
+	transition: all 0.5s;
+}
+
+.btn-group-fab.active .btn-sub:nth-child(2) {
+	bottom: 60px;
+}
+
+.btn-group-fab.active .btn-sub:nth-child(3) {
+	bottom: 110px;
+}
+
+.btn-group-fab.active .btn-sub:nth-child(4) {
+	bottom: 160px;
+}
+
+.btn-group-fab .btn-sub:nth-child(5) {
+	bottom: 210px;
+}
 </style>
 </head>
 <body>
 
 	<div class="container">
 		<a id="MOVE_TOP_BTN" href="#">TOP</a>
-	
+
 
 		<div class="dropdown">
 			<button type="button" class="btn btn-primary dropdown-toggle"
@@ -54,7 +120,48 @@
 						<div class="carousel-inner">
 							<div class="carousel-item active"
 								style="width: 100%; height: 500px; overflow: hidden; position: relative;">
-								<table id="mySheduleTable" class="SheduleTable" border=2
+
+								<form id="courseData" action="/mypage/list" method="get">
+									<table id="mySheduleTable" class="SheduleTable" border=2
+										data-href="/RestFeed/getSelectedItem/${feed.schd_idx }">
+										<tr>
+											<th>일정</th>
+											<th>06:00 ~ 09:00</th>
+											<th>09:00 ~ 12:00</th>
+											<th>12:00 ~ 15:00</th>
+											<th>15:00 ~ 18:00</th>
+											<th>18:00 ~ 21:00</th>
+											<th>21:00 ~ 24:00</th>
+										</tr>
+										<c:forEach begin="1" end="${feed.travelDates }"
+											varStatus="index">
+											<tr>
+												<td class="time">${index.count}일차</td>
+												<td name="${index.count }-1"></td>
+												<td name="${index.count }-2"></td>
+												<td name="${index.count }-3"></td>
+												<td name="${index.count }-4"></td>
+												<td name="${index.count }-5"></td>
+												<td name="${index.count }-6"></td>
+											</tr>
+										</c:forEach>
+									</table>
+								</form>
+
+								<form id="savet">
+									<table id="hotelTable" border=2>
+										<tr>
+											<th>숙소</th>
+										</tr>
+										<c:forEach begin="1" end="${feed.travelDates }"
+											varStatus="index">
+											<tr>
+												<td class="ho" name="ho-${index.count }"></td>
+											</tr>
+										</c:forEach>
+									</table>
+								</form>
+								<%-- <table id="mySheduleTable" class="SheduleTable" border=2
 									data-href="/RestFeed/getSelectedItem/${feed.schd_idx }">
 									<tr>
 										<th>일정</th>
@@ -117,7 +224,7 @@
 											<td name="${index.count }-6"></td>
 										</c:forEach>
 									</tr>
-								</table>
+								</table> --%>
 
 
 							</div>
@@ -255,6 +362,16 @@
 			<div class="modal-content"></div>
 		</div>
 	</div>
+	<div class="btn-group-fab" role="group" aria-label="FAB Menu">
+		<div>
+			<button type="button" class="btn btn-main btn-primary has-tooltip"
+				data-placement="left" title="Menu">
+				<i class="fa fa-bars"></i>
+			</button>
+		</div>
+	</div>
 
+	
 </body>
+
 </html>

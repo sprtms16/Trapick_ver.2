@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="trapick.recommend.mapper.RecommendMapper">
+   
+   <!-- 게시글 쓴사람 찾기 -->
+   <select id="findFeeder" resultType="int" parameterType="int">
+   	select feeder from feed_subscribe where subscriber = #{user_idx}
+   </select>
+   
+   <!-- 게시글 찾기 -->
+   <select id="findFeed" resultType="int" parameterType="int">
+   	select feed_idx from feed where user_idx = #{user_idx}
+   </select>
+   
+   <!-- 일정표 찾기 -->
+   <select id="findSchedule" resultType="int" parameterType="int">
+   	select schd_idx from feed where feed_idx = #{feed_idx}
+   </select>
+   
+   <!-- 일정표 내의 관광지 찾기 -->
+   <select id="findLandmark" resultType="int" parameterType="int">
+   	select land_idx from selected_landmark where schd_idx = #{schd_idx}
+   </select>
+   
+   <!-- 같은 도시에 있는 애가 있는지 확인 -->
+   <select id="checkCity" resultType="int" parameterType="String">
+   	select land_idx from landmark l, city c where l.city_idx = c.city_idx and c.name = #{city_name}
+   </select>
+   
+   <!-- 그 명소 중 고르기 -->
+   <select id="userRecommendLandmark" parameterType="int" resultType="trapick.recommend.domain.LandmarkVO">
+   	select * from landmark where land_idx = #{land_idx}
+   </select>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+</mapper>

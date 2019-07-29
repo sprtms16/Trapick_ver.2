@@ -173,6 +173,7 @@ processData:false,
 contentType:false,
 cache:false,
 success:function(result){
+	sock.send();
     location.href = 'list';
 },
 error : function(error) {
@@ -182,3 +183,5 @@ error : function(error) {
         });
     }
 }
+
+

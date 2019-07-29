@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SelectedLandMarkVO {
+public class SelectedLandMarkVO implements Selected {
 	private int schd_idx;
 	private int land_idx;
 	private String position;

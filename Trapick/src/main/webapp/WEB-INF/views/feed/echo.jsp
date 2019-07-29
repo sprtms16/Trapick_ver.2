@@ -9,11 +9,12 @@
 <script src="https://code.jquery.com/jquery-1.9.0.js"></script>
 <!-- Web socket CDN -->
 <!-- <script src="http://cdn.sockjs.org/sockjs-0.3.4.js"></script> -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.js"></script>
 </head>
 <body>
 	<input type="text" id="message" />
-	<input type="button" id="sendBtn" value="전송" />
+	<input type="button" id="sendBtn" value="${user_idx }전송" />
 	<div id="data"></div>
 </body>
 <script type="text/javascript">

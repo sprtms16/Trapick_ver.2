@@ -44,8 +44,8 @@ public class LoginController {
 	@PostMapping("loginPost")
 	public String loginPost(HttpSession session, UserVO user) {
 		
-		String rawPw = user.getPw();//Æò¹®
-		String encodedPw = feedService.getPw(user);//¾ÏÈ£¹®
+		String rawPw = user.getPw();//í‰ë¬¸
+		String encodedPw = feedService.getPw(user);//ì•”í˜¸ë¬¸
 		
 		if(passwordEncoder.matches(rawPw,encodedPw)){
 			user.setPw(encodedPw);
