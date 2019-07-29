@@ -117,7 +117,6 @@ public class CourseAlgo {
 	        	}
 	        	System.out.println(" : " + costSum);
 	        }
-//	        System.out.println(" : " + costSum);
 	        visited[node] = false;
 	        city[count - 1] = -1;
 	        
