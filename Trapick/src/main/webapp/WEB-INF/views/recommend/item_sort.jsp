@@ -189,7 +189,8 @@
 		$('table td:not(.time)')
 				.droppable(
 						{
-							accept : "div",
+							accept : "div:not(.ho)",
+							
 							drop : function(event, ui) {
 
 								/*                         var lon = $(ui.draggable).find(
