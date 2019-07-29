@@ -22,7 +22,7 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css"
-	href="../resources/css/scheduler.css" />
+	href="/resources/css/scheduler.css" />
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -204,7 +204,7 @@
 		$('table td:not(.time)')
 				.droppable(
 						{
-							accept : "div",
+							accept : "div:not(.ho)",
 							drop : function(event, ui) {
 
 								var lon = $(ui.draggable).find(
@@ -316,7 +316,7 @@
 								    success : function(data){
 								       $('#recommendHotel').empty();
 								       $.each(data, function(index, item){
-								       	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+								       	var text = '<div class="row drag ho" ><div class="list_thumb" ><img class="img" src='
                         +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
 								               +item.name+'</div><div id ="detail" class="row">'
 								               +item.detail+'</div><div  id="price" class="row">'
@@ -375,7 +375,7 @@
 								            
 								            $('#hotelList').empty();
 								             $.each(data, function(index, item){
-								           	  var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+								           	  var text = '<div class="row drag ho" ><div class="list_thumb" ><img class="img" src='
                               +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
 								                     +item.name+'</div><div id ="detail" class="row">'
 								                     +item.detail+'</div><div  id="price" class="row">'
@@ -452,10 +452,34 @@
 								}); */
 							}//end drag
 						}); //드래그앤 드롭 함수 끝
+		$('#hotelTable td')
+				.droppable(
+						{
+							accept : "div.ho",
+							drop : function(event, ui) {
+
+								var lon = $(ui.draggable).find(
+										'input[name=longitude]').val();
+								var lat = $(ui.draggable).find(
+										'input[name=latitude]').val();
+								var name = $(ui.draggable).find(
+										'input[name=item_name]').val();
+
+								addMarker(name, lat, lon);
+
+								$(this).addClass('select');
+								$(this).empty();
+								var te = $(this).attr('name');
+								html += '<input name = "position" type="hidden" value ="'+te+'">';
+								$(this).append(html);
+								html = "";
+
+							}//end drag
+						}); //드래그앤 드롭 함수 끝
 
 		//일정 저장
 		$('#save').on("click", function() {
-			var te = $('#savet').serialize();
+			var te = $('#savet').serialize() + "&"+$('#courseData').serialize();
 			te = decodeURI(te);
 			alert(te);
 			$.ajax({
@@ -475,7 +499,7 @@
 				.on(
 						"click",
 						function() {
-							var te = $('#savet').serialize();
+							var te = $('#courseData').serialize();
 							/* te = decodeURIComponent(te); */
 							te = decodeURI(te);
 							alert(te);
@@ -692,7 +716,7 @@
 										data,
 										function(index, item) {
 
-											var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+											var text = '<div class="row drag ho" ><div class="list_thumb" ><img class="img" src='
                      +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
 													+ item.name
 													+ '</div><div id ="detail" class="row">'
@@ -867,7 +891,7 @@
 															function(index,
 																	item) {
 
-																var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+																var text = '<div class="row drag ho" ><div class="list_thumb" ><img class="img" src='
                         +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
 																		+ item.name
 																		+ '</div><div id ="detail" class="row">'
@@ -1098,7 +1122,7 @@
 															data,
 															function(index,
 																	item) {
-																var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+																var text = '<div class="row drag ho" ><div class="list_thumb" ><img class="img" src='
                                 +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
 																		+ item.name
 																		+ '</div><div id ="detail" class="row">'
@@ -1143,7 +1167,7 @@
 															data,
 															function(index,
 																	item) {
-																var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+																var text = '<div class="row drag ho" ><div class="list_thumb" ><img class="img" src='
                                 +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
 																		+ item.name
 																		+ '</div><div id ="detail" class="row">'
@@ -1332,41 +1356,53 @@
 	<div class="container">
 
 		<div class="row">
-			<div class="col-6">
+			<div class="col-5">
 				<!-- Temp_Scheduler -->
-				<form id="savet" action="/Rest/recommend/saveLandMarkt"
-					method="post">
-					<div>
-						<table id="mySheduleTable" border=2>
+				<form id="courseData" action="/mypage/list" method="get">
+					<table id="mySheduleTable" border=2>
+						<tr>
+							<th>일정</th>
+							<th>06:00 ~ 09:00</th>
+							<th>09:00 ~ 12:00</th>
+							<th>12:00 ~ 15:00</th>
+							<th>15:00 ~ 18:00</th>
+							<th>18:00 ~ 21:00</th>
+							<th>21:00 ~ 24:00</th>
+						</tr>
+						<c:forEach begin="1" end="${day }" varStatus="index">
 							<tr>
-								<th>일정</th>
-								<th>06:00 ~ 09:00</th>
-								<th>09:00 ~ 12:00</th>
-								<th>12:00 ~ 15:00</th>
-								<th>15:00 ~ 18:00</th>
-								<th>18:00 ~ 21:00</th>
-								<th>21:00 ~ 24:00</th>
+								<td class="time">${index.count}일차</td>
+								<td name="${index.count }-1"></td>
+								<td name="${index.count }-2"></td>
+								<td name="${index.count }-3"></td>
+								<td name="${index.count }-4"></td>
+								<td name="${index.count }-5"></td>
+								<td name="${index.count }-6"></td>
 							</tr>
-							<c:forEach begin="1" end="${day }" varStatus="index">
-								<tr>
-									<td>${index.count}일차</td>
-									<td name="${index.count }-1"></td>
-									<td name="${index.count }-2"></td>
-									<td name="${index.count }-3"></td>
-									<td name="${index.count }-4"></td>
-									<td name="${index.count }-5"></td>
-									<td name="${index.count }-6"></td>
-								</tr>
-							</c:forEach>
-						</table>
+						</c:forEach>
+					</table>
 
-						<br> <label>일정제목</label> <input type="text" name="title">
-						<button id="course" class="btn btn-secondary btn-lg">경로
-							추천</button>
-						<button id="save" class="btn btn-secondary btn-lg">일정 저장</button>
-						<input type="hidden" name="schd_idx" value="${schd_idx }">
-						<input type="hidden" name="start_time" value="${start_time }">
-						<input type="hidden" name="end_time" value="${end_time }">
+					<br> <label>일정제목</label> <input type="text" name="title">
+					<button id="course" class="btn btn-secondary btn-lg">경로 추천</button>
+					<button id="save" class="btn btn-secondary btn-lg">일정 저장</button>
+					<input type="hidden" name="schd_idx" value="${schd_idx }">
+					<input type="hidden" name="start_time" value="${start_time }">
+					<input type="hidden" name="end_time" value="${end_time }">
+				</form>
+			</div>
+
+			<div class="col-1">
+				<form id="savet">
+					<table id="hotelTable" border=2>
+						<tr>
+							<th>숙소</th>
+						</tr>
+						<c:forEach begin="1" end="${day }" varStatus="index">
+							<tr>
+								<td class="ho" name="ho-${index.count }"></td>
+							</tr>
+						</c:forEach>
+					</table>
 				</form>
 			</div>
 
@@ -1380,59 +1416,59 @@
 			</div>
 
 
-			<div id="asdasfdfasdfadsf">
+			<div class="col-3" id="asdasfdfasdfadsf">
 				<div id="recommendLand"></div>
 				<div id="recommendItem"></div>
 				<div id="recommendRest"></div>
 				<div id="recommendHotel"></div>
-			</div>
-
-			<!-- sort button -->
-			<div id="asdf2">
-				<button id="itemPriceSort" name="price" class="btn btn-primary">상품
-					가격순</button>
-				<button id="itemSalesSort" name="price" class="btn btn-primary">상품
-					판매순</button>
-				<button id="itemHitsSort" name="price" class="btn btn-primary">상품
-					인기순</button>
-				<button id="itemDistSort" name="price" class="btn btn-primary">상품
-					거리순</button>
-				<button id="restDistSort" name="price" class="btn btn-primary">음식
-					거리순</button>
-				<button id="restHitsSort" name="price" class="btn btn-primary">음식
-					인기순</button>
-				<button id="hotelPriceSort" name="price" class="btn btn-primary">숙박
-					가격순</button>
-				<button id="hotelReviewSort" name="price" class="btn btn-primary">숙박
-					리뷰순</button>
-				<button id="hotelDistSort" name="price" class="btn btn-primary">숙박
-					거리순</button>
-				<button id="landmarkDistSort" name="price" class="btn btn-primary">명소
-					거리순</button>
-				<button id="landmarkHitsSort" name="price" class="btn btn-primary">명소
-					인기순</button>
-			</div>
 
 
-
-			<div id="tabs">
-				<ul>
-					<li><a href="#" id="tab-1">상품</a></li>
-					<li><a href="#" id="tab-2">음식</a></li>
-					<li><a href="#" id="tab-3">숙박</a></li>
-				</ul>
-				<div id="tabs-1">
-					<div id="itemList"></div>
+				<!-- sort button -->
+				<div id="asdf2">
+					<button id="itemPriceSort" name="price" class="btn btn-primary">상품
+						가격순</button>
+					<button id="itemSalesSort" name="price" class="btn btn-primary">상품
+						판매순</button>
+					<button id="itemHitsSort" name="price" class="btn btn-primary">상품
+						인기순</button>
+					<button id="itemDistSort" name="price" class="btn btn-primary">상품
+						거리순</button>
+					<button id="restDistSort" name="price" class="btn btn-primary">음식
+						거리순</button>
+					<button id="restHitsSort" name="price" class="btn btn-primary">음식
+						인기순</button>
+					<button id="hotelPriceSort" name="price" class="btn btn-primary">숙박
+						가격순</button>
+					<button id="hotelReviewSort" name="price" class="btn btn-primary">숙박
+						리뷰순</button>
+					<button id="hotelDistSort" name="price" class="btn btn-primary">숙박
+						거리순</button>
+					<button id="landmarkDistSort" name="price" class="btn btn-primary">명소
+						거리순</button>
+					<button id="landmarkHitsSort" name="price" class="btn btn-primary">명소
+						인기순</button>
 				</div>
-				<div id="tabs-2">
-					<div id="restList"></div>
-				</div>
-				<div id="tabs-3">
-					<div id="hotelList"></div>
+
+
+
+				<div id="tabs">
+					<ul>
+						<li><a href="#" id="tab-1">상품</a></li>
+						<li><a href="#" id="tab-2">음식</a></li>
+						<li><a href="#" id="tab-3">숙박</a></li>
+					</ul>
+					<div id="tabs-1">
+						<div id="itemList"></div>
+					</div>
+					<div id="tabs-2">
+						<div id="restList"></div>
+					</div>
+					<div id="tabs-3">
+						<div id="hotelList"></div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 
 
