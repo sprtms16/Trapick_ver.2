@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class FeedVO {
+	
 	int feed_idx;
 	int user_idx;
 	int schd_idx;

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SelectedItemVO {
+
 	private int item_idx;
 	private String name;
 	private String detail;

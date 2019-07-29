@@ -74,7 +74,6 @@ public class FeedRestController {
 		String uploadPath = request.getSession().getServletContext().getRealPath("resources/upload");
 		feedService.insertFeed(vo, uploadFile, uploadPath);
 		return new ResponseEntity<String>("success!!", HttpStatus.OK);
-
 	}
 	
 	

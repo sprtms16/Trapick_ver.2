@@ -4,8 +4,10 @@ import lombok.Data;
 
 @Data
 public class UserVO {
-	int user_idx;
-	String id;
-	String pw;
-	String email;
+	
+	private int user_idx;
+	private String id;
+	private String pw;
+	private String email;
+	private String img_path;
 }

@@ -141,46 +141,47 @@ $("#fileTr_" + fIndex).remove();
     // 파일 등록
 function uploadFile(){
     // 등록할 파일 리스트
-        var uploadFileList = Object.keys(fileList);
+    var uploadFileList = Object.keys(fileList);
  
         // 파일이 있는지 체크
    /*
 	 * if(uploadFileList.length == 0){ // 파일등록 경고창 alert("파일이 없습니다."); return; }
 	 */
 // 용량을 500MB를 넘을 경우 업로드 불가
-if(totalFileSize > maxUploadSize){
+    if(totalFileSize > maxUploadSize){
     // 파일 사이즈 초과 경고창
-alert("총 용량 초과\n총 업로드 가능 용량 : " + maxUploadSize + " MB");
-    return;
-}
+    	alert("총 용량 초과\n총 업로드 가능 용량 : " + maxUploadSize + " MB");
+    	return;
+    }
     
-if(confirm("등록 하시겠습니까?")){
+    if(confirm("등록 하시겠습니까?")){
 // 등록할 파일 리스트를 formData로 데이터 입력
-var form = $('#uploadForm');
-var formData = new FormData();
-for(var i = 0; i < uploadFileList.length; i++){
-    formData.append('uploadFile', fileList[uploadFileList[i]]);
-}
-formData.append('contents',$('#contents').val());
-formData.append('title',$('#title').val());
-formData.append('schd_idx',$('#schd_idx').val());
-$.ajax({
-    url:"/RestFeed/insert",
-data:formData,
-type:'POST',
-enctype:'multipart/form-data',
-processData:false,
-contentType:false,
-cache:false,
-success:function(result){
+    	var form = $('#uploadForm');
+    	var formData = new FormData();
+    	for(var i = 0; i < uploadFileList.length; i++){
+    		formData.append('uploadFile', fileList[uploadFileList[i]]);
+    	}
+    	formData.append('contents',$('#contents').val());
+    	formData.append('title',$('#title').val());
+    	formData.append('schd_idx',$('#schd_idx').val());
+    	
+    	$.ajax({
+    		url:"/RestFeed/insert",
+    		data:formData,
+    		type:'POST',
+    		enctype:'multipart/form-data',
+    		processData:false,
+    		contentType:false,
+    		cache:false,
+    		success:function(result){
 	
-    location.href = 'list';
-},
-error : function(error) {
-    alert("Error!"+error);
+    			location.href = 'list';
+    		},
+    		error : function(error) {
+    			alert("Error!"+error);
             }
             
-        });
+       });
     }
 }
 

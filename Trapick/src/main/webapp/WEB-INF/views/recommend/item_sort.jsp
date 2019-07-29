@@ -22,7 +22,7 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css"
-	href="../resources/css/scheduler.css" />
+	href="/resources/css/scheduler.css" />
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -108,35 +108,20 @@
 
 <script type="text/javascript">
 	$(function() {
-		$('#restList').hide();
 		$('#hotelList').hide();
 		$('#tab-1').addClass('selected');
-
-		$('#tab-2').click(function() {
-			$('#restList').show();
-			$('#hotelList').hide();
-			$('#itemList').hide();
-			$('#tab-1').removeClass('selected');
-			$('#tab-2').addClass('selected');
-			$('#tab-3').removeClass('selected');
-
-		});
 
 		$('#tab-3').click(function() {
 			$('#hotelList').show();
 			$('#itemList').hide();
-			$('#restList').hide();
 			$('#tab-1').removeClass('selected');
-			$('#tab-2').removeClass('selected');
 			$('#tab-3').addClass('selected');
 		});
 
 		$('#tab-1').click(function() {
 			$('#itemList').show();
 			$('#hotelList').hide();
-			$('#restList').hide();
 			$('#tab-1').addClass('selected');
-			$('#tab-2').removeClass('selected');
 			$('#tab-3').removeClass('selected');
 		});
 
@@ -207,6 +192,434 @@
 							accept : "div",
 							drop : function(event, ui) {
 
+								/*                         var lon = $(ui.draggable).find(
+								 'input[name=longitude]').val();
+								 var lat = $(ui.draggable).find(
+								 'input[name=latitude]').val();
+								 var name = $(ui.draggable).find(
+								 'input[name=item_name]').val(); */
+
+								/* addMarker(name, lat, lon); */
+
+								$(this).addClass('select');
+								$(this).empty();
+								var te = $(this).attr('name');
+								html += '<input name = "position" type="hidden" value ="'+te+'">';
+								$(this).append(html);
+								html = "";
+
+								var lat = "";
+								var lon = "";
+								lat = $('input[name=latitude]').val();
+								lon = $('input[name=longitude]').val();
+
+								var user_idx = 1;
+
+								//4개 추천하기
+								//landmark
+								$
+										.ajax({
+											url : '/Rest/recommend/landmarkRecommend',
+											type : 'post',
+											dataType : 'json',
+											data : {
+												city_name : '<c:out value="${city_name}"/>',
+												lat : lat,
+												lon : lon
+											},
+											success : function(data) {
+												$('#recommendLand').empty();
+												$
+														.each(
+																data,
+																function(index,
+																		item) {
+																	var text = '<div class="row drag"><div class="list_thumb"><img src='
+                                        +item.image+' class ="img"></div><div class="list_detail" id="landDetail"><div class="name" id="name">'
+																			+ item.name
+																			+ '</div><div   class="detail"  id="detail">'
+																			+ item.detail
+																			+ '</div>'
+																			+ '</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
+																			+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+																			+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+																			+ '<input type ="hidden" name ="item_image" value = '+item.image+'>'
+																			+ '<input type ="hidden" name ="item_detail" value = '+item.detail+'>'
+																			+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+
+																	$(
+																			'#recommendLand')
+																			.append(
+																					text);
+																})
+												dragFun();
+											}
+										});
+
+								//item
+								$
+										.ajax({
+											url : '/Rest/recommend/itemRecommend.json',
+											type : 'post',
+											dataType : 'json',
+											data : {
+												city_name : '<c:out value="${city_name}"/>',
+												lat : lat,
+												lon : lon
+											},
+											success : function(data) {
+												$('#recommendItem').empty();
+												$
+														.each(
+																data,
+																function(index,
+																		item) {
+																	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                      +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
+																			+ item.name
+																			+ '</div><div id ="detail" class="row">'
+																			+ item.detail
+																			+ '</div><div  id="price" class="row">'
+																			+ item.price
+																			+ '</div>'
+																			+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+																			+ '<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+																			+ '<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+																			+ '<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+																			+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+																			+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+
+																	$(
+																			'#recommendItem')
+																			.append(
+																					text);
+																})
+												dragFun();
+											}
+										});
+
+								//Hotel
+								$
+										.ajax({
+											url : '/Rest/recommend/hotelRecommend.json',
+											type : 'post',
+											dataType : 'json',
+											data : {
+												city_name : '<c:out value="${city_name}"/>',
+												lat : lat,
+												lon : lon
+											},
+											success : function(data) {
+												$('#recommendHotel').empty();
+												$
+														.each(
+																data,
+																function(index,
+																		item) {
+																	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                      +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
+																			+ item.name
+																			+ '</div><div id ="detail" class="row">'
+																			+ item.detail
+																			+ '</div><div  id="price" class="row">'
+																			+ item.price
+																			+ '</div>'
+																			+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+																			+ '<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+																			+ '<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+																			+ '<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+																			+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+																			+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+
+																	$(
+																			'#recommendHotel')
+																			.append(
+																					text);
+																})
+												dragFun();
+											}
+										});
+
+								//사용자 기반 추천
+								$
+										.ajax({
+											url : '/Rest/recommend/landmarkUserRecommend',
+											type : 'post',
+											dataType : 'json',
+											data : {
+												city_name : '<c:out value="${city_name}"/>',
+												user_idx : 2
+											},
+											success : function(data) {
+												$('#recommendUserLand').empty();
+												$
+														.each(
+																data,
+																function(index,
+																		item) {
+																	var text = '<div class="row drag"><div class="list_thumb"><img src='
+                                           +item.image+' class ="img"></div><div class="list_detail" id="landDetail"><div class="name" id="name">'
+																			+ item.name
+																			+ '</div><div   class="detail"  id="detail">'
+																			+ item.detail
+																			+ '</div>'
+																			+ '</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
+																			+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+																			+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+																			+ '<input type ="hidden" name ="item_image" value = '+item.image+'>'
+																			+ '<input type ="hidden" name ="item_detail" value = '+item.detail+'>'
+																			+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+
+																	$(
+																			'#recommendUserLand')
+																			.append(
+																					text);
+																})
+												dragFun();
+											}
+										});
+
+								//item
+								$
+										.ajax({
+											url : '/Rest/recommend/itemUserRecommend.json',
+											type : 'post',
+											dataType : 'json',
+											data : {
+												city_name : '<c:out value="${city_name}"/>',
+												user_idx : 2
+											},
+											success : function(data) {
+												$('#recommendUserItem').empty();
+												$
+														.each(
+																data,
+																function(index,
+																		item) {
+																	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                         +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
+																			+ item.name
+																			+ '</div><div id ="detail" class="row">'
+																			+ item.detail
+																			+ '</div><div  id="price" class="row">'
+																			+ item.price
+																			+ '</div>'
+																			+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+																			+ '<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+																			+ '<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+																			+ '<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+																			+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+																			+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+
+																	$(
+																			'#recommendUserItem')
+																			.append(
+																					text);
+																})
+												dragFun();
+											}
+										});
+
+								//Hotel
+								$
+										.ajax({
+											url : '/Rest/recommend/hotelUserRecommend.json',
+											type : 'post',
+											dataType : 'json',
+											data : {
+												city_name : '<c:out value="${city_name}"/>',
+												user_idx : 2
+											},
+											success : function(data) {
+												$('#recommendUserHotel')
+														.empty();
+												$
+														.each(
+																data,
+																function(index,
+																		item) {
+																	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                         +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
+																			+ item.name
+																			+ '</div><div id ="detail" class="row">'
+																			+ item.detail
+																			+ '</div><div  id="price" class="row">'
+																			+ item.price
+																			+ '</div>'
+																			+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+																			+ '<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+																			+ '<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+																			+ '<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+																			+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+																			+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+
+																	$(
+																			'#recommendUserHotel')
+																			.append(
+																					text);
+																})
+												dragFun();
+											}
+										});
+
+								//거리 순 정렬
+								//Landmark
+								$('#landmarkDistSort')
+										.on(
+												'click',
+												function() {
+													$
+															.ajax({
+																url : '/Rest/recommend/landmarkDistSort.json',
+																type : 'post',
+																dataType : 'json',
+																data : {
+																	city_name : '<c:out value="${city_name}"/>',
+																	lat : lat,
+																	lon : lon
+																},
+																success : function(
+																		data) {
+																	$(
+																			'#landmarkDiv')
+																			.empty();
+																	$
+																			.each(
+																					data,
+																					function(
+																							index,
+																							item) {
+																						var text = '<div class="row drag"><div class="list_thumb"><img src='
+                             +item.image+' class ="img"></div><div class="list_detail" id="landDetail"><div class="name" id="name">'
+																								+ item.name
+																								+ '</div><div   class="detail"  id="detail">'
+																								+ item.detail
+																								+ '</div>'
+																								+ '</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
+																								+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+																								+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+																								+ '<input type ="hidden" name ="item_image" value = '+item.image+'>'
+																								+ '<input type ="hidden" name ="item_detail" value = '+item.detail+'>'
+																								+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+
+																						$(
+																								'#landmarkDiv')
+																								.append(
+																										text);
+																					})
+																	dragFun();
+																}
+															})
+												})
+
+								//Hotel
+								$('#hotelDistSort')
+										.on(
+												'click',
+												function() {
+													$
+															.ajax({
+																url : '/Rest/recommend/hotelDistSort.json',
+																type : 'post',
+																dataType : 'json',
+																data : {
+																	city_name : '<c:out value="${city_name}"/>',
+																	lat : lat,
+																	lon : lon
+																},
+																success : function(
+																		data) {
+
+																	$(
+																			'#hotelList')
+																			.empty();
+																	$
+																			.each(
+																					data,
+																					function(
+																							index,
+																							item) {
+																						var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                            +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
+																								+ item.name
+																								+ '</div><div id ="detail" class="row">'
+																								+ item.detail
+																								+ '</div><div  id="price" class="row">'
+																								+ item.price
+																								+ '</div>'
+																								+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+																								+ '<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+																								+ '<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+																								+ '<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+																								+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+																								+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+																						$(
+																								'#hotelList')
+																								.append(
+																										text);
+																					})
+																	dragFun();
+																}
+															});
+												})
+								//아이템
+								$('#itemDistSort')
+										.on(
+												'click',
+												function() {
+													$
+															.ajax({
+																url : '/Rest/recommend/itemDistSort.json',
+																type : 'post',
+																dataType : 'json',
+																data : {
+																	city_name : '<c:out value="${city_name}"/>',
+																	lat : lat,
+																	lon : lon
+																},
+																success : function(
+																		data) {
+
+																	$(
+																			'#itemList')
+																			.empty();
+																	$
+																			.each(
+																					data,
+																					function(
+																							index,
+																							item) {
+																						var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+                         +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
+																								+ item.name
+																								+ '</div><div id ="detail" class="row">'
+																								+ item.detail
+																								+ '</div><div  id="price" class="row">'
+																								+ item.price
+																								+ '</div>'
+																								+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+																								+ '<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+																								+ '<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+																								+ '<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+																								+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+																								+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+																						$(
+																								'#itemList')
+																								.append(
+																										text);
+																					})
+																	dragFun();
+																}
+															})
+												});
+							}//end drag
+						}); //드래그앤 드롭 함수 끝
+		$('#hotelTable td')
+				.droppable(
+						{
+							accept : "div.ho",
+							drop : function(event, ui) {
+
 								var lon = $(ui.draggable).find(
 										'input[name=longitude]').val();
 								var lat = $(ui.draggable).find(
@@ -223,261 +636,36 @@
 								$(this).append(html);
 								html = "";
 
-								/*  var basePoint = "";
-								 basePoint = $(this).find("#name").text();
-								       
-								 //4개 추천하기
-								 //landmark
-								$.ajax({
-								    url : '/Rest/recommend/landmarkRecommend.json',
-								    type : 'post',
-								    dataType : 'json',
-								    data :{city_name : '<c:out value="${city_name}"/>', name : basePoint} ,
-								    success : function(data){
-								       $('#recommendLand').empty();
-								       $.each(data, function(index, item){
-								       	var text = '<div class="row drag"><div class="list_thumb"><img src='
-                        +item.image+' class ="img"></div><div class="list_detail" id="landDetail"><div class="name" id="name">'
-								               +item.name+'</div><div   class="detail"  id="detail">'
-								               +item.detail+'</div>'
-								               +'</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
-								               +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-								               +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-								               +'<input type ="hidden" name ="item_image" value = '+item.image+'>'
-								               +'<input type ="hidden" name ="item_detail" value = '+item.detail+'>'
-								               +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-								             
-								             $('#recommendLand').append(text);
-								    })
-								    dragFun();
-								    }
-								});
-								 
-								 //item
-								 $.ajax({
-								    url : '/Rest/recommend/itemRecommend.json',
-								    type : 'post',
-								    dataType : 'json',
-								    data :{city_name : '<c:out value="${city_name}"/>', name : basePoint} ,
-								    success : function(data){
-								       $('#recommendItem').empty();
-								       $.each(data, function(index, item){
-								       	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                        +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
-								               +item.name+'</div><div id ="detail" class="row">'
-								               +item.detail+'</div><div  id="price" class="row">'
-								               +item.price+'</div>'
-								               +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-								               +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
-								               +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
-								               +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
-								               +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-								               +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-								             
-								             $('#recommendItem').append(text);
-								    })
-								    dragFun();
-								    }
-								});
-								 
-								 //rest
-								 $.ajax({
-								    url : '/Rest/recommend/restRecommend.json',
-								    type : 'post',
-								    dataType : 'json',
-								    data :{city_name : '<c:out value="${city_name}"/>', name : basePoint} ,
-								    success : function(data){
-								       $('#recommendRest').empty();
-								       $.each(data, function(index, item){
-								       	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                        +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
-								               +item.name+'</div><div id ="detail" class="row">'
-								               +item.detail+'</div><div  id="price" class="row">'
-								               +item.price+'</div>'
-								               +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-								               +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
-								               +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
-								               +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
-								               +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-								               +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-								             
-								             $('#recommendRest').append(text);
-								    })
-								    dragFun();
-								    }
-								});
-								 
-								 //Hotel
-								 $.ajax({
-								    url : '/Rest/recommend/hotelRecommend.json',
-								    type : 'post',
-								    dataType : 'json',
-								    data :{city_name : '<c:out value="${city_name}"/>', name : basePoint} ,
-								    success : function(data){
-								       $('#recommendHotel').empty();
-								       $.each(data, function(index, item){
-								       	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                        +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
-								               +item.name+'</div><div id ="detail" class="row">'
-								               +item.detail+'</div><div  id="price" class="row">'
-								               +item.price+'</div>'
-								               +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-								               +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
-								               +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
-								               +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
-								               +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-								               +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-								             
-								             $('#recommendHotel').append(text);
-								    })
-								    dragFun();
-								    }
-								}); 
-								             
-								             
-								//거리 순 정렬
-								 //Landmark
-								 $('#landmarkDistSort').on('click',function(){
-								  $.ajax({
-								          url : '/Rest/recommend/landmarkDistSort.json',
-								          type : 'post',
-								          dataType : 'json',
-								          data :{city_name : '<c:out value="${city_name}"/>', name : basePoint} ,
-								          success : function(data){
-								             $('#landmarkDiv').empty();
-								              $.each(data, function(index, item){
-								           	   var text = '<div class="row drag"><div class="list_thumb"><img src='
-                               +item.image+' class ="img"></div><div class="list_detail" id="landDetail"><div class="name" id="name">'
-								                      +item.name+'</div><div   class="detail"  id="detail">'
-								                      +item.detail+'</div>'
-								                      +'</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
-								                      +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-								                      +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-								                      +'<input type ="hidden" name ="item_image" value = '+item.image+'>'
-								                      +'<input type ="hidden" name ="item_detail" value = '+item.detail+'>'
-								                      +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-								                 
-								                 $('#landmarkDiv').append(text);
-								               }) 
-								               dragFun();
-								          }
-								  })
-								})  
-								
-								//Hotel
-								$('#hotelDistSort').on('click', function() {
-								 $.ajax({
-								         url : '/Rest/recommend/hotelDistSort.json',
-								         type : 'post',
-								         dataType : 'json',
-								         data :{city_name : '<c:out value="${city_name}"/>', name : basePoint} ,
-								         success : function(data){
-								            
-								            $('#hotelList').empty();
-								             $.each(data, function(index, item){
-								           	  var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                              +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
-								                     +item.name+'</div><div id ="detail" class="row">'
-								                     +item.detail+'</div><div  id="price" class="row">'
-								                     +item.price+'</div>'
-								                     +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-								                     +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
-								                     +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
-								                     +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
-								                     +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-								                     +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-								                $('#hotelList').append(text);
-								             }) 
-								              dragFun();
-								         }
-								   });
-								})
-								
-								//음식
-								$('#restDistSort').on('click', function() {
-								 $.ajax({
-								         url : '/Rest/recommend/restDistSort.json',
-								         type : 'post',
-								         dataType : 'json',
-								         data :{city_name : '<c:out value="${city_name}"/>', name : basePoint} ,
-								         success : function(data){
-								            
-								            $('#restList').empty();
-								              $.each(data, function(index, item){
-								           	   var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                               +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
-								                      +item.name+'</div><div id ="detail" class="row">'
-								                      +item.detail+'</div><div  id="price" class="row">'
-								                      +item.price+'</div>'
-								                      +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-								                      +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
-								                      +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
-								                      +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
-								                      +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-								                      +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-								                 $('#restList').append(text);
-								              }) 
-								              dragFun();
-								         }
-								   });
-								})
-								
-								 //아이템
-								$('#itemDistSort').on('click', function() {
-								 $.ajax({
-								       url : '/Rest/recommend/itemDistSort.json',
-								       type: 'post',
-								       dataType:'json',
-								       data :{city_name : '<c:out value="${city_name}"/>', name : basePoint} ,
-								       success : function(data){
-								          
-								          $('#itemList').empty();
-								          $.each(data, function(index, item){
-								       	   var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                           +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
-								                  +item.name+'</div><div id ="detail" class="row">'
-								                  +item.detail+'</div><div  id="price" class="row">'
-								                  +item.price+'</div>'
-								                  +'<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-								                  +'<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
-								                  +'<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
-								                  +'<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
-								                  +'<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-								                  +'<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-								             $('#itemList').append(text);
-								          })
-								          dragFun();
-								       }
-								    })
-								}); */
 							}//end drag
 						}); //드래그앤 드롭 함수 끝
 
 		//일정 저장
-		$('#save').on("click", function() {
-			var te = $('#savet').serialize();
-			te = decodeURI(te);
-			alert(te);
-			$.ajax({
-				url : '/Rest/recommend/saveLandMark',
-				type : 'post',
-				dataType : 'json',
-				data : te,
-				success : function(data) {
-					alert("일정저장성공");
-				}
-			})
+		$('#save').on(
+				"click",
+				function() {
+					var te = $('#savet').serialize() + "&"
+							+ $('#courseData').serialize();
+					te = encodeURI(te);
+					alert(te);
+					$.ajax({
+						url : '/Rest/recommend/saveLandMark',
+						type : 'post',
+						dataType : 'json',
+						data : te,
+						success : function(data) {
+							alert("일정저장성공");
+						}
+					})
 
-		})//일정저장 끝
+				})//일정저장 끝
 
 		//경로 추천
 		$('#course')
 				.on(
 						"click",
 						function() {
-							var te = $('#savet').serialize();
-							/* te = decodeURIComponent(te); */
-							te = decodeURI(te);
+							var te = $('#courseData').serialize();
+							te = encodeURI(te);
 							alert(te);
 							$
 									.ajax({
@@ -637,43 +825,6 @@
 						dragFun();
 					}
 				})
-		//식당 ajax
-		$
-				.ajax({
-					url : '/Rest/recommend/restAjax',
-					type : 'post',
-					dataType : 'json',
-					data : {
-						city_name : '<c:out value="${city_name}"/>'
-					},
-					success : function(data) {
-
-						$('#restList').empty();
-						$
-								.each(
-										data,
-										function(index, item) {
-
-											var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                        +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
-													+ item.name
-													+ '</div><div id ="detail" class="row">'
-													+ item.detail
-													+ '</div><div  id="price" class="row">'
-													+ item.price
-													+ '</div>'
-													+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-													+ '<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
-													+ '<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
-													+ '<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
-													+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-													+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-
-											$('#restList').append(text);
-										})
-						dragFun();
-					}
-				})
 		//숙박 ajax
 		$
 				.ajax({
@@ -692,7 +843,7 @@
 										data,
 										function(index, item) {
 
-											var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+											var text = '<div class="row drag ho" ><div class="list_thumb" ><img class="img" src='
                      +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
 													+ item.name
 													+ '</div><div id ="detail" class="row">'
@@ -803,49 +954,6 @@
 											dragFun();
 										}
 									})
-							//식당 ajax
-							$
-									.ajax({
-										url : '/Rest/recommend/restAjax',
-										type : 'post',
-										dataType : 'json',
-										data : {
-											city_name : $(
-													'#city option:selected')
-													.val()
-										},
-										success : function(data) {
-
-											$('#restList').empty();
-
-											$
-													.each(
-															data,
-															function(index,
-																	item) {
-
-																var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                           +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
-																		+ item.name
-																		+ '</div><div id ="detail" class="row">'
-																		+ item.detail
-																		+ '</div><div  id="price" class="row">'
-																		+ item.price
-																		+ '</div>'
-																		+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-																		+ '<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
-																		+ '<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
-																		+ '<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
-																		+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-																		+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-
-																$('#restList')
-																		.append(
-																				text);
-															})
-											dragFun();
-										}
-									})
 							//숙박 ajax
 							$
 									.ajax({
@@ -867,7 +975,7 @@
 															function(index,
 																	item) {
 
-																var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+																var text = '<div class="row drag ho" ><div class="list_thumb" ><img class="img" src='
                         +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
 																		+ item.name
 																		+ '</div><div id ="detail" class="row">'
@@ -1031,50 +1139,6 @@
 									})
 						});
 
-		//인기순
-		$('#restHitsSort')
-				.on(
-						'click',
-						function() {
-							$
-									.ajax({
-										url : '/Rest/recommend/restHitsSort',
-										type : 'post',
-										dataType : 'json',
-										data : {
-											city_name : '<c:out value="${city_name}"/>'
-										},
-										success : function(data) {
-
-											$('#restList').empty();
-											$
-													.each(
-															data,
-															function(index,
-																	item) {
-																var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                                 +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
-																		+ item.name
-																		+ '</div><div id ="detail" class="row">'
-																		+ item.detail
-																		+ '</div><div  id="price" class="row">'
-																		+ item.price
-																		+ '</div>'
-																		+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-																		+ '<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
-																		+ '<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
-																		+ '<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
-																		+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-																		+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-
-																$('#restList')
-																		.append(
-																				text);
-															})
-											dragFun();
-										}
-									});
-						})
 
 		//호텔
 		//가격순
@@ -1098,7 +1162,7 @@
 															data,
 															function(index,
 																	item) {
-																var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+																var text = '<div class="row drag ho" ><div class="list_thumb" ><img class="img" src='
                                 +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
 																		+ item.name
 																		+ '</div><div id ="detail" class="row">'
@@ -1143,7 +1207,7 @@
 															data,
 															function(index,
 																	item) {
-																var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
+																var text = '<div class="row drag ho" ><div class="list_thumb" ><img class="img" src='
                                 +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
 																		+ item.name
 																		+ '</div><div id ="detail" class="row">'
@@ -1332,41 +1396,53 @@
 	<div class="container">
 
 		<div class="row">
-			<div class="col-6">
+			<div class="col-5">
 				<!-- Temp_Scheduler -->
-				<form id="savet" action="/Rest/recommend/saveLandMarkt"
-					method="post">
-					<div>
-						<table id="mySheduleTable" border=2>
+				<form id="courseData" action="/mypage/list" method="get">
+					<table id="mySheduleTable" border=2>
+						<tr>
+							<th>일정</th>
+							<th>06:00 ~ 09:00</th>
+							<th>09:00 ~ 12:00</th>
+							<th>12:00 ~ 15:00</th>
+							<th>15:00 ~ 18:00</th>
+							<th>18:00 ~ 21:00</th>
+							<th>21:00 ~ 24:00</th>
+						</tr>
+						<c:forEach begin="1" end="${day }" varStatus="index">
 							<tr>
-								<th>일정</th>
-								<th>06:00 ~ 09:00</th>
-								<th>09:00 ~ 12:00</th>
-								<th>12:00 ~ 15:00</th>
-								<th>15:00 ~ 18:00</th>
-								<th>18:00 ~ 21:00</th>
-								<th>21:00 ~ 24:00</th>
+								<td class="time">${index.count}일차</td>
+								<td name="${index.count }-1"></td>
+								<td name="${index.count }-2"></td>
+								<td name="${index.count }-3"></td>
+								<td name="${index.count }-4"></td>
+								<td name="${index.count }-5"></td>
+								<td name="${index.count }-6"></td>
 							</tr>
-							<c:forEach begin="1" end="${day }" varStatus="index">
-								<tr>
-									<td>${index.count}일차</td>
-									<td name="${index.count }-1"></td>
-									<td name="${index.count }-2"></td>
-									<td name="${index.count }-3"></td>
-									<td name="${index.count }-4"></td>
-									<td name="${index.count }-5"></td>
-									<td name="${index.count }-6"></td>
-								</tr>
-							</c:forEach>
-						</table>
+						</c:forEach>
+					</table>
 
-						<br> <label>일정제목</label> <input type="text" name="title">
-						<button id="course" class="btn btn-secondary btn-lg">경로
-							추천</button>
-						<button id="save" class="btn btn-secondary btn-lg">일정 저장</button>
-						<input type="hidden" name="schd_idx" value="${schd_idx }">
-						<input type="hidden" name="start_time" value="${start_time }">
-						<input type="hidden" name="end_time" value="${end_time }">
+					<br> <label>일정제목</label> <input type="text" name="title">
+					<button id="course" class="btn btn-secondary btn-lg">경로 추천</button>
+					<button id="save" class="btn btn-secondary btn-lg">일정 저장</button>
+					<input type="hidden" name="schd_idx" value="${schd_idx }">
+					<input type="hidden" name="start_time" value="${start_time }">
+					<input type="hidden" name="end_time" value="${end_time }">
+				</form>
+			</div>
+
+			<div class="col-1">
+				<form id="savet">
+					<table id="hotelTable" border=2>
+						<tr>
+							<th>숙소</th>
+						</tr>
+						<c:forEach begin="1" end="${day }" varStatus="index">
+							<tr>
+								<td class="ho" name="ho-${index.count }"></td>
+							</tr>
+						</c:forEach>
+					</table>
 				</form>
 			</div>
 
@@ -1380,59 +1456,60 @@
 			</div>
 
 
+
+
+
+			<!-- sort button -->
+			<div class="col-3">
+				<div id="asdf2">
+					<button id="itemPriceSort" name="price" class="btn btn-primary">상품
+						가격순</button>
+					<button id="itemSalesSort" name="price" class="btn btn-primary">상품
+						판매순</button>
+					<button id="itemHitsSort" name="price" class="btn btn-primary">상품
+						인기순</button>
+					<button id="itemDistSort" name="price" class="btn btn-primary">상품
+						거리순</button>
+					<button id="hotelPriceSort" name="price" class="btn btn-primary">숙박
+						가격순</button>
+					<button id="hotelReviewSort" name="price" class="btn btn-primary">숙박
+						리뷰순</button>
+					<button id="hotelDistSort" name="price" class="btn btn-primary">숙박
+						거리순</button>
+					<button id="landmarkDistSort" name="price" class="btn btn-primary">명소
+						거리순</button>
+					<button id="landmarkHitsSort" name="price" class="btn btn-primary">명소
+						인기순</button>
+				</div>
+
+
+
+				<div id="tabs">
+					<ul>
+						<li><a href="#" id="tab-1">상품</a></li>
+						<li><a href="#" id="tab-3">숙박</a></li>
+					</ul>
+					<div id="tabs-1">
+						<div id="itemList"></div>
+					</div>
+					<div id="tabs-3">
+						<div id="hotelList"></div>
+					</div>
+				</div>
+			</div>
+
 			<div id="asdasfdfasdfadsf">
 				<div id="recommendLand"></div>
 				<div id="recommendItem"></div>
-				<div id="recommendRest"></div>
 				<div id="recommendHotel"></div>
 			</div>
 
-			<!-- sort button -->
-			<div id="asdf2">
-				<button id="itemPriceSort" name="price" class="btn btn-primary">상품
-					가격순</button>
-				<button id="itemSalesSort" name="price" class="btn btn-primary">상품
-					판매순</button>
-				<button id="itemHitsSort" name="price" class="btn btn-primary">상품
-					인기순</button>
-				<button id="itemDistSort" name="price" class="btn btn-primary">상품
-					거리순</button>
-				<button id="restDistSort" name="price" class="btn btn-primary">음식
-					거리순</button>
-				<button id="restHitsSort" name="price" class="btn btn-primary">음식
-					인기순</button>
-				<button id="hotelPriceSort" name="price" class="btn btn-primary">숙박
-					가격순</button>
-				<button id="hotelReviewSort" name="price" class="btn btn-primary">숙박
-					리뷰순</button>
-				<button id="hotelDistSort" name="price" class="btn btn-primary">숙박
-					거리순</button>
-				<button id="landmarkDistSort" name="price" class="btn btn-primary">명소
-					거리순</button>
-				<button id="landmarkHitsSort" name="price" class="btn btn-primary">명소
-					인기순</button>
-			</div>
-
-
-
-			<div id="tabs">
-				<ul>
-					<li><a href="#" id="tab-1">상품</a></li>
-					<li><a href="#" id="tab-2">음식</a></li>
-					<li><a href="#" id="tab-3">숙박</a></li>
-				</ul>
-				<div id="tabs-1">
-					<div id="itemList"></div>
-				</div>
-				<div id="tabs-2">
-					<div id="restList"></div>
-				</div>
-				<div id="tabs-3">
-					<div id="hotelList"></div>
-				</div>
+			<div id="asdasfdfasdfadsf2">
+				<div id="recommendUserLand"></div>
+				<div id="recommendUserItem"></div>
+				<div id="recommendUserHotel"></div>
 			</div>
 		</div>
-	</div>
 	</div>
 
 
