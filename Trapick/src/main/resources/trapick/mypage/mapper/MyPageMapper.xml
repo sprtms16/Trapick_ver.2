@@ -34,5 +34,16 @@
 		insert into shareSchd values (#{user_idx},#{schd_idx},#{sharer})
 	</insert>
 
+	<select id="sharedSchd" resultType="trapick.schedule.domain.ScheduleVO" parameterType="int">
+		select s1.schd_idx, s1.title, s1.schd_start, s1.schd_end from schedule s1, shareschd s2
+		where s1.schd_idx = s2.schd_idx
+		and s2.user_idx = #{user_idx}
+
+	</select>
+	   <update id="updateImg">
+      update users set img_path = #{img_path}
+      where
+      user_idx = #{user_idx}
+   </update>
 
 </mapper>

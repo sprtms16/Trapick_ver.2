@@ -9,28 +9,20 @@ import trapick.schedule.domain.ScheduleVO;
 
 public interface MyPageMapper {
 
-<<<<<<< HEAD
-   public List<ScheduleVO> scheduleList(UserVO userVO);
-   
-   public List<UserVO> findUser();
-   
-   public UserVO userInfo(int user_idx);
-   
-   public int delete(int schd_idx);
-   
-   public int shareSchd(@Param("user_idx")int user_idx, @Param("schd_idx")int schd_idx, @Param("sharer")int sharer);
-   
-}
-=======
 	public List<ScheduleVO> scheduleList(UserVO userVO);
 
 	public List<UserVO> findUser();
 
 	public UserVO userInfo(int user_idx);
+	
+	public int updateUserInfo(UserVO userVO);
+
+	public int updateImg(UserVO userVO);
 
 	public int delete(int schd_idx);
 
 	public int shareSchd(@Param("user_idx")int user_idx, @Param("schd_idx")int schd_idx, @Param("sharer")int sharer);
+	
+	public List<ScheduleVO> sharedSchd(int user_idx);
 
 }
->>>>>>> branch 'master' of https://github.com/sprtms16/Trapick_ver.2.git

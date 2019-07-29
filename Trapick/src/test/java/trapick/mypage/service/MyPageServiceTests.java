@@ -1,5 +1,7 @@
 package trapick.mypage.service;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import trapick.feed.domain.UserVO;
 import trapick.recommend.service.CrawlingServiceTest;
+import trapick.schedule.domain.ScheduleVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -18,7 +21,7 @@ public class MyPageServiceTests {
 
 	@Setter(onMethod_ = @Autowired)
 	private MyPageService service;
-
+/*
 	@Test
 	public void testGetSchedule() {
 		UserVO userVO = new UserVO();
@@ -30,5 +33,16 @@ public class MyPageServiceTests {
 	public void testGetUserInfo() {
 		int user_idx = 1;
 		log.info(service.userInfo(user_idx));
+	}
+	
+*/
+	
+	@Test
+	public void test(){
+		List<ScheduleVO> list = service.sharedSchd(3);
+		
+		for(int i=0; i<list.size();i++){
+			log.info(list.get(i));
+		}
 	}
 }
