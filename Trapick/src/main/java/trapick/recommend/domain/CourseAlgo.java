@@ -123,7 +123,9 @@ public class CourseAlgo {
 	 
 	    for(int i=0;i<num;i++){
 	        if(!visited[i] && cost[node][i] != 0){
-	            tsp(i, costSum+cost[node][i], count+1,last);
+	        	if(min>cost[node][i]+costSum){
+	        		tsp(i, costSum+cost[node][i], count+1,last);
+	        	}
 	        }
 	    }
 	    visited[node] = false;
