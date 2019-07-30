@@ -121,15 +121,14 @@ public class CrawlingRestController {
 
 	@RequestMapping("/itemUserRecommend")
 	public List<ItemVO> itemUserRecommend(String city_name, int user_idx) {
-		System.out.println("하이1"+user_idx);
 		List<LandmarkVO> list = recommedService.userRecommendLand(city_name, user_idx);
-		return recommedService.recommendItem(city_name, Double.toString(list.get(0).getLatitude()), Double.toString(list.get(0).getLongitude()));
+		return recommedService.recommendUserItem(city_name, Double.toString(list.get(0).getLatitude()), Double.toString(list.get(0).getLongitude()));
 	}
 
 	@RequestMapping("/hotelUserRecommend")
 	public List<HotelVO> hotelUserRecommend(String city_name, @RequestParam("user_idx") int user_idx) {
 		List<LandmarkVO> list = recommedService.userRecommendLand(city_name, user_idx);
-		return recommedService.recommendHotel(city_name, Double.toString(list.get(0).getLatitude()), Double.toString(list.get(0).getLongitude()));
+		return recommedService.recommendUserHotel(city_name, Double.toString(list.get(0).getLatitude()), Double.toString(list.get(0).getLongitude()));
 	}
 	
 	/*

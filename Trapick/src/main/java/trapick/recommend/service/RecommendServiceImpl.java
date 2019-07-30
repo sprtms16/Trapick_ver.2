@@ -245,5 +245,51 @@ public class RecommendServiceImpl implements RecommendService {
 		list = mapperRecommend.userRecommendLandmark(checkCityList.get(1));
 		return list;
 	}
+	
+	// item
+	@Override
+	public List<ItemVO> recommendUserItem(String city_name, String lat, String lon) {
+
+		List<ItemVO> list = serviceSort.itemDistSort(serviceItem.crawling(city_name,lat, lon));
+
+		for (int i = list.size() - 1; i > 4; i--) {
+			list.remove(i);
+		}
+
+		serviceSort.itemHitsSort(list);
+
+		list.remove(0);
+
+		for (int i = list.size() - 1; i > 0; i--) {
+			list.remove(i);
+		}
+
+		return list;
+
+	}
+
+	// hotel
+	@Override
+	public List<HotelVO> recommendUserHotel(String city_name, String lat, String lon) {
+
+		List<HotelVO> list = serviceSort.hotelDistSort(serviceHotel.crawling(city_name, lat, lon));
+
+		for (int i = list.size() - 1; i > 4; i--) {
+			list.remove(i);
+		}
+
+		serviceSort.hotelReviewSort(list);
+
+		list.remove(0);
+
+		for (int i = list.size() - 1; i > 1; i--) {
+			list.remove(i);
+		}
+		
+		list.remove(0);
+
+		return list;
+
+	}
 
 }

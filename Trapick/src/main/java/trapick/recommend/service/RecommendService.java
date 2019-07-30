@@ -31,6 +31,10 @@ public interface RecommendService {
 	   
 	   public List<LandmarkVO> userRecommendLand(String city_name, int user_idx);
 	   
+	   public List<ItemVO> recommendUserItem(String city_name, String lat, String lon);
+	   
+	   public List<HotelVO> recommendUserHotel(String city_name, String lat, String lon);
+	   
 	   public  double rad2deg(double rad);
 	   
 }

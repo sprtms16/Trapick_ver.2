@@ -47,7 +47,7 @@ public class MyPageController {
       if(service.remove(schd_idx)){
          rttr.addFlashAttribute("result", "success");
       }
-      return "redirect:/mypage/list";
+      return "redirect:/mypage/mypage";
    }
    
    @RequestMapping(value = "share/{user}/{schd_idx}", method={RequestMethod.GET, RequestMethod.POST})
