@@ -1,5 +1,6 @@
 package trapick.recommend.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -27,11 +28,11 @@ public interface RecommendService {
 
 	public Map<String, List<Selected>> getSelectedList(List<Integer> land_idx, List<String> position,
 			List<String> item_name, List<String> item_price, List<String> item_detail, List<String> item_image,
-			String title, String start_time, String end_time);
+			String title, String start_time, String end_time)throws UnsupportedEncodingException;
 
 	public List<CourseItemVO> getCourse(List<String> land_idx, List<String> item_price, List<String> item_name,
 			List<String> item_detail, List<String> latitude, List<String> longitude, List<String> position,
-			List<String> item_image);
+			List<String> item_image)throws NumberFormatException, UnsupportedEncodingException;
 	
 	public List<LandmarkVO> recommendLand(String city_name, String base_point);
 	
