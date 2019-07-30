@@ -169,4 +169,5 @@
 		landmark l using (land_idx) where
 		schd_idx = #{schd_idx}
 	</select>
+
 </mapper>

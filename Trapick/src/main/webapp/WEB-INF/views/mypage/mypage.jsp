@@ -19,8 +19,8 @@
    }
    
    function shareSchedule(schd_idx) {
-   var user = $('#userShare option:selected').val();
-   location.href = "/mypage/share/"+user+"/"+schd_idx;
+	var user = $('#userShare option:selected').val();
+	location.href = "/mypage/share/"+user+"/"+schd_idx;
 }
 </script>
 <script type="text/javascript">
@@ -100,11 +100,11 @@ $(function() {
                   </td>
                   <td>
                       <button class="btn btn-primary" onclick="shareSchedule(${schedule.schd_idx });"><i class="fas fa-share-alt"></i></button>
-                         <select id="userShare">
-                     <c:forEach items="${userList }" var="userList">
-                     <option id="userShare" value="${userList.user_idx }">${userList.id }
-                     </c:forEach>
-                  </select>
+                      	<select id="userShare">
+							<c:forEach items="${userList }" var="userList">
+							<option id="userShare" value="${userList.user_idx }">${userList.id }
+							</c:forEach>
+						</select>
                   </td>
                   <td>
                   </td>

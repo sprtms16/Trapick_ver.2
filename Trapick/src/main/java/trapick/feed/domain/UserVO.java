@@ -10,4 +10,5 @@ public class UserVO {
 	private String pw;
 	private String email;
 	private String img_path;
+
 }

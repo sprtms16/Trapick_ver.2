@@ -17,5 +17,13 @@ public interface RecommendMapper {
 	public List<Integer> checkCity(String city_name);
 	
 	public List<LandmarkVO> userRecommendLandmark(int land_idx);
+	
+	public List<String> itemLatituede(String city_name);
+	
+	public List<String> itemLongitude(String city_name);
+	
+	public List<String> hotelLatituede(String city_name);
+	
+	public List<String> hotelLongitude(String city_name);
 
 }

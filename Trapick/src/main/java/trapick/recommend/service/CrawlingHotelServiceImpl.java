@@ -12,28 +12,38 @@ import org.springframework.stereotype.Service;
 
 import lombok.Setter;
 import trapick.recommend.domain.HotelVO;
+import trapick.recommend.mapper.RecommendMapper;
 
 @Service
 public class CrawlingHotelServiceImpl implements CrawlingService {
 
 	@Setter(onMethod_ = @Autowired)
 	private CrawlingCommonService com;
+	
+	@Setter(onMethod_ = @Autowired)
+	private RecommendMapper mapper;
 
 	@Override
-	public List<HotelVO> crawling(String city_name, String base_point) {
+	public List<HotelVO> crawling(String city_name, String latBase, String lonBase) {
 
 		List<HotelVO> list = new ArrayList<HotelVO>();
 		String name, detail, img, location, review, stars, price;
+		List<String> latList = mapper.hotelLatituede(city_name);
+		List<String> lonList = mapper.hotelLongitude(city_name);
+		int locNo = 0;
 
 		try {
 
-			String url_hotel = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=" + city_name
-					+ "호텔";
+			String url_hotel = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=" + city_name + "호텔";
 
 			Document doc_hotel = Jsoup.connect(url_hotel).ignoreHttpErrors(true).get();
 
 			Elements hotelDoc = doc_hotel.select(".section_hotel_list ul");
 			Elements hotelList = hotelDoc.select("li");
+			
+			for(int i=0; i<hotelList.size();i++){
+				
+			}
 
 			for (Element el : hotelList) {
 
@@ -49,21 +59,26 @@ public class CrawlingHotelServiceImpl implements CrawlingService {
 				location = el.select(".info").select(".area").text();
 				// review
 				review = el.select(".info").select(".star_wrap").select(".num").text();
+				if(review.length() < 2){
+					review = "8.3";
+					System.out.println("들어옴");
+				}
 				// stars
 				stars = el.select(".info").select(".rating_wrap").select(".grade").text();
 				// price
 				price = el.select(".sub_area").select(".price").text();
-				// String latitude = com.getLatitude(city_name, name);
-				// String longitude = com.getLongitude(city_name, name);
-				String latitude = "11.2561509";
-				String longitude = "43.7693012";
 
-				HotelVO hotel = new HotelVO(name, detail, img, location, review, latitude, longitude, stars, price,
-						com.getDist(city_name, base_point, latitude, longitude), "Hotel");
+				HotelVO hotel = new HotelVO(name, detail, img, location, review,latList.get(locNo), lonList.get(locNo), stars, price,0);
+				
+				locNo ++;
+				
+				if(locNo >= latList.size()){
+					break;
+				}
 
 				list.add(hotel);
 			}
-
+			locNo = 0;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

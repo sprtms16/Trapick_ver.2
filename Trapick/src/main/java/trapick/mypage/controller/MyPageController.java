@@ -36,7 +36,6 @@ public class MyPageController {
        }else{
           userVO.setImg_path("/resources/upload/"+userVO.getImg_path());
        }
-
       List<UserVO> userList = service.findUser();
       userList.remove(user_idx-1);
       model.addAttribute("userList", userList);
@@ -53,12 +52,12 @@ public class MyPageController {
    
    @RequestMapping(value = "share/{user}/{schd_idx}", method={RequestMethod.GET, RequestMethod.POST})
    public String share(@PathVariable("user") int user, @PathVariable("schd_idx")int schd_idx, RedirectAttributes rttr, HttpSession session){
-      int share = (int)session.getAttribute("user_idx");
-      
-      if(service.share(user, schd_idx, share)){
-         rttr.addFlashAttribute("result", "success");
-      };
-         return "redirect:/mypage/mypage";
+	   int share = (int)session.getAttribute("user_idx");
+	   
+	   if(service.share(user, schd_idx, share)){
+		   rttr.addFlashAttribute("result", "success");
+	   };
+	      return "redirect:/mypage/mypage";
    }
    
    @PostMapping("imgUpload")

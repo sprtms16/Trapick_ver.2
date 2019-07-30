@@ -18,114 +18,114 @@ import trapick.schedule.domain.ScheduleVO;
 @AllArgsConstructor
 public class MyPageServiceImpl implements MyPageService {
 
-   private MyPageMapper mapper;
+	private MyPageMapper mapper;
 
-   @Override
-   public List<ScheduleVO> scheduleList(UserVO userVO) {
+	@Override
+	public List<ScheduleVO> scheduleList(UserVO userVO) {
 
-      List<ScheduleVO> listTemp = mapper.scheduleList(userVO);
-      List<ScheduleVO> list = new ArrayList<ScheduleVO>();
+		List<ScheduleVO> listTemp = mapper.scheduleList(userVO);
+		List<ScheduleVO> list = new ArrayList<ScheduleVO>();
 
-      String tempStart = null;
-      String tempEnd = null;
+		String tempStart = null;
+		String tempEnd = null;
 
-      for (int i = 0; i < listTemp.size(); i++) {
+		for (int i = 0; i < listTemp.size(); i++) {
 
-         tempStart = listTemp.get(i).getSchd_start().substring(0, 10);
-         tempEnd = listTemp.get(i).getSchd_end().substring(0, 10);
+			tempStart = listTemp.get(i).getSchd_start().substring(0, 10);
+			tempEnd = listTemp.get(i).getSchd_end().substring(0, 10);
 
-         ScheduleVO vo = new ScheduleVO(listTemp.get(i).getSchd_idx(), listTemp.get(i).getTitle(), tempStart,
-               tempEnd, listTemp.get(i).getUser_idx(), listTemp.get(i).getSelectedLandmarkds(),
-               listTemp.get(i).getSelectedItems());
+			ScheduleVO vo = new ScheduleVO(listTemp.get(i).getSchd_idx(), listTemp.get(i).getTitle(), tempStart,
+					tempEnd, listTemp.get(i).getUser_idx(), listTemp.get(i).getSelectedLandmarkds(),
+					listTemp.get(i).getSelectedItems());
 
-         list.add(vo);
-      }
+			list.add(vo);
+		}
 
-      return list;
+		return list;
 
-   }
+	}
 
-   @Override
-   public UserVO userInfo(int user_idx) {
+	@Override
+	public UserVO userInfo(int user_idx) {
 
-      return mapper.userInfo(user_idx);
-   }
+		return mapper.userInfo(user_idx);
+	}
 
-   @Override
-   public boolean updateUserInfo(UserVO userVO) {
+	@Override
+	public boolean updateUserInfo(UserVO userVO) {
 
-      return mapper.updateUserInfo(userVO) == 1;
-   }
-   
-   @Override
-   public int updateUserImg(UserVO userVO, MultipartFile[] uploadFile, String uploadPath) {
-      File dir = new File(uploadPath);
-      if (!dir.isDirectory()) {
-         dir.mkdir();
-      }
-      String img_path = null;
-      for (MultipartFile multipartFile : uploadFile) {
+		return mapper.updateUserInfo(userVO) == 1;
+	}
 
-         File saveFile = new File(uploadPath, multipartFile.getOriginalFilename());
-         try {
-            multipartFile.transferTo(saveFile);
-            img_path = multipartFile.getOriginalFilename();
-         } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
-         } finally {
-            userVO.setImg_path(img_path);
-         
-         }
-      }
-      return mapper.updateImg(userVO);
-      
-   }
-   
-   @Override
-   public boolean remove(int schd_idx) {
+	@Override
+	public int updateUserImg(UserVO userVO, MultipartFile[] uploadFile, String uploadPath) {
+		File dir = new File(uploadPath);
+		if (!dir.isDirectory()) {
+			dir.mkdir();
+		}
+		String img_path = null;
+		for (MultipartFile multipartFile : uploadFile) {
 
-      return mapper.delete(schd_idx) == 1;
-   }
+			File saveFile = new File(uploadPath, multipartFile.getOriginalFilename());
+			try {
+				multipartFile.transferTo(saveFile);
+				img_path = multipartFile.getOriginalFilename();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return -1;
+			} finally {
+				userVO.setImg_path(img_path);
 
-   @Override
-   public boolean share(int user_idx, int schd_idx, int share) {
-      return mapper.shareSchd(user_idx, schd_idx, share) == 1;
-   }
+			}
+		}
+		return mapper.updateImg(userVO);
 
-   @Override
-   public List<UserVO> findUser() {
-      return mapper.findUser();
-   }
+	}
 
-   @Override
-   public List<ScheduleVO> sharedSchd(int user_idx){
-      
-      List<ScheduleVO> listTemp = mapper.sharedSchd(user_idx);
-      List<ScheduleVO> list = new ArrayList<ScheduleVO>();
+	@Override
+	public boolean remove(int schd_idx) {
 
-      String tempStart = null;
-      String tempEnd = null;
+		return mapper.delete(schd_idx) == 1;
+	}
 
-      for (int i = 0; i < listTemp.size(); i++) {
+	@Override
+	public boolean share(int user_idx, int schd_idx, int share) {
+		return mapper.shareSchd(user_idx, schd_idx, share) == 1;
+	}
 
-         tempStart = listTemp.get(i).getSchd_start().substring(0, 10);
-         tempEnd = listTemp.get(i).getSchd_end().substring(0, 10);
+	@Override
+	public List<UserVO> findUser() {
+		return mapper.findUser();
+	}
 
-         ScheduleVO vo = new ScheduleVO(listTemp.get(i).getSchd_idx(), listTemp.get(i).getTitle(), tempStart,
-               tempEnd, listTemp.get(i).getUser_idx(), listTemp.get(i).getSelectedLandmarkds(),
-               listTemp.get(i).getSelectedItems());
+	@Override
+	public List<ScheduleVO> sharedSchd(int user_idx) {
 
-         list.add(vo);
-      }
-      
-      List<ScheduleVO> listShare = new ArrayList<ScheduleVO>();
-      
-      for(int i=0; i<list.size();i++){
-         if(!listShare.contains(list.get(i))){
-            listShare.add(list.get(i));
-         }
-      }
-      return listShare;
-   }
+		List<ScheduleVO> listTemp = mapper.sharedSchd(user_idx);
+		List<ScheduleVO> list = new ArrayList<ScheduleVO>();
+
+		String tempStart = null;
+		String tempEnd = null;
+
+		for (int i = 0; i < listTemp.size(); i++) {
+
+			tempStart = listTemp.get(i).getSchd_start().substring(0, 10);
+			tempEnd = listTemp.get(i).getSchd_end().substring(0, 10);
+
+			ScheduleVO vo = new ScheduleVO(listTemp.get(i).getSchd_idx(), listTemp.get(i).getTitle(), tempStart,
+					tempEnd, listTemp.get(i).getUser_idx(), listTemp.get(i).getSelectedLandmarkds(),
+					listTemp.get(i).getSelectedItems());
+
+			list.add(vo);
+		}
+
+		List<ScheduleVO> listShare = new ArrayList<ScheduleVO>();
+
+		for (int i = 0; i < list.size(); i++) {
+			if (!listShare.contains(list.get(i))) {
+				listShare.add(list.get(i));
+			}
+		}
+		return listShare;
+	}
 }
