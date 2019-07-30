@@ -89,6 +89,10 @@
 .btn-group-fab .btn-sub:nth-child(5) {
 	bottom: 210px;
 }
+.dropdown{
+   margin-left: 700px;
+   margin-top: 70px;
+}
 </style>
 </head>
 <body>
