@@ -26,9 +26,6 @@
 		<beans:property name="suffix" value=".jsp" />
 		<beans:property name="order" value="2" />
 	</beans:bean>
-	
-	
-	
 
 	<context:component-scan base-package="trapick.feed.controller" />
 	<context:component-scan base-package="trapick.recommend.controller" />

@@ -56,10 +56,11 @@
 		select user_idx from users
 		where id = #{id} AND pw = #{pw}
 	</select>
-	
-	<select id = "getPw" resultType = "String">
-		select	pw from users
-		where id = #{id}
+
+	<select id="getPw" resultType="String">
+		select pw from users
+		where id =
+		#{id}
 	</select>
 
 	<delete id="deleteFeed">
@@ -168,8 +169,4 @@
 		landmark l using (land_idx) where
 		schd_idx = #{schd_idx}
 	</select>
-
-
-
-
 </mapper>

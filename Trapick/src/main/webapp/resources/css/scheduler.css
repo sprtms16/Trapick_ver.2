@@ -1,5 +1,5 @@
 td {
-	width: 120px;
+	width: 100px;
 	height: 100px;
 	position: relative;
 }
@@ -19,18 +19,12 @@ td {
 }
 
 td .img {
-	/* width: 86px;
-   height: 100px; */
 	width: 100%;
 	height: 100%;
 	position: absolute;
 	z-index: 1;
 	top: 0px;
 	left: 0px;
-}
-
-body .list_detail {
-	display: none;
 }
 
 #subject {
@@ -40,6 +34,10 @@ body .list_detail {
 	margin-bottom: 30px;
 	margin-top: 30px;
 	font-family: Fantasy;
+}
+
+#tabs-1 {
+	clear: both;
 }
 
 #tabs li {
@@ -57,13 +55,6 @@ body .list_detail {
 	text-align: center;
 }
 
-#landMarkList li {
-	list-style: none;
-	float: left;
-	margin-left: 80px;
-	margin-bottom: 20px;
-}
-
 #tabs li a {
 	color: black;
 	font-size: 13.5px;
@@ -72,136 +63,6 @@ body .list_detail {
 	padding-bottom: 10px;
 	padding-left: 20px;
 	padding-right: 20px;
-}
-
-#landMarkList li a {
-	color: black;
-	font-size: 13.5px;
-	font-weight: bold;
-	text-align: center;
-}
-
-#landmarkDiv img {
-	height: 100px;
-	width: 163.63px;
-	display: block;
-	vertical-align: bottom;
-	margin-left: 30px;
-	position: absolute;
-}
-
-#landName, #landDetail {
-	text-align: center;
-}
-
-#tabs-1 img {
-	height: 100px;
-	width: 163.63px;
-	display: block;
-	vertical-align: bottom;
-	margin-left: 30px;
-	position: absolute;
-}
-
-#tabs-2 img {
-	height: 100px;
-	width: 163.63px;
-	display: block;
-	vertical-align: bottom;
-	margin-left: 30px;
-	position: absolute;
-}
-
-#tabs-3 img {
-	height: 100px;
-	width: 163.63px;
-	display: block;
-	vertical-align: bottom;
-	margin-left: 30px;
-	position: absolute;
-}
-
-.list_detail {
-	margin-left: 30px;
-	margin-top: 5px;
-}
-
-.listName {
-	display: inline-block;
-	width: 170px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-align: center;
-	text-overflow: ellipsis;
-	font-weight: bold;
-	font-weight: bold;
-	font-size: 10px;
-	margin-top: 25px;
-}
-
-.listPrice {
-	font-weight: bold;
-	color: black;
-	text-align: right;
-	font-size: 12px;
-}
-
-#list_thum {
-	height: 150px;
-}
-
-#itemList {
-	margin-left: 50px;
-	overflow: scroll;
-	height: 570px;
-	width: 250px;
-}
-
-#landmarkDiv {
-	margin-left: 50px;
-	overflow: scroll;
-	height: 580px;
-	width: 250px;
-}
-
-#restList {
-	margin-left: 50px;
-	overflow: scroll;
-	height: 570px;
-	width: 250px;
-}
-
-#hotelList {
-	margin-left: 50px;
-	overflow: scroll;
-	height: 570px;
-	width: 250px;
-}
-
-#city_List {
-	float: right;
-	margin-top: 0px;
-	margin-bottom: 20px;
-}
-
-.drag {
-	width: 200px;
-	height: 200px;
-}
-
-.drag img {
-	position: relative;
-}
-
-.drag>div {
-	width: 160px;
-	height: 50px;
-	display: inline;
-	position: relative;
-}
-
-.list_detail_ {
-	position: absolute;
 }
 
 table {
@@ -258,28 +119,10 @@ table th {
 	margin-bottom: 20px;
 }
 
-#landDetail {
-	
-}
-
-#landName {
-	font-size: 12px;
-	font-weight: bold;
-}
-
-#landDetail {
-	font-weight: bold;
-}
-
 #asdf {
 	position: relative;
 	left: 620px;
 	margin-bottom: 15px;
-}
-
-body {
-	text-align: center;
-	margin: 0 auto;
 }
 
 #Progress_Loading {
@@ -311,4 +154,59 @@ body {
 	width: 60%;
 	height: 50px;
 	z-index: 500;
+}
+
+.drag {
+	border: solid 1px;
+	width: 250px;
+	height: 85px;
+}
+
+#landmarkDiv, #hotelList, #itemList, #restList {
+	width: 250px;
+	height: 500px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+#landmarkDiv img, #tabs img {
+	width: 80px;
+	height: 80px;
+}
+
+.list_detail>div {
+	margin-left: 20px;
+	width: 150px;
+	overflow: hidden;
+}
+
+table .list_detail {
+	display: none;
+}
+
+.list_detail #name, #detail {
+	width: 120px;
+	height: 30px;
+}
+
+#map-po {
+	position: relative;
+}
+
+#map-canvas {
+	position: absolute;
+	left: 1050px;
+	bottom: 50px;
+	background-color: #606060;
+	color: #fff;
+}
+
+.container {
+	margin: 0px;
+}
+
+.liveInput {
+	background-color: #F2F2F2;
+	width: 20px;
+	height: 20px;
 }
