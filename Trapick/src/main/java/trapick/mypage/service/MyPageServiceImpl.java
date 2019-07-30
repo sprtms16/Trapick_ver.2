@@ -57,30 +57,32 @@ public class MyPageServiceImpl implements MyPageService {
       return mapper.updateUserInfo(userVO) == 1;
    }
    
-   @Override
-   public int updateUserImg(UserVO userVO, MultipartFile[] uploadFile, String uploadPath) {
-      File dir = new File(uploadPath);
-      if (!dir.isDirectory()) {
-         dir.mkdir();
-      }
-      String img_path = null;
-      for (MultipartFile multipartFile : uploadFile) {
+	@Override
+	public int updateUserImg(UserVO userVO, MultipartFile[] uploadFile, String uploadPath) {
 
-         File saveFile = new File(uploadPath, multipartFile.getOriginalFilename());
-         try {
-            multipartFile.transferTo(saveFile);
-            img_path = multipartFile.getOriginalFilename();
-         } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
-         } finally {
-            userVO.setImg_path(img_path);
-         
-         }
-      }
-      return mapper.updateImg(userVO);
-      
-   }
+		File dir = new File(uploadPath);
+		if (!dir.isDirectory()) {
+			dir.mkdir();
+		}
+		
+		String img_path = null;
+		for (MultipartFile multipartFile : uploadFile) {
+
+			File saveFile = new File(uploadPath, multipartFile.getOriginalFilename());
+			
+			try {
+				multipartFile.transferTo(saveFile);
+				img_path = multipartFile.getOriginalFilename();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return -1;
+			} finally {
+				userVO.setImg_path(img_path);
+
+			}
+		}
+		return mapper.updateUserImg(userVO);
+	}
    
    @Override
    public boolean remove(int schd_idx) {
@@ -90,6 +92,7 @@ public class MyPageServiceImpl implements MyPageService {
 
    @Override
    public boolean share(int user_idx, int schd_idx, int share) {
+	   
       return mapper.shareSchd(user_idx, schd_idx, share) == 1;
    }
 

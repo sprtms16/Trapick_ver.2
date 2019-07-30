@@ -1,5 +1,5 @@
 td {
-   width: 120px;
+   width: 100px;
    height: 100px;
    position: relative;
 }
@@ -19,8 +19,6 @@ td {
 }
 
 td .img {
-   /* width: 86px;
-   height: 100px; */
    width: 100%;
    height: 100%;
    position: absolute;
@@ -29,17 +27,22 @@ td .img {
    left: 0px;
 }
 
-body .list_detail {
-   display: none;
+.recommendList_thumb{
+   width: 100%;
+   height: 100%;
 }
 
 #subject {
    font-size: 50px;
    font-weight: bold;
    text-align: center;
-   margin-bottom: 30px;
-   margin-top: 30px;
+   margin-bottom: 15px;
+   margin-top: 80px;
    font-family: Fantasy;
+}
+
+#tabs-1 {
+   clear: both;
 }
 
 #tabs li {
@@ -57,13 +60,6 @@ body .list_detail {
    text-align: center;
 }
 
-#landMarkList li {
-   list-style: none;
-   float: left;
-   margin-left: 80px;
-   margin-bottom: 20px;
-}
-
 #tabs li a {
    color: black;
    font-size: 13.5px;
@@ -72,136 +68,6 @@ body .list_detail {
    padding-bottom: 10px;
    padding-left: 20px;
    padding-right: 20px;
-}
-
-#landMarkList li a {
-   color: black;
-   font-size: 13.5px;
-   font-weight: bold;
-   text-align: center;
-}
-
-#landmarkDiv img {
-   height: 100px;
-   width: 163.63px;
-   display: block;
-   vertical-align: bottom;
-   margin-left: 30px;
-   position: absolute;
-}
-
-#landName, #landDetail {
-   text-align: center;
-}
-
-#tabs-1 img {
-   height: 100px;
-   width: 163.63px;
-   display: block;
-   vertical-align: bottom;
-   margin-left: 30px;
-   position: absolute;
-}
-
-#tabs-2 img {
-   height: 100px;
-   width: 163.63px;
-   display: block;
-   vertical-align: bottom;
-   margin-left: 30px;
-   position: absolute;
-}
-
-#tabs-3 img {
-   height: 100px;
-   width: 163.63px;
-   display: block;
-   vertical-align: bottom;
-   margin-left: 30px;
-   position: absolute;
-}
-
-.list_detail {
-   margin-left: 30px;
-   margin-top: 5px;
-}
-
-.listName {
-   display: inline-block;
-   width: 170px;
-   white-space: nowrap;
-   overflow: hidden;
-   text-align: center;
-   text-overflow: ellipsis;
-   font-weight: bold;
-   font-weight: bold;
-   font-size: 10px;
-   margin-top: 25px;
-}
-
-.listPrice {
-   font-weight: bold;
-   color: black;
-   text-align: right;
-   font-size: 12px;
-}
-
-#list_thum {
-   height: 150px;
-}
-
-#itemList {
-   margin-left: 50px;
-   overflow: scroll;
-   height: 570px;
-   width: 250px;
-}
-
-#landmarkDiv {
-   margin-left: 50px;
-   overflow: scroll;
-   height: 580px;
-   width: 250px;
-}
-
-#restList {
-   margin-left: 50px;
-   overflow: scroll;
-   height: 570px;
-   width: 250px;
-}
-
-#hotelList {
-   margin-left: 50px;
-   overflow: scroll;
-   height: 570px;
-   width: 250px;
-}
-
-#city_List {
-   float: right;
-   margin-top: 0px;
-   margin-bottom: 20px;
-}
-
-.drag {
-   width: 200px;
-   height: 200px;
-}
-
-.drag img {
-   position: relative;
-}
-
-.drag>div {
-   width: 160px;
-   height: 50px;
-   display: inline;
-   position: relative;
-}
-
-.list_detail_ {
-   position: absolute;
 }
 
 table {
@@ -240,14 +106,16 @@ table th {
 }
 
 #save {
-   position: relative;
-   left: 180px;
+   position: absolute;
+   top: -40px;
+   left: 480px;
    margin-bottom: 20px;
 }
 
 #course {
-   position: relative;
-   left: 160px;
+   position: absolute;
+   top: -40px;
+   left: 390px;
    margin-bottom: 20px;
 }
 
@@ -258,28 +126,18 @@ table th {
    margin-bottom: 20px;
 }
 
-#landDetail {
-   
-}
-
-#landName {
-   font-size: 12px;
-   font-weight: bold;
-}
-
-#landDetail {
-   font-weight: bold;
-}
-
 #asdf {
-   position: relative;
-   left: 620px;
+   width:80px;
+   position: absolute;
+   top: 205px;
+   left: 450px;
    margin-bottom: 15px;
 }
 
-body {
-   text-align: center;
-   margin: 0 auto;
+#city_search{
+   position: absolute;
+   top:-0px;
+   left: 85px;   
 }
 
 #Progress_Loading {
@@ -312,3 +170,273 @@ body {
    height: 50px;
    z-index: 500;
 }
+
+/* 바뀐 부분 */
+#landmarkDiv>.drag {
+   border: solid 1px;
+   width: 250px;
+   height: 85px;
+}
+
+#itemList>.drag {
+   border: solid 1px;
+   width: 250px;
+   height: 85px;
+}
+
+#hotelList>.drag {
+   border: solid 1px;
+   width: 250px;
+   height: 85px;
+}
+/* 여기 까지 */
+
+#landmarkDiv, #hotelList, #itemList, #restList {
+   width: 250px;
+   height: 500px;
+   overflow-y: scroll;
+   overflow-x: hidden;
+}
+
+#landmarkDiv img, #tabs img {
+   width: 80px;
+   height: 80px;
+}
+
+.list_detail>div {
+   margin-left: 20px;
+   width: 150px;
+   overflow: hidden;
+}
+table .list_detail{
+   display: none;
+}
+
+table .recommendDetail{
+   display: none;
+}
+
+table span{
+   display : none;
+}
+
+.list_detail #name,#detail{
+   width: 120px;
+   height: 30px;
+}
+#map-po{
+   position: relative;
+}
+#map-canvas{
+   position: absolute;
+   left: 1050px;
+   bottom: 50px;
+   background-color: #606060;
+   color: #fff;
+}
+.container{
+   margin: 0px;
+}
+.liveInput{
+   background-color:#F2F2F2;
+   width: 20px;
+   height: 20px;
+}
+
+/* 여기부터 시작함 _ 190730 */
+
+#recommendUl li{
+   list-style-type: none;
+   float: left;
+   margin-left: 45px;
+   display: inline;
+}
+
+#recommendUserUl li{
+   list-style-type: none;
+   float: left;
+   margin-right: 45px;
+   display: inline;
+}
+
+#recommendUserUl li img{
+   width: 170px;
+   height: 200px;
+   border: solid 1px #A4A4A4;
+   z-index: 3;
+}
+
+#recommendUl li img{
+   width: 170px;
+   height: 200px;
+   border: solid 1px #A4A4A4;
+   z-index: 3;
+}
+
+.recommendList_thumb{
+   position: relative;
+}
+
+#category{
+   background-color: #6E6E6E;
+   padding:4px 10px;
+   position:absolute;
+   left:1%;
+   top:1%;
+   z-index:1;
+   opacity:0.7;
+   font-weight: bold;
+   color: white;
+}
+
+#recommendDetailName{
+   position: relative;
+   left: -168px;
+   top : 60px;
+}
+
+#recommendDetailName #name{
+   background-color: #6E6E6E;
+   overflow-x:hidden;
+   overflow-y:hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap; 
+   width:167px;
+   opacity:0.7;
+   font-weight: bold;
+   color:white;
+   position: absolute;
+   left: 10%;
+   bottom: 42%;
+   padding-top: 5px;
+}
+
+#recommendDetailName #recommendDetail{
+   background-color: #6E6E6E;
+   opacity:0.7;
+   
+}
+
+
+#recommendDetail{
+   width:167px;
+   text-align:right;
+   position:absolute;
+   left: 10%;
+   bottom: 29.8%;
+   padding-top: 5px;
+   padding-bottom: 5px;
+   overflow-x:hidden;
+   overflow-y:hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   opacity:0.7;
+   font-weight: bold;
+   color:white;
+   
+}
+
+#recommendDetailName #price{
+   background-color:#04B4AE;
+   width:65px;
+   text-align:right;
+   opacity: 0.9;
+   color: black;
+   font-weight: bold;
+   position: absolute;
+   left:115px;
+   top:39%;
+   padding-top: 1px;
+   padding-bottom: 1px;
+    
+}
+
+#schedule_title{
+   position: absolute;
+   top: -30px;
+}
+
+#titleSche{
+   margin-bottom: 15px;
+}
+
+#landMarkList ul{
+   padding : 0px;
+}
+
+#landMarkList li{
+   list-style: none;
+   font-weight: bold;
+   font-size: 15px;
+   text-align: center;
+   margin-bottom: 10px;
+}
+
+#asdf2{
+   margin-bottom: 40px;
+}
+
+#map-po > .col-md-5{
+   padding-right: 0px;
+}
+
+#map-po > .col-md-1{
+   padding-left: 0px;
+}
+
+#itemPriceSort{
+   position: absolute;
+   left: 1060px;
+}
+
+#itemSalesSort{
+   position: absolute;
+   left: 1140px;
+}
+
+#itemDistSort{
+   position: absolute;
+   left: 1220px;
+}
+
+#hotelPriceSort{
+   position: absolute;
+   left: 1060px;
+}
+
+#hotelReviewSort{
+   position: absolute;
+   left: 1140px;
+}
+
+#hotelDistSort{
+   position: absolute;
+   left: 1220px;
+}
+
+#landmarkHitsSort{
+   position: absolute;
+   left: 825px;
+}
+
+#landmarkDistSort{
+   position: absolute;
+   left:905px;
+}
+
+#city_List{
+   margin-top:12px;
+}
+
+#recommendUser{
+   margin-top: 20px;
+   position: relative;
+   left: -185px;
+}
+
+#recommend{
+   margin-top: 20px;
+   position: relative;
+   left: -185px;
+}
+

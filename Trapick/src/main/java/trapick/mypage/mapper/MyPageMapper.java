@@ -17,7 +17,7 @@ public interface MyPageMapper {
    
    public int updateUserInfo(UserVO userVO);
 
-   public int updateImg(UserVO userVO);
+   public int updateUserImg(UserVO userVO);
 
    public int delete(int schd_idx);
 

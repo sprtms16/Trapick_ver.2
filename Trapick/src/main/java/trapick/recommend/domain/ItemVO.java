@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ItemVO {
 
-	int item_idx;
 	String name;
 	String latitude;
 	String longitude;
@@ -20,6 +19,5 @@ public class ItemVO {
 	int sales;
 	int hits;
 	double dist;
-	String caterory;
 
 }

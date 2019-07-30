@@ -27,5 +27,5 @@ public interface CrawlingSortingService {
    
    public List<HotelVO> hotelDistSort(List<HotelVO> list);
    
-   public List<LandmarkVO> landmarkDistSort(List<LandmarkVO> list, String city_name, String base_point);
+   public List<LandmarkVO> landmarkDistSort(List<LandmarkVO> list, String city_name, String lat, String lon);
 }
