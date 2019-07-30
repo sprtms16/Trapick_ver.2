@@ -51,7 +51,7 @@ public class CrawlingRestServiceImpl implements CrawlingService {
 				String longitude = "-4.4158666";
 
 				RestaurantVO rest = new RestaurantVO(name, detail, img, latitude, longitude,
-						com.getDist(city_name, base_point, latitude, longitude), "Rest");
+						0, "Rest");
 				list.add(rest);
 			}
 		} catch (Exception e) {

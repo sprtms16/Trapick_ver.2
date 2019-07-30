@@ -96,7 +96,7 @@ public class CrawlingItemServiceImpl implements CrawlingService {
 				String latitude = "51.5194133";
 				String longitude = "-0.1269566";
 				ItemVO item = new ItemVO(item_idx, name, latitude, longitude, detail, city_name, price, img, sales,
-						hits, com.getDist(city_name, base_point, latitude, longitude), "Item");
+						hits, 0, "Item");
 				list.add(item);
 
 			}
@@ -131,7 +131,7 @@ public class CrawlingItemServiceImpl implements CrawlingService {
 				String longitude = "-0.1269566";
 
 				ItemVO item = new ItemVO(item_idx, name, latitude, longitude, detail, city_name, price, img, sales,
-						hits, com.getDist(city_name, base_point, latitude, longitude), "Item");
+						hits, 0, "Item");
 				list.add(item);
 
 			}

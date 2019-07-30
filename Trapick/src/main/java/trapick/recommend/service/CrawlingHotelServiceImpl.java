@@ -59,7 +59,7 @@ public class CrawlingHotelServiceImpl implements CrawlingService {
 				String longitude = "43.7693012";
 
 				HotelVO hotel = new HotelVO(name, detail, img, location, review, latitude, longitude, stars, price,
-						com.getDist(city_name, base_point, latitude, longitude), "Hotel");
+						0, "Hotel");
 
 				list.add(hotel);
 			}
