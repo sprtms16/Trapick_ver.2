@@ -13,7 +13,7 @@
 		// 서버로부터 메시지를 받았을 때
 		function onMessage(msg) {
 			var data = msg.data;
-			$('#alertCount').text(data);
+			$('#alertCount span').text(data);
 		}
 	</script>
 	<script type="text/javascript">
@@ -22,22 +22,20 @@
 					'.list-group-item', function(event) {
 						$(this).toggleClass('active');
 					});
-			$("[data-toggle=popover]").popover({
-				html : true,
-				content : function() {
+
+			/* 	content : function() {
 					return $('#popover-content').html();
-				}
-			});
+				} */
 		});
 	</script>
 </header>
 <nav class="navbar navbar-expand navbar-dark bg-info fixed-top">
-	<a class="navbar-brand" href="/schedule/MainPage">Home</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
+	<a class="navbar-brand" href="/schedule/MainPage">Home</a> <a
+		class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarsExample02" aria-controls="navbarsExample02"
-		aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
+		aria-expanded="false" aria-label="Toggle navigation"> <span
+		class="navbar-toggler-icon"></span>
+	</a>
 
 	<div class="collapse navbar-collapse" id="navbarsExample02">
 		<ul class="navbar-nav mr-auto">
@@ -58,11 +56,11 @@
 			</c:otherwise>
 		</c:choose>
 
-		<a data-placement="bottom" data-toggle="popover" data-container="body"
-			data-placement="left" type="button" data-html="true" href="#"
-			id="login" style="font-size: 1.7em;"> <i class="fas fa-bell"
-			id="alertCount"><span style="font-size: 1rem; color: red"></span></i>
-		</a>
+		<button class="btn" type="button" data-toggle="modal"
+			data-target="#myModal">
+			<i class="fas fa-bell" id="alertCount" style="font-size: 1.7em;"><span
+				class="text-danger"></span></i>
+		</button>
 
 		<div class="search_menu">
 			<form action="/feed/list" method="get">
@@ -85,3 +83,25 @@
 
 	</div>
 </nav>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">알람 목록</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">Modal body..</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			</div>
+
+		</div>
+	</div>
+</div>

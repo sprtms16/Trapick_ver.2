@@ -132,9 +132,19 @@
 		values(#{feeder},#{subscriber})
 	</insert>
 
+	<select id="selectSubscriber" resultType="int">
+		select feeder from
+		feed_subscribe where subscriber = #{user_idx}
+	</select>
+
 	<select id="selectSubscriberCount" resultType="int">
 		select
 		count(subscriber) from feed_subscribe where feeder = #{user_idx}
+	</select>
+
+	<select id="selectAlertList" resultType="trapick.feed.domain.AlertSubscribeVO">
+		SELECT * FROM
+		ALERT_SUBSCRIBE where SUBSCRIBER = #{user_idx}
 	</select>
 
 	<select id="selectSubscriberCheck" resultType="int">
