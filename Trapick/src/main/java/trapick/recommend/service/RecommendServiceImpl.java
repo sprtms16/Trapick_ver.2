@@ -159,7 +159,7 @@ public class RecommendServiceImpl implements RecommendService {
 		}
 
 		CourseAlgo algo = new CourseAlgo(dist.length, dist, new boolean[dist.length], new int[dist.length],
-				new int[dist.length], 100000);
+				new int[dist.length], 1000000000);
 		algo.tsp(0, 0, 1, dist.length - 1);
 
 		for (int a = 0; a < dist.length; a++) {

@@ -1261,7 +1261,7 @@
 
 	})
 
-	function wrapWindowByMask() {
+	/* function wrapWindowByMask() {
 		//화면의 높이와 너비를 구한다.
 		var maskHeight = $(document).height();
 		var maskWidth = $(window).width();
@@ -1298,7 +1298,7 @@
 	}).ajaxStop(function() {
 		$('#Progress_Loading').hide(); //ajax종료시 로딩바를 숨겨준다.
 		$('#mask').hide();
-	});
+	}); */
 </script>
 <script type="text/javascript">
 	/*
