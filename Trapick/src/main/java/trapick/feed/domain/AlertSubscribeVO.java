@@ -12,4 +12,5 @@ public class AlertSubscribeVO {
 	UserVO subscriber;
 	FeedVO feed;
 	String alert_type;
+	String read;
 }

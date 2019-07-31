@@ -142,9 +142,26 @@
 		count(subscriber) from feed_subscribe where feeder = #{user_idx}
 	</select>
 
-	<select id="selectAlertList" resultType="trapick.feed.domain.AlertSubscribeVO">
+	<select id="selectAlertList" resultMap="AlertSubscribe">
 		SELECT * FROM
 		ALERT_SUBSCRIBE where SUBSCRIBER = #{user_idx}
+	</select>
+
+	<resultMap type="trapick.feed.domain.AlertSubscribeVO" id="AlertSubscribe">
+		<result property="alert_type" column="alert_type" />
+		<result property="read" column="read" />
+		<collection property="feeder" column="feeder" ofType="trapick.feed.domain.UserVO"
+			select="getUser" />
+		<collection property="subscriber" column="subscriber" ofType="trapick.feed.domain.UserVO"
+			select="getUser" />
+		<collection property="feed" column="feed_idx" ofType="trapick.feed.domain.FeedVO"
+			select="getFeed" />
+
+	</resultMap>
+
+	<select id="getUser" resultType="trapick.feed.domain.UserVO">
+		select * from users where
+		user_idx= #{user_idx}
 	</select>
 
 	<select id="selectSubscriberCheck" resultType="int">

@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import trapick.feed.domain.AlertSubscribeVO;
 import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
 import trapick.feed.domain.SubscribeVO;
@@ -117,6 +118,11 @@ public class FeedServiceImpl implements FeedService {
 	@Override
 	public String getPw(UserVO user){
 		return mapper.getPw(user);
+	}
+
+	@Override
+	public List<AlertSubscribeVO> getAlertList(int user_idx) {
+		return mapper.selectAlertList(user_idx);
 	}
 
 }

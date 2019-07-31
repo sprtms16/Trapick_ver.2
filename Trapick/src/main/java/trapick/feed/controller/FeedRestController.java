@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import trapick.feed.domain.AlertSubscribeVO;
 import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
 import trapick.feed.domain.ReplyDislikeVO;
@@ -90,6 +91,11 @@ public class FeedRestController {
 	@RequestMapping("getSelectedItem/{schd_idx}")
 	public List<SelectedItemVO> getSelectedItem(@PathVariable("schd_idx") int schd_idx){
 		return feedService.getSelectedItem(schd_idx);
+	}
+	
+	@PostMapping("getAlertList/{user_idx}")
+	public List<AlertSubscribeVO> getAlertList(@PathVariable("user_idx") int user_idx){
+		return feedService.getAlertList(user_idx);
 	}
 
 }
