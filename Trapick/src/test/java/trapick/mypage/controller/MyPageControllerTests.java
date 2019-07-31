@@ -14,6 +14,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
+import trapick.feed.domain.UserVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -34,15 +35,13 @@ public class MyPageControllerTests {
 
 //	@Test
 	public void testRemove() throws Exception {
-
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders
 				.post("/mypage/remove").param("schd_idx", "29"))
 				.andReturn().getModelAndView().getViewName();
 	}
-	
-	@Test
+
+//	@Test
 	public void testgetUser() throws Exception{
-		
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders
 				.post("/mypage/list").param("user_idx", "1"))
 				.andReturn().getModelAndView().getViewName();

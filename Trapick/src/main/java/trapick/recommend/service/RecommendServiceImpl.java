@@ -19,7 +19,6 @@ import trapick.recommend.domain.CourseItemVO;
 import trapick.recommend.domain.HotelVO;
 import trapick.recommend.domain.ItemVO;
 import trapick.recommend.domain.LandmarkVO;
-import trapick.recommend.domain.RestaurantVO;
 import trapick.recommend.domain.Selected;
 import trapick.recommend.domain.SelectedItemVO;
 import trapick.recommend.domain.SelectedLandMarkVO;
@@ -58,9 +57,10 @@ public class RecommendServiceImpl implements RecommendService {
 	}
 
 	@Override
-	public void saveSchedule(String title, List<Selected> landList, List<Selected> itemList,String start_time,String end_time) {
-		mapper.saveSchedule(title, landList, itemList,start_time, end_time);
-		
+	public void saveSchedule(String title, List<Selected> landList, List<Selected> itemList, String start_time,
+			String end_time,int user_idx) {
+		mapper.saveSchedule(title, landList, itemList, start_time, end_time,user_idx);
+
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class RecommendServiceImpl implements RecommendService {
 			List<String> item_name, List<String> item_price, List<String> item_detail, List<String> item_image,
 			String title, String start_time, String end_time) throws UnsupportedEncodingException {
 		System.out.println("일정저장시작");
-		for(int a = 0 ;a<item_name.size();a++){
+		for (int a = 0; a < item_name.size(); a++) {
 			System.out.println(item_name.get(a));
 		}
 		List<Selected> landList = new ArrayList<>();
@@ -103,18 +103,20 @@ public class RecommendServiceImpl implements RecommendService {
 				landList.add(new SelectedLandMarkVO(0, land_idx.get(i), position.get(i + j)));
 				i++;
 			} else {
-				itemList.add(new SelectedItemVO(0, URLDecoder.decode(item_name.get(i+j), "UTF-8"), URLDecoder.decode(item_detail.get(i+j), "UTF-8"), URLDecoder.decode(item_price.get(i + j), "UTF-8"),
-						position.get(i + j), URLDecoder.decode(item_image.get(i + j), "UTF-8"), 0));
+				itemList.add(new SelectedItemVO(0, URLDecoder.decode(item_name.get(i + j), "UTF-8"),
+						URLDecoder.decode(item_detail.get(i + j), "UTF-8"),
+						URLDecoder.decode(item_price.get(i + j), "UTF-8"), position.get(i + j),
+						URLDecoder.decode(item_image.get(i + j), "UTF-8"), 0));
 				j++;
 			}
 		}
 		System.out.println(landList);
 		System.out.println(itemList);
-		
+
 		Map<String, List<Selected>> map = new HashMap<>();
 		map.put("landList", landList);
 		map.put("itemList", itemList);
-		
+
 		return map;
 	}
 
@@ -127,17 +129,23 @@ public class RecommendServiceImpl implements RecommendService {
 		int j = 0;
 		for (; i + j < item_price.size();) {
 			if (item_price.get(i + j).equals("0")) {
-				list.add(new CourseItemVO(land_idx.get(i), URLDecoder.decode(item_detail.get(i+j), "UTF-8"), URLDecoder.decode(item_price.get(i+j), "UTF-8"),
-						URLDecoder.decode(item_name.get(i+j), "UTF-8"), Double.parseDouble(latitude.get(i+j)), Double.parseDouble(longitude.get(i+j)), position.get(i + j),
+				list.add(new CourseItemVO(land_idx.get(i), URLDecoder.decode(item_detail.get(i + j), "UTF-8"),
+						URLDecoder.decode(item_price.get(i + j), "UTF-8"),
+						URLDecoder.decode(item_name.get(i + j), "UTF-8"), Double.parseDouble(latitude.get(i + j)),
+						Double.parseDouble(longitude.get(i + j)), position.get(i + j),
 						URLDecoder.decode(item_image.get(i + j), "UTF-8")));
 				i++;
 			} else {
-				list.add(new CourseItemVO("0", URLDecoder.decode(item_detail.get(i+j), "UTF-8"), URLDecoder.decode(item_price.get(i+j), "UTF-8"), URLDecoder.decode(item_name.get(i+j), "UTF-8"), Double.parseDouble(latitude.get(i+j)), Double.parseDouble(longitude.get(i+j)), position.get(i+j), URLDecoder.decode(item_image.get(i + j), "UTF-8")));
+				list.add(new CourseItemVO("0", URLDecoder.decode(item_detail.get(i + j), "UTF-8"),
+						URLDecoder.decode(item_price.get(i + j), "UTF-8"),
+						URLDecoder.decode(item_name.get(i + j), "UTF-8"), Double.parseDouble(latitude.get(i + j)),
+						Double.parseDouble(longitude.get(i + j)), position.get(i + j),
+						URLDecoder.decode(item_image.get(i + j), "UTF-8")));
 				j++;
 			}
 		}
 		System.out.println(list);
-		
+
 		double dist[][] = new double[item_name.size()][item_name.size()];
 		for (int a = 0; a < item_name.size(); a++) {
 			for (int b = 0; b < item_name.size(); b++) {
@@ -174,13 +182,12 @@ public class RecommendServiceImpl implements RecommendService {
 		return resultList;
 	}
 
-		
 	// 4개 추천하기
 	// Landmark
 	@Override
-	public List<LandmarkVO> recommendLand(String city_name, String base_point) {
+	public List<LandmarkVO> recommendLand(String city_name, String lat, String lon) {
 
-		List<LandmarkVO> list = serviceSort.landmarkDistSort(mapper.landMarkList(city_name), city_name, base_point);
+		List<LandmarkVO> list = serviceSort.landmarkDistSort(mapper.landMarkList(city_name), city_name, lat, lon);
 
 		for (int i = list.size() - 1; i > 2; i--) {
 			list.remove(i);
@@ -198,6 +205,8 @@ public class RecommendServiceImpl implements RecommendService {
 			}
 		});
 
+		list.remove(0);
+
 		for (int i = list.size() - 1; i > 0; i--) {
 			list.remove(i);
 		}
@@ -207,9 +216,9 @@ public class RecommendServiceImpl implements RecommendService {
 
 	// item
 	@Override
-	public List<ItemVO> recommendItem(String city_name, String base_point) {
+	public List<ItemVO> recommendItem(String city_name, String lat, String lon) {
 
-		List<ItemVO> list = serviceSort.itemDistSort(serviceItem.crawling(city_name, base_point));
+		List<ItemVO> list = serviceSort.itemDistSort(serviceItem.crawling(city_name, lat, lon));
 
 		for (int i = list.size() - 1; i > 4; i--) {
 			list.remove(i);
@@ -223,6 +232,8 @@ public class RecommendServiceImpl implements RecommendService {
 
 		serviceSort.itemSalesSort(list);
 
+		list.remove(0);
+
 		for (int i = list.size() - 1; i > 0; i--) {
 			list.remove(i);
 		}
@@ -233,9 +244,9 @@ public class RecommendServiceImpl implements RecommendService {
 
 	// hotel
 	@Override
-	public List<HotelVO> recommendHotel(String city_name, String base_point) {
+	public List<HotelVO> recommendHotel(String city_name, String lat, String lon) {
 
-		List<HotelVO> list = serviceSort.hotelDistSort(serviceHotel.crawling(city_name, base_point));
+		List<HotelVO> list = serviceSort.hotelDistSort(serviceHotel.crawling(city_name, lat, lon));
 
 		for (int i = list.size() - 1; i > 4; i--) {
 			list.remove(i);
@@ -249,6 +260,8 @@ public class RecommendServiceImpl implements RecommendService {
 
 		serviceSort.hotelPriceSort(list);
 
+		list.remove(0);
+
 		for (int i = list.size() - 1; i > 0; i--) {
 			list.remove(i);
 		}
@@ -257,19 +270,19 @@ public class RecommendServiceImpl implements RecommendService {
 
 	}
 
-	// restaurant
-	@Override
-	public List<RestaurantVO> recommendRest(String city_name, String base_point) {
-
-		List<RestaurantVO> list = serviceSort.restDistSort(serviceRest.crawling(city_name, base_point));
-
-		for (int i = list.size() - 1; i > 0; i--) {
-			list.remove(i);
-		}
-
-		return list;
-	}
-
+	/*
+	 * // restaurant
+	 * 
+	 * @Override public List<RestaurantVO> recommendRest(String city_name,
+	 * String lat, String lon) {
+	 * 
+	 * List<RestaurantVO> list =
+	 * serviceSort.restDistSort(serviceRest.crawling(city_name, lat, lon));
+	 * 
+	 * for (int i = list.size() - 1; i > 0; i--) { list.remove(i); }
+	 * 
+	 * return list; }
+	 */
 	@Override
 	public List<LandmarkVO> userRecommendLand(String city_name, int user_idx) {
 
@@ -306,7 +319,6 @@ public class RecommendServiceImpl implements RecommendService {
 			}
 			temp.clear();
 		}
-
 		temp = mapperRecommend.checkCity(city_name);
 
 		for (int i = 0; i < temp.size(); i++) {
@@ -317,15 +329,21 @@ public class RecommendServiceImpl implements RecommendService {
 			}
 		}
 
+		if (checkCityList.size() == 0) {
+			List<LandmarkVO> listTemp = mapper.landMarkList(city_name);
+			for (int i = 0; i < listTemp.size(); i++) {
+				checkCityList.add(listTemp.get(i).getLand_idx());
+			}
+		}
+
 		TreeSet<Integer> ts = new TreeSet<Integer>(checkCityList);
 		checkCityList = new ArrayList<Integer>(ts);
 
-		for (int i = checkCityList.size() - 1; i > 0; i--) {
+		for (int i = checkCityList.size() - 1; i > 1; i--) {
 			checkCityList.remove(i);
 		}
 
-		list = mapperRecommend.userRecommendLandmark(checkCityList.get(0));
-
+		list = mapperRecommend.userRecommendLandmark(checkCityList.get(1));
 		return list;
 	}
 

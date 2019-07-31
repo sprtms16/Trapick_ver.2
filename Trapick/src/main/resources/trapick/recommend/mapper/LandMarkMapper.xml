@@ -17,7 +17,7 @@
 	<insert id="saveSchedule">
 		insert all
 		into SCHEDULE
-		values(schedule_seq.nextval,#{title},#{start_day},#{end_day},1)
+		values(schedule_seq.nextval,#{title},#{start_day},#{end_day},#{user_idx})
 		<if test="landList != null">
 			<foreach collection="landList" item="item" separator=" ">
 				into selected_landmark

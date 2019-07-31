@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import trapick.feed.domain.AlertSubscribeVO;
 import trapick.feed.domain.FeedVO;
 import trapick.feed.domain.HeartVO;
 import trapick.feed.domain.SubscribeVO;
@@ -36,5 +37,9 @@ public interface FeedService {
 	public void join(UserVO user);
 
 	public int loginCheck(UserVO user);
+	
+	public String getPw(UserVO user);
+
+	public List<AlertSubscribeVO> getAlertList(int user_idx);
 
 }

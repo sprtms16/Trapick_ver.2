@@ -33,11 +33,22 @@
    	select * from landmark where land_idx = #{land_idx}
    </select>
    
+   <!-- 위도 경도 -->
+   <select id="itemLatituede" resultType="String" parameterType="String">
+   	select i.lat from itemloc i, city c where i.city_idx = c.city_idx and c.name = #{city_name} 
+   </select>
    
+   <select id="itemLongitude" resultType="String" parameterType="String">
+   	select i.lon from itemloc i, city c where i.city_idx = c.city_idx and c.name = #{city_name} 
+   </select>
    
+   <select id="hotelLatituede" resultType="String" parameterType="String">
+   	select h.lat from hotelloc h, city c where h.city_idx = c.city_idx and c.name = #{city_name} 
+   </select>
    
-   
-   
+   <select id="hotelLongitude" resultType="String" parameterType="String">
+   	select h.lon from hotelloc h, city c where h.city_idx = c.city_idx and c.name = #{city_name} 
+   </select>
    
    
    

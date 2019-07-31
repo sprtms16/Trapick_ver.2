@@ -16,12 +16,16 @@ import trapick.recommend.domain.HotelVO;
 import trapick.recommend.domain.ItemVO;
 import trapick.recommend.domain.LandmarkVO;
 import trapick.recommend.domain.RestaurantVO;
+import trapick.recommend.mapper.RecommendMapper;
 
 @Service
 public class CrawlingSortingServiceImpl implements CrawlingSortingService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private CrawlingCommonService com;
+	
+	@Setter(onMethod_ = @Autowired)
+	private RecommendMapper mapper;
 	
 	//ITEM
    // 가격순 정렬
@@ -175,29 +179,7 @@ public class CrawlingSortingServiceImpl implements CrawlingSortingService {
 	});
 	   return list;  
    }
-   /*
-   //star
-   @Override
-   public List<HotelVO> hotelStarSort(List<HotelVO> list){
-	   
-	   Collections.sort(list, new Comparator<HotelVO>() {
-		   @Override
-		   public int compare(HotelVO o1, HotelVO o2){
-			   
-			   int obj1 = Integer.parseInt(o1.getStars().replace("성급", ""));
-			   int obj2 = Integer.parseInt(o2.getStars().replace("성급", ""));
-			   
-			   if(obj1 > obj2){
-				   return -1;
-			   }else if(obj1 < obj2){
-				   return 1;
-			   }
-			   return 0;
-		   }
-	});
-	   return list;
-   }
-   */
+
    //거리순 정렬
    @Override
    public List<HotelVO> hotelDistSort(List<HotelVO> list){
@@ -219,18 +201,15 @@ public class CrawlingSortingServiceImpl implements CrawlingSortingService {
    //명소
    //거리순
    @Override
-	public List<LandmarkVO> landmarkDistSort(List<LandmarkVO> list, String city_name, String base_point) {
+	public List<LandmarkVO> landmarkDistSort(List<LandmarkVO> list, String city_name, String lat, String lon) {
 
 		List<Double> listDist = new ArrayList<>();
 		List<LandmarkVO> listSort = new ArrayList<>();
 		HashMap<Double, Integer> map = new HashMap<>();
 
 		for (int i = 0; i < list.size(); i++) {
-
-			String latitude = Double.toString(list.get(i).getLatitude());
-			String longitude = Double.toString(list.get(i).getLongitude());
-
-			listDist.add(com.getDist(city_name, base_point, latitude, longitude));
+			
+			listDist.add(com.getDist(Double.toString(list.get(i).getLatitude()), Double.toString(list.get(i).getLongitude()), lat, lon));
 
 		}
 

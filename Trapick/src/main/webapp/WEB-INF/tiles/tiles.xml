@@ -11,6 +11,9 @@
 	 <definition name="sign/*" extends="baseEmpty">
 		<put-attribute name="body" value="/WEB-INF/views/sign/{1}.jsp" />
 	</definition> 
+	 <definition name="feed/echo" extends="baseEmpty">
+		<put-attribute name="body" value="/WEB-INF/views/feed/echo.jsp" />
+	</definition> 
 	
 	<!-- 메뉴 표시 -->
 	<definition name="base" template="/WEB-INF/tiles/template.jsp">

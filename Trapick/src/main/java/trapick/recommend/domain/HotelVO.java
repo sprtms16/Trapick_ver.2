@@ -19,6 +19,5 @@ public class HotelVO {
 	private String stars;
 	private String price;
 	private double dist;
-	private String category;
 
 }

@@ -112,12 +112,11 @@ public class CourseAlgo {
 	        if(costSum<min && city[num-1]==last){
 	        	min = costSum;
 	        	for(int i = 0 ; i< num; i++){
-//	        		System.out.print(city[i]+" ");
+	        		System.out.print(city[i]+" ");
 	        		result[i] = city[i];
 	        	}
-//	        	System.out.println(" : " + costSum);
+	        	System.out.println(" : " + costSum);
 	        }
-	        System.out.println(" : " + costSum);
 	        visited[node] = false;
 	        city[count - 1] = -1;
 	        
