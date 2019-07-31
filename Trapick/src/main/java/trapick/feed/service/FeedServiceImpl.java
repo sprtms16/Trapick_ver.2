@@ -113,5 +113,10 @@ public class FeedServiceImpl implements FeedService {
 	public int loginCheck(UserVO user) {
 		return mapper.loginCheck(user);
 	}
+	
+	@Override
+	public String getPw(UserVO user){
+		return mapper.getPw(user);
+	}
 
 }

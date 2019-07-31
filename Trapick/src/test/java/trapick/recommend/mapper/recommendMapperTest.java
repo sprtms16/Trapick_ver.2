@@ -19,6 +19,7 @@ import trapick.mypage.mapper.MyPageMapper;
 @Log4j
 public class recommendMapperTest {
 
+
 	@Setter(onMethod_ = @Autowired)
 	RecommendMapper mapper;
 

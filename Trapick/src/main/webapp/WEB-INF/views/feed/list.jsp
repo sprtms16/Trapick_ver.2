@@ -89,6 +89,10 @@
 .btn-group-fab .btn-sub:nth-child(5) {
 	bottom: 210px;
 }
+.dropdown{
+   margin-left: 700px;
+   margin-top: 70px;
+}
 </style>
 </head>
 <body>
@@ -120,7 +124,48 @@
 						<div class="carousel-inner">
 							<div class="carousel-item active"
 								style="width: 100%; height: 500px; overflow: hidden; position: relative;">
-								<table id="mySheduleTable" class="SheduleTable" border=2
+
+								<form id="courseData" action="/mypage/list" method="get">
+									<table id="mySheduleTable" class="SheduleTable" border=2
+										data-href="/RestFeed/getSelectedItem/${feed.schd_idx }">
+										<tr>
+											<th>일정</th>
+											<th>06:00 ~ 09:00</th>
+											<th>09:00 ~ 12:00</th>
+											<th>12:00 ~ 15:00</th>
+											<th>15:00 ~ 18:00</th>
+											<th>18:00 ~ 21:00</th>
+											<th>21:00 ~ 24:00</th>
+										</tr>
+										<c:forEach begin="1" end="${feed.travelDates }"
+											varStatus="index">
+											<tr>
+												<td class="time">${index.count}일차</td>
+												<td name="${index.count }-1"></td>
+												<td name="${index.count }-2"></td>
+												<td name="${index.count }-3"></td>
+												<td name="${index.count }-4"></td>
+												<td name="${index.count }-5"></td>
+												<td name="${index.count }-6"></td>
+											</tr>
+										</c:forEach>
+									</table>
+								</form>
+
+								<form id="savet">
+									<table id="hotelTable" border=2>
+										<tr>
+											<th>숙소</th>
+										</tr>
+										<c:forEach begin="1" end="${feed.travelDates }"
+											varStatus="index">
+											<tr>
+												<td class="ho" name="ho-${index.count }"></td>
+											</tr>
+										</c:forEach>
+									</table>
+								</form>
+								<%-- <table id="mySheduleTable" class="SheduleTable" border=2
 									data-href="/RestFeed/getSelectedItem/${feed.schd_idx }">
 									<tr>
 										<th>일정</th>
@@ -183,7 +228,7 @@
 											<td name="${index.count }-6"></td>
 										</c:forEach>
 									</tr>
-								</table>
+								</table> --%>
 
 
 							</div>
@@ -220,7 +265,7 @@
 
 									<input type="hidden" name="feed_idx" value="${feed.feed_idx}" />
 									<textarea class="form-control" rows="1" name="contents"
-										id="contents" placeholder="내용을 입력해 주세요"></textarea>
+										id="contents" placeholder="내용을 입력하세요"></textarea>
 								</div>
 								<div>
 									<button type="submit" class="btn btn-sm btn-primary insert"
@@ -329,5 +374,8 @@
 			</button>
 		</div>
 	</div>
+
+	
 </body>
+
 </html>

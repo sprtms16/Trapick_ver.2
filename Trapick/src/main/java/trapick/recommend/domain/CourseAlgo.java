@@ -106,16 +106,17 @@ public class CourseAlgo {
 	    visited[node] = true;
 	    city[count - 1] = node;
 	    if (count == num) {
-	        for (int i = 0; i < num; i++) {
-	        	System.out.print(city[i]+" ");
-	        }
+//	        for (int i = 0; i < num; i++) {
+//	        	System.out.print(city[i]+" ");
+//	        }
 	        if(costSum<min && city[num-1]==last){
 	        	min = costSum;
 	        	for(int i = 0 ; i< num; i++){
+	        		System.out.print(city[i]+" ");
 	        		result[i] = city[i];
 	        	}
+	        	System.out.println(" : " + costSum);
 	        }
-	        System.out.println(" : " + costSum);
 	        visited[node] = false;
 	        city[count - 1] = -1;
 	        
@@ -123,7 +124,9 @@ public class CourseAlgo {
 	 
 	    for(int i=0;i<num;i++){
 	        if(!visited[i] && cost[node][i] != 0){
-	            tsp(i, costSum+cost[node][i], count+1,last);
+	        	if(min>cost[node][i]+costSum){
+	        		tsp(i, costSum+cost[node][i], count+1,last);
+	        	}
 	        }
 	    }
 	    visited[node] = false;

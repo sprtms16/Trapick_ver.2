@@ -90,7 +90,7 @@ public class RecommendServiceImpl implements RecommendService {
 		for (int i = list.size() - 1; i > 2; i--) {
 			list.remove(i);
 		}
-		
+
 		Collections.sort(list, new Comparator<LandmarkVO>() {
 			@Override
 			public int compare(LandmarkVO o1, LandmarkVO o2) {
@@ -104,7 +104,7 @@ public class RecommendServiceImpl implements RecommendService {
 		});
 
 		list.remove(0);
-		
+
 		for (int i = list.size() - 1; i > 0; i--) {
 			list.remove(i);
 		}
@@ -116,7 +116,7 @@ public class RecommendServiceImpl implements RecommendService {
 	@Override
 	public List<ItemVO> recommendItem(String city_name, String lat, String lon) {
 
-		List<ItemVO> list = serviceSort.itemDistSort(serviceItem.crawling(city_name,lat, lon));
+		List<ItemVO> list = serviceSort.itemDistSort(serviceItem.crawling(city_name, lat, lon));
 
 		for (int i = list.size() - 1; i > 4; i--) {
 			list.remove(i);
@@ -129,7 +129,7 @@ public class RecommendServiceImpl implements RecommendService {
 		}
 
 		serviceSort.itemSalesSort(list);
-		
+
 		list.remove(0);
 
 		for (int i = list.size() - 1; i > 0; i--) {
@@ -157,7 +157,7 @@ public class RecommendServiceImpl implements RecommendService {
 		}
 
 		serviceSort.hotelPriceSort(list);
-		
+
 		list.remove(0);
 
 		for (int i = list.size() - 1; i > 0; i--) {
@@ -167,20 +167,20 @@ public class RecommendServiceImpl implements RecommendService {
 		return list;
 
 	}
-/*
-	// restaurant
-	@Override
-	public List<RestaurantVO> recommendRest(String city_name, String lat, String lon) {
 
-		List<RestaurantVO> list = serviceSort.restDistSort(serviceRest.crawling(city_name, lat, lon));
-
-		for (int i = list.size() - 1; i > 0; i--) {
-			list.remove(i);
-		}
-
-		return list;
-	}
-*/
+	/*
+	 * // restaurant
+	 * 
+	 * @Override public List<RestaurantVO> recommendRest(String city_name,
+	 * String lat, String lon) {
+	 * 
+	 * List<RestaurantVO> list =
+	 * serviceSort.restDistSort(serviceRest.crawling(city_name, lat, lon));
+	 * 
+	 * for (int i = list.size() - 1; i > 0; i--) { list.remove(i); }
+	 * 
+	 * return list; }
+	 */
 	@Override
 	public List<LandmarkVO> userRecommendLand(String city_name, int user_idx) {
 
@@ -226,24 +226,69 @@ public class RecommendServiceImpl implements RecommendService {
 				}
 			}
 		}
-		
-		if(checkCityList.size() == 0){
+
+		if (checkCityList.size() == 0) {
 			List<LandmarkVO> listTemp = mapper.landMarkList(city_name);
-			for(int i=0; i<listTemp.size();i++){
+			for (int i = 0; i < listTemp.size(); i++) {
 				checkCityList.add(listTemp.get(i).getLand_idx());
 			}
 		}
-		
+
 		TreeSet<Integer> ts = new TreeSet<Integer>(checkCityList);
 		checkCityList = new ArrayList<Integer>(ts);
-		
 
 		for (int i = checkCityList.size() - 1; i > 1; i--) {
 			checkCityList.remove(i);
 		}
-		
+
 		list = mapperRecommend.userRecommendLandmark(checkCityList.get(1));
 		return list;
+	}
+
+	// item
+	@Override
+	public List<ItemVO> recommendUserItem(String city_name, String lat, String lon) {
+
+		List<ItemVO> list = serviceSort.itemDistSort(serviceItem.crawling(city_name, lat, lon));
+
+		for (int i = list.size() - 1; i > 4; i--) {
+			list.remove(i);
+		}
+
+		serviceSort.itemHitsSort(list);
+
+		list.remove(0);
+
+		for (int i = list.size() - 1; i > 0; i--) {
+			list.remove(i);
+		}
+
+		return list;
+
+	}
+
+	// hotel
+	@Override
+	public List<HotelVO> recommendUserHotel(String city_name, String lat, String lon) {
+
+		List<HotelVO> list = serviceSort.hotelDistSort(serviceHotel.crawling(city_name, lat, lon));
+
+		for (int i = list.size() - 1; i > 4; i--) {
+			list.remove(i);
+		}
+
+		serviceSort.hotelReviewSort(list);
+
+		list.remove(0);
+
+		for (int i = list.size() - 1; i > 1; i--) {
+			list.remove(i);
+		}
+
+		list.remove(0);
+
+		return list;
+
 	}
 
 }

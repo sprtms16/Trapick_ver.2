@@ -46,7 +46,7 @@
 				<div>
 					<button onclick="uploadFile(); return false;" type="submit"
 						class="btn btn-sm btn-primary" id="btnSave">저장</button>
-					<!-- //sock.send(); -->
+					<!-- // -->
 					<button type="button" class="btn btn-sm btn-primary"
 						onClick="history.go(-1)">목록</button>
 				</div>

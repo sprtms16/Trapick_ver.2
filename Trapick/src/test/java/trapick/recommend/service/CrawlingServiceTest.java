@@ -12,6 +12,7 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import trapick.feed.domain.UserVO;
 import trapick.mypage.service.MyPageService;
+import trapick.recommend.domain.HotelVO;
 import trapick.recommend.domain.ItemVO;
 import trapick.recommend.mapper.LandMarkMapper;
 import trapick.schedule.service.ScheduleService;
@@ -47,15 +48,25 @@ public class CrawlingServiceTest {
 /*   
    @Setter(onMethod_ = @Autowired)
    private CrawlingRestService serviceRest;
+<<<<<<< HEAD
    
   
+=======
+   */
+/*  
+>>>>>>> branch 'master' of https://github.com/sprtms16/Trapick_ver.2.git
    @Test
    public void testItemCrwaling(){
       List<ItemVO> list = serviceItem.crawling("파리", null);
       log.info("----------------------------------------Item----------------------------------------");
       log.info(list);
+<<<<<<< HEAD
    }
   
+=======
+   }*/
+  /*
+>>>>>>> branch 'master' of https://github.com/sprtms16/Trapick_ver.2.git
    @Test
    public void testHotelCrwaling(){
       List<ItemVO> list = serviceItem.crawling("런던", "");
@@ -136,14 +147,25 @@ public class CrawlingServiceTest {
 	   log.info(list);
    }
    */
-   
+  /* 
    @Test
    public void test(){
-	   List<UserVO> list = serviceMy.findUser();
+	   List<HotelVO> list = serviceHotel.crawling("뮌헨", "");
 	   
-	   log.info(list);
+	   for(int i=0; i<list.size(); i++){
+		   log.info("프라하"+list.get(i));
+	   }
    }
-   
-   
+   */
+  /*
+   @Test
+   public void test(){
+	   List<ItemVO> list = serviceItem.crawling("뮌헨", "");
+	   
+	   for(int i=0; i<list.size();i++){
+		   log.info(list.get(i));
+	   }
+   }
+   */
    
 }

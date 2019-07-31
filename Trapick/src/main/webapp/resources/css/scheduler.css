@@ -7,15 +7,15 @@ td {
 .liveButton {
    position: absolute;
    z-index: 2;
-   left: 0;
+   right: 0;
    top: 0;
 }
 
 .liveInput {
    position: absolute;
    z-index: 2;
-   left: 23px;
-   top: 0;
+   left: 0px;
+   top: 2px;
 }
 
 td .img {
@@ -129,8 +129,8 @@ table th {
 #asdf {
    width:80px;
    position: absolute;
-   top: 205px;
-   left: 450px;
+   top: 200px;
+   left: 430px;
    margin-bottom: 15px;
 }
 
@@ -199,15 +199,92 @@ table th {
 }
 
 #landmarkDiv img, #tabs img {
-   width: 80px;
+   margin-top:1.5px;
+   width: 100px;
    height: 80px;
 }
 
-.list_detail>div {
-   margin-left: 20px;
-   width: 150px;
+#landmarkDiv #name{
+   margin-top:4px;
+   margin-left:5px;
+   font-size : 13px;
+   font-weight: bold;
+   font-family: fantasy;
    overflow: hidden;
+   text-overflow: ellipsis;
+      white-space: nowrap; 
 }
+
+#landmarkDiv .detail{
+   margin-top:4px;
+   margin-left:5px;
+   text-align:right;
+   font-size : 12px;
+   font-family: cursive;
+   overflow: hidden;
+   text-overflow: ellipsis;
+      white-space: nowrap; 
+}
+
+#itemList .list_detail{
+   margin-left: 20px;
+}
+
+#itemList #name{
+   font-weight: bold;
+   font-family: fantasy;
+   overflow: hidden;
+   text-overflow: ellipsis;
+      white-space: nowrap; 
+}
+
+#itemList #detail{
+   margin-top:4px;
+   margin-left:15px;
+   text-align:center;
+   padding-left:30px;
+   font-size : 12px;
+   font-family: cursive;
+   overflow:hidden;
+   white-space:nowrap;
+   text-overflow: ellipsis;
+}
+
+#itemList #price{
+   font-size : 10px;
+   font-family: Geogia;
+}
+
+#hotelList .list_detail{
+   margin-left: 20px;
+}
+
+
+#hotelList #name{
+   font-weight: bold;
+   font-family: fantasy;
+   overflow: hidden;
+   text-overflow: ellipsis;
+      white-space: nowrap; 
+}
+
+#hotelList #detail{
+   margin-top:4px;
+   margin-left:15px;
+   text-align:center;
+   padding-left:30px;
+   font-size : 12px;
+   font-family: cursive;
+   overflow:hidden;
+   white-space:nowrap;
+   text-overflow: ellipsis;
+}
+
+#hotelList #price{
+   font-size : 10px;
+   font-family: Geogia;
+}
+
 table .list_detail{
    display: none;
 }
@@ -224,6 +301,7 @@ table span{
    width: 120px;
    height: 30px;
 }
+
 #map-po{
    position: relative;
 }
@@ -262,14 +340,14 @@ table span{
 #recommendUserUl li img{
    width: 170px;
    height: 200px;
-   border: solid 1px #A4A4A4;
+   border: solid 3px #D8D8D8;
    z-index: 3;
 }
 
 #recommendUl li img{
    width: 170px;
    height: 200px;
-   border: solid 1px #A4A4A4;
+   border: solid 3px #D8D8D8;
    z-index: 3;
 }
 
@@ -431,11 +509,37 @@ table span{
 #recommendUser{
    margin-top: 20px;
    position: relative;
-   left: -185px;
+   left: -305px;
+   top:30px;
 }
 
 #recommend{
    margin-top: 20px;
    position: relative;
-   left: -185px;
+   left: -350px;
+   top:30px;
+}
+
+#tabs2 li{
+   list-style: none;
+   float: left;
+   margin-bottom: 20px;
+   text-align: center;
+}
+
+#tabs2{
+   margin-top:20px;
+   margin-bottom:20px;
+   position: relative;
+   width: 1000px;
+}
+
+#tabs2 li a {
+   color: black;
+   font-size: 13.5px;
+   font-weight: bold;
+   padding-top: 10px;
+   padding-bottom: 10px;
+   padding-left: 20px;
+   padding-right: 20px;
 }
