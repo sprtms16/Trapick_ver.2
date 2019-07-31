@@ -45,5 +45,11 @@
       where
       user_idx = #{user_idx}
    </update>
+   
+   <select id="findSharer" parameterType="int" resultType="trapick.feed.domain.UserVO">
+   	select id from users u, shareschd s
+	where u.user_idx = s.sharer
+	and s.user_idx = #{user_idx}
+   </select>
 
 </mapper>

@@ -32,11 +32,16 @@ $(function() {
 });
 </script>
 <style>
-table{
-   margin: auto;
-   display: table-cell;
+th, td{
    text-align: center;
    vertical-align: middle;
+}
+#imgResult{
+   margin: 8px;
+}
+.card-body{
+   padding-top: 10px;
+   padding-bottom: 10px;
 }
 </style>
 </head>
@@ -50,8 +55,8 @@ table{
                </div>
                <form action="imgUpload" name="imgUpload" method="post" enctype="multipart/form-data">
                   <input type="file" name="uploadFile" id = "imgFile" class="d-none">
-                  <button type="submit" class="btn btn-light float-right">
-                     <i class="fas fa-camera" style="font-size: 1.5em; color: gray;"></i></button>
+                  <button type="submit" class="btn btn-link float-right">
+                     <i class="fas fa-camera" style="font-size: 1.3em; color: gray;"></i></button>
                </form>
                
             <div class="card-body">
@@ -72,8 +77,8 @@ table{
                        <label>Email</label> <input class="form-control" name='email'
                            value="${user.email }">
                      </div>
-                     <button type="submit" class="btn btn-light float-right">
-                  <i class="fas fa-edit" style="font-size: 1.5em; color: gray;"></i></button>
+                     <button type="submit" class="btn btn-link float-right">
+                  <i class="fas fa-edit" style="font-size: 1.3em; color: gray;"></i></button>
                   </form>              
             </div>
       </div>
@@ -82,25 +87,26 @@ table{
    <div class="col-8">
          <div class="container">
             <h3>내 일정</h3>
+            <div class="table-responsive">
             <table class="table">
                <thead class="thead-light">
                   <tr>
-                        <th scope="col" style="width: 64px;">번호</th>
+                        <th scope="col" style="width: 64px; ">번호</th>
                         <th scope="col" style="width: 230px;">제목</th>
                         <th scope="col" style="width: 110px;">출발일</th>
                         <th scope="col" style="width: 110px;">도착일</th>
-                        <th scope="col"></th>
+                        <th scope="col">삭제/공유</th>
                      
                   </tr>
                </thead>
                <tbody>
-                  <c:forEach items="${list }" var="schedule">
+               <c:forEach items="${list }" var="schedule">
                      <tr>
-                        <th scope="row" id="schd_idx"><c:out value="${schedule.schd_idx }"></c:out></th>
-                        <td><c:out value="${schedule.title }"></c:out></td>
-                        <td><c:out value="${schedule.schd_start }"></c:out></td>
-                        <td><c:out value="${schedule.schd_end }"></c:out></td>
-                        <td>
+                        <th scope="row" id="schd_idx" style="vertical-align: middle;"><c:out value="${schedule.schd_idx }"></c:out></th>
+                        <td style="vertical-align: middle;"><c:out value="${schedule.title }"></c:out></td>
+                        <td style="vertical-align: middle;"><c:out value="${schedule.schd_start }"></c:out></td>
+                        <td style="vertical-align: middle;"><c:out value="${schedule.schd_end }"></c:out></td>
+                        <td style="vertical-align: middle;">
                            <div class="trash" style="float: left; width: 20%;">
                               <button type="button" class="btn btn-link" onclick="deleteSchedule('${schedule.schd_idx }')">
                                  <i class="fas fa-trash-alt" style="color: red;"></i>
@@ -111,7 +117,7 @@ table{
                                  <i class="fas fa-share-alt" style="color: blue;"></i></button>
                            </div>
                            <div class="shared" style="float: left; width: 60%;">
-                              <select id="userShare">
+                              <select class="form-control form-control-sm" id="userShare">
                               <c:forEach items="${userList }" var="userList">
                                  <option id="userShare" value="${userList.user_idx }">${userList.id }
                               </c:forEach>
@@ -119,39 +125,45 @@ table{
                            </div>
                        </td>   
                      </tr>
-                  </c:forEach>
+               </c:forEach>
                </tbody>
            </table>
-            <hr><hr>
+           </div>
+            <br>
+            <br>
             </div>
             <div class="container">
                <h3>공유받은 일정</h3>
-               <table class="table table-hover">
+               <div class="table-responsive">
+               <table class="table">
                   <thead class="thead-light">
                      <tr>
                            <th scope="col" style="width: 64px;">번호</th>
                            <th scope="col" style="width: 230px;">제목</th>
                            <th scope="col" style="width: 110px;">출발일</th>
                            <th scope="col" style="width: 110px;">도착일</th>
-                           <th scope="col"></th>
+                           <th scope="col" style="width: 110px;">공유한 사람</th>
+                           <th scope="col">삭제</th>
                      </tr>
                   </thead>   
                   <tbody>
-                     <c:forEach items="${shareList }" var="list">
+                     <c:forEach items="${shareList }" var="list" varStatus="status">
                         <tr>
-                           <th scope="row" id="schd_idx"><c:out value="${list.schd_idx }"></c:out></th>
-                           <td><c:out value="${list.title }"></c:out></td>
-                           <td><c:out value="${list.schd_start }"></c:out></td>
-                           <td><c:out value="${list.schd_end }"></c:out></td>
-                           <td>
-                              <button type="button" class="btn btn-danger" onclick="deleteSchedule('${schedule.schd_idx }')">
-                                 <i class="fas fa-trash"></i>
+                           <th scope="row" id="schd_idx" style="vertical-align: middle;"><c:out value="${list.schd_idx }"></c:out></th>
+                           <td style="vertical-align: middle;"><c:out value="${list.title }"></c:out></td>
+                           <td style="vertical-align: middle;"><c:out value="${list.schd_start }"></c:out></td>
+                           <td style="vertical-align: middle;"><c:out value="${list.schd_end }"></c:out></td>
+                           <td style="vertical-align: middle;"><c:out value="${sharer[status.index].id }"/></td>
+                           <td style="vertical-align: middle;">
+                              <button type="button" class="btn btn-link" onclick="deleteSchedule('${schedule.schd_idx }')">
+                                 <i class="fas fa-trash-alt" style="color: red;"></i>
                               </button>
                            </td>
                         </tr>
                      </c:forEach>
                   </tbody>
                </table>
+               </div>
             </div>
        </div>
    </div>

@@ -24,4 +24,6 @@ public interface MyPageService {
 	public List<UserVO> findUser();
 	
 	public List<ScheduleVO> sharedSchd(int user_idx);
+	
+	public List<UserVO> sharer(int user_idx);
 }

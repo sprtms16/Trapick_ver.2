@@ -39,10 +39,14 @@ public class MyPageServiceTests {
 	
 	@Test
 	public void test(){
-		List<ScheduleVO> list = service.sharedSchd(3);
+		List<ScheduleVO> list = service.sharedSchd(2);
+		List<UserVO> listSh = service.sharer(2);
 		
 		for(int i=0; i<list.size();i++){
-			log.info(list.get(i));
+			log.info(list.get(i)+"공유자" + listSh.get(i).getId());
 		}
+		
+		
+		
 	}
 }

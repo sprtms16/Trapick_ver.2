@@ -40,6 +40,7 @@ public class MyPageController {
       userList.remove(user_idx-1);
       model.addAttribute("userList", userList);
       model.addAttribute("shareList", service.sharedSchd(user_idx));
+      model.addAttribute("sharer", service.sharer(user_idx));
    }
    
    @RequestMapping(value = "remove/{schd_idx}", method={RequestMethod.GET, RequestMethod.POST})

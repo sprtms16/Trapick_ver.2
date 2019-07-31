@@ -1,5 +1,7 @@
 package trapick.recommend.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class RecommendRestController {
 			@RequestParam List<String> position, @RequestParam List<String> item_name,
 			@RequestParam List<String> item_price, @RequestParam List<String> item_detail,
 			@RequestParam List<String> item_image, @RequestParam String title, @RequestParam String start_time,
-			@RequestParam String end_time) {
+			@RequestParam String end_time) throws UnsupportedEncodingException {
 		System.out.println("일정저장시작");
 		for (int a = 0; a < item_name.size(); a++) {
 			System.out.println(item_name.get(a));
@@ -51,7 +53,7 @@ public class RecommendRestController {
 				landList.add(new SelectedLandMarkVO(0, land_idx.get(i), position.get(i + j)));
 				i++;
 			} else {
-				itemList.add(new SelectedItemVO(0, item_name.get(i + j), item_detail.get(i + j), item_price.get(i + j),
+				itemList.add(new SelectedItemVO(0, URLDecoder.decode(item_name.get(i + j),"UTF-8"), URLDecoder.decode(item_detail.get(i + j),"UTF-8"), URLDecoder.decode(item_price.get(i + j),"UTF-8"),
 						position.get(i + j), item_image.get(i + j), 0));
 				j++;
 			}
