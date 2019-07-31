@@ -47,7 +47,7 @@ public class CrawlingServiceTest {
 /*   
    @Setter(onMethod_ = @Autowired)
    private CrawlingRestService serviceRest;
-   */
+   
   
    @Test
    public void testItemCrwaling(){
@@ -55,7 +55,7 @@ public class CrawlingServiceTest {
       log.info("----------------------------------------Item----------------------------------------");
       log.info(list);
    }
-  /*
+  
    @Test
    public void testHotelCrwaling(){
       List<ItemVO> list = serviceItem.crawling("런던", "");
@@ -63,16 +63,14 @@ public class CrawlingServiceTest {
     	  log.info(list.get(i));  
       }
    }
-   */
-/*
+   
    @Test
    public void testRestCrwaling(){
       List<RestaurantVO> list = service.restCrawling("홍콩");
       log.info("----------------------------------------Rest----------------------------------------");
       log.info(list);
    }
-*/
-   /*
+
    @Test
    public void testItemPrice(){
 	   List<HotelVO> list = serviceHotel.crawling("런던", "");
@@ -87,8 +85,7 @@ public class CrawlingServiceTest {
 	   }
 	   
    }
-   */
-   /*
+
    @Test
    public void testLandmark(){
 	   List<LandmarkVO> list = mapperLandmark.landMarkList("런던");
@@ -105,8 +102,7 @@ public class CrawlingServiceTest {
 		   
 	   }
    }
-   */
-   /*
+
    @Test
    public void test(){
 	   List<LandmarkVO> list = serviceRecommend.recommendLand("런던", "런던아이");
@@ -114,30 +110,26 @@ public class CrawlingServiceTest {
 	   log.info(list);
 	   
    }
-   */
-   /*
+
    @Test
    public void test(){
 	   ItemVO vo = serviceRecommend.recommendItem("런던", "런던아이");
 	   log.info(vo);
    }
    
-   */
-   /*
+
    @Test
    public void test(){
 	   HotelVO vo = serviceRecommend.recommendHotel("런던", "런던아이");
 	   log.info(vo);
    }
-   */
-/*  
+
    @Test
    public void test(){
 	   List<RestaurantVO> vo = serviceRecommend.recommendRest("런던", "런던아이");
 	   log.info(vo);
    }
-*/
-   /*
+
    @Test
    public void test(){
 	   List<LandmarkVO> list = serviceRecommend.userRecommendLand("시카고", 2);

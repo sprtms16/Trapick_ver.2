@@ -21,13 +21,13 @@ public interface RecommendService {
       
        public double deg2rad(double deg);
 	   
-	   public List<LandmarkVO> recommendLand(String city_name, String base_point);
+	   public List<LandmarkVO> recommendLand(String city_name, String lat, String lon);
 	   
-	   public List<ItemVO> recommendItem(String city_name, String base_point);
+	   public List<ItemVO> recommendItem(String city_name, String lat, String lon);
 	   
-	   public List<HotelVO> recommendHotel(String city_name, String base_point);
+	   public List<HotelVO> recommendHotel(String city_name, String lat, String lon);
 	   
-	   public List<RestaurantVO> recommendRest(String city_name, String base_point);
+//	   public List<RestaurantVO> recommendRest(String city_name, String lat, String lon);
 	   
 	   public List<LandmarkVO> userRecommendLand(String city_name, int user_idx);
 	   

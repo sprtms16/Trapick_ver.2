@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface CrawlingService {
    
-   public List<?>crawling(String city_name, String base_point);
+   public List<?>crawling(String city_name, String latBase, String lonBase);
    
 }

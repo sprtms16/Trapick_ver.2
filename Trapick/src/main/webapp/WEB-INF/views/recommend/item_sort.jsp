@@ -50,35 +50,6 @@
 				new google.maps.Size(size_x, size_y), '', '',
 				new google.maps.Size(size_x, size_y));
 
-		// Geocoding ******
-		var address = "한국"; //주소
-		var marker = null;
-		var geocoder = new google.maps.Geocoder();
-
-		geocoder.geocode({
-			'address' : address
-		}, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				map.setCenter(results[0].geometry.location);
-				marker = new google.maps.Marker({
-					map : map,
-					icon : image, // 마커로 사용할 이미지(변수)
-					title : '한밭도서관', // 마커에 마우스 포인트를 갖다댔을 때 뜨는 타이틀
-					position : results[0].geometry.location
-				});
-				var content = "위치"; // 말풍선 안에 들어갈 내용
-
-				var infowindow = new google.maps.InfoWindow({
-					content : content
-				});
-				google.maps.event.addListener(marker, "click", function() {
-					infowindow.open(map, marker);
-				});
-			} else {
-
-			}
-
-		});
 	}
 	google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -87,9 +58,6 @@
 		var lon = parseFloat(lon);
 		var marker = new google.maps.Marker({
 			title : name,
-			//position: {lat: parseFloat(lon) ,lon: parseFloat(lat)},
-			//position : {lat: 37.769, lng: -122.446},
-			//position : {lat: 34.0194543, lng: -118.4911912},
 			position : {
 				lat : lat,
 				lng : lon
@@ -108,7 +76,11 @@
 
 <script type="text/javascript">
 	$(function() {
+
 		$('#hotelList').hide();
+		$('#hotelPriceSort').hide();
+		$('#hotelReviewSort').hide();
+		$('#hotelDistSort').hide();
 		$('#tab-1').addClass('selected');
 
 		$('#tab-3').click(function() {
@@ -116,6 +88,13 @@
 			$('#itemList').hide();
 			$('#tab-1').removeClass('selected');
 			$('#tab-3').addClass('selected');
+			$('#hotelPriceSort').show();
+			$('#hotelReviewSort').show();
+			$('#hotelDistSort').show();
+			$('#itemPriceSort').hide();
+			$('#itemSalesSort').hide();
+			$('#itemHitsSort').hide();
+			$('#itemDistSort').hide();
 		});
 
 		$('#tab-1').click(function() {
@@ -123,6 +102,14 @@
 			$('#hotelList').hide();
 			$('#tab-1').addClass('selected');
 			$('#tab-3').removeClass('selected');
+			$('#hotelList').hide();
+			$('#hotelPriceSort').hide();
+			$('#hotelReviewSort').hide();
+			$('#hotelDistSort').hide();
+			$('#itemPriceSort').show();
+			$('#itemSalesSort').show();
+			$('#itemHitsSort').show();
+			$('#itemDistSort').show();
 		});
 
 		function hidePopup() {
@@ -135,10 +122,11 @@
 			var winWidth = 700;
 			var winHeight = 600;
 			var popupOption = "width=" + winWidth + ", height=" + winHeight; //팝업창 옵션(optoin)
-			var detail = $selector.parent().find('#detail').text();
-			var name = $selector.parent().find('#name').text();
-			var price = $selector.parent().find('#price').text();
-			var image = $selector.parent().find('img').attr('src');
+			var detail = $selector.parent().find('input[name=item_detail]')
+					.val();
+			var name = $selector.parent().find('input[name=item_name]').val();
+			var price = $selector.parent().find('input[name=item_price]').val();
+			var image = $selector.parent().find('input[name=item_image]').val();
 			var str = '<img src = "'+image+'"><br>이름 : ' + name + '<br>상세설명 : '
 					+ detail + '<br>가격 : ' + price;
 			window.open(url, "", popupOption).document.write(str);
@@ -162,6 +150,7 @@
 			$('table .detailbt').click(function() {
 				pop($(this));
 			})
+
 		}
 
 		//드래그엔 드롭 함수
@@ -176,31 +165,38 @@
 								revert : true,
 								start : function(e, ui) {
 									html = "";
-									html += '<button type="button" class="delete_schedule btn btn-default liveButton">x</button>';
-									html += '<input type ="button" class = "detailbt liveInput" value ="상세보기">';
+									html += '<button type="button" class="delete_schedule btn btn-danger liveButton">x</button>';
+									html += '<img src="../resources/image/loupe.png" class="detailbt liveInput">'
+									/* html += '<input type ="button" class = "detailbt liveInput" value ="상세보기">'; */
 									html += $(this).html();
 								},
 								stop : function(e, ui) {
 									event();
 								}
 							});
+			$('.drag').mouseover(function() {
+				$(this).css('background-color', '#E0ECF8');
+			})
+			$('.drag').mouseleave(function() {
+				$(this).css('background-color', 'white');
+			})
 		}
 
 		$('table td:not(.time)')
 				.droppable(
 						{
 							accept : "div:not(.ho)",
-							
+
 							drop : function(event, ui) {
 
-								/*                         var lon = $(ui.draggable).find(
-								 'input[name=longitude]').val();
-								 var lat = $(ui.draggable).find(
-								 'input[name=latitude]').val();
-								 var name = $(ui.draggable).find(
-								 'input[name=item_name]').val(); */
+								var lon = $(ui.draggable).find(
+										'input[name=longitude]').val();
+								var lat = $(ui.draggable).find(
+										'input[name=latitude]').val();
+								var name = $(ui.draggable).find(
+										'input[name=item_name]').val();
 
-								/* addMarker(name, lat, lon); */
+								addMarker(name, lat, lon);
 
 								$(this).addClass('select');
 								$(this).empty();
@@ -208,11 +204,6 @@
 								html += '<input name = "position" type="hidden" value ="'+te+'">';
 								$(this).append(html);
 								html = "";
-
-								var lat = "";
-								var lon = "";
-								lat = $('input[name=latitude]').val();
-								lon = $('input[name=longitude]').val();
 
 								var user_idx = 1;
 
@@ -235,10 +226,10 @@
 																data,
 																function(index,
 																		item) {
-																	var text = '<div class="row drag"><div class="list_thumb"><img src='
-                                        +item.image+' class ="img"></div><div class="list_detail" id="landDetail"><div class="name" id="name">'
+																	var text = '<div class="row drag"><div class="recommendList_thumb"><img src='
+                                        +item.image+' class ="img"><span id = "category">명소<span></div><div class="recommendDetail" id="recommendDetailName"><div class="name" id="name">'
 																			+ item.name
-																			+ '</div><div   class="detail"  id="detail">'
+																			+ '</div><div   class="detail"  id="recommendDetail">'
 																			+ item.detail
 																			+ '</div>'
 																			+ '</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
@@ -275,10 +266,10 @@
 																data,
 																function(index,
 																		item) {
-																	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                      +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
+																	var text = '<div class="row drag" ><div class="recommendList_thumb" ><img class="img" src='
+                      +item.image+'><span id = "category">상품<span></div><div class="recommendDetail" id="recommendDetailName"><div class="name" id="name">'
 																			+ item.name
-																			+ '</div><div id ="detail" class="row">'
+																			+ '</div><div   class="detail"  id="recommendDetail">'
 																			+ item.detail
 																			+ '</div><div  id="price" class="row">'
 																			+ item.price
@@ -317,10 +308,10 @@
 																data,
 																function(index,
 																		item) {
-																	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                      +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
+																	var text = '<div class="row drag" ><div class="recommendList_thumb" ><img class="img" src='
+                                                             +item.image+'><span id = "category">호텔<span></div><div class="recommendDetail" id="recommendDetailName"><div class="name" id="name">'
 																			+ item.name
-																			+ '</div><div id ="detail" class="row">'
+																			+ '</div><div   class="detail"  id="recommendDetail">'
 																			+ item.detail
 																			+ '</div><div  id="price" class="row">'
 																			+ item.price
@@ -334,128 +325,6 @@
 
 																	$(
 																			'#recommendHotel')
-																			.append(
-																					text);
-																})
-												dragFun();
-											}
-										});
-
-								//사용자 기반 추천
-								$
-										.ajax({
-											url : '/Rest/recommend/landmarkUserRecommend',
-											type : 'post',
-											dataType : 'json',
-											data : {
-												city_name : '<c:out value="${city_name}"/>',
-												user_idx : 2
-											},
-											success : function(data) {
-												$('#recommendUserLand').empty();
-												$
-														.each(
-																data,
-																function(index,
-																		item) {
-																	var text = '<div class="row drag"><div class="list_thumb"><img src='
-                                           +item.image+' class ="img"></div><div class="list_detail" id="landDetail"><div class="name" id="name">'
-																			+ item.name
-																			+ '</div><div   class="detail"  id="detail">'
-																			+ item.detail
-																			+ '</div>'
-																			+ '</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
-																			+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-																			+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-																			+ '<input type ="hidden" name ="item_image" value = '+item.image+'>'
-																			+ '<input type ="hidden" name ="item_detail" value = '+item.detail+'>'
-																			+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-
-																	$(
-																			'#recommendUserLand')
-																			.append(
-																					text);
-																})
-												dragFun();
-											}
-										});
-
-								//item
-								$
-										.ajax({
-											url : '/Rest/recommend/itemUserRecommend.json',
-											type : 'post',
-											dataType : 'json',
-											data : {
-												city_name : '<c:out value="${city_name}"/>',
-												user_idx : 2
-											},
-											success : function(data) {
-												$('#recommendUserItem').empty();
-												$
-														.each(
-																data,
-																function(index,
-																		item) {
-																	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                         +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
-																			+ item.name
-																			+ '</div><div id ="detail" class="row">'
-																			+ item.detail
-																			+ '</div><div  id="price" class="row">'
-																			+ item.price
-																			+ '</div>'
-																			+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-																			+ '<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
-																			+ '<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
-																			+ '<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
-																			+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-																			+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-
-																	$(
-																			'#recommendUserItem')
-																			.append(
-																					text);
-																})
-												dragFun();
-											}
-										});
-
-								//Hotel
-								$
-										.ajax({
-											url : '/Rest/recommend/hotelUserRecommend.json',
-											type : 'post',
-											dataType : 'json',
-											data : {
-												city_name : '<c:out value="${city_name}"/>',
-												user_idx : 2
-											},
-											success : function(data) {
-												$('#recommendUserHotel')
-														.empty();
-												$
-														.each(
-																data,
-																function(index,
-																		item) {
-																	var text = '<div class="row drag" ><div class="list_thumb" ><img class="img" src='
-                         +item.image+'></div><div class="list_detail"><div id = "name" class="row">'
-																			+ item.name
-																			+ '</div><div id ="detail" class="row">'
-																			+ item.detail
-																			+ '</div><div  id="price" class="row">'
-																			+ item.price
-																			+ '</div>'
-																			+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
-																			+ '<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
-																			+ '<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
-																			+ '<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
-																			+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
-																			+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
-
-																	$(
-																			'#recommendUserHotel')
 																			.append(
 																					text);
 																})
@@ -688,7 +557,7 @@
 																					+ ')')
 																			.attr(
 																					'name');
-																	var text = '<button type="button" class="delete_schedule btn btn-default liveButton">x</button><input type ="button" class = "detailbt liveInput" value ="상세보기"><div class="list_thumb"><img src='
+																	var text = '<button type="button" class="delete_schedule btn btn-danger liveButton">x</button><img src="../resources/image/loupe.png" class="detailbt liveInput"><div class="list_thumb"><img src='
                             +item.image+' class ="img"></div><div class="list_detail"  id="landDetail"><div class="name" id="name">'
 																			+ item.item_name
 																			+ '</div><div   class="detail"  id="detail">'
@@ -718,7 +587,7 @@
 																			.attr(
 																					'name');
 
-																	var text = '<button type="button" class="delete_schedule btn btn-default liveButton">x</button><input type ="button" class = "detailbt liveInput" value ="상세보기"><div class="list_thumb"><img src='
+																	var text = '<button type="button" class="delete_schedule btn btn-danger liveButton">x</button><img src="../resources/image/loupe.png" class="detailbt liveInput"><div class="list_thumb"><img src='
                                     +item.image+' class ="img"></div><div class="list_detail"  id="landDetail"><div class="name" id="name">'
 																			+ item.item_name
 																			+ '</div><div   class="detail"  id="detail">'
@@ -789,6 +658,9 @@
 						dragFun();
 					}
 				})
+		$('landmarkDiv .cc').click(function() {
+			alert("df");
+		})
 
 		$
 				.ajax({
@@ -864,6 +736,118 @@
 						dragFun();
 					}
 				})
+
+		//사용자 기반 추천
+		$
+				.ajax({
+					url : '/Rest/recommend/landmarkUserRecommend',
+					type : 'post',
+					dataType : 'json',
+					data : {
+						city_name : '<c:out value="${city_name}"/>',
+						user_idx : 2
+					},
+					success : function(data) {
+						$('#recommendUserLand').empty();
+						$
+								.each(
+										data,
+										function(index, item) {
+											var text = '<div class="row drag" ><div class="recommendList_thumb" ><img class="img" src='
+                                                             +item.image+'><span id = "category">명소<span></div><div class="recommendDetail" id="recommendDetailName"><div class="name" id="name">'
+													+ item.name
+													+ '</div><div   class="detail"  id="recommendDetail">'
+													+ item.detail
+													+ '</div>'
+													+ '</div><input type = "hidden" name ="land_idx" value ="'+item.land_idx+'"/><input type = "hidden" name = "item_price" value = "0">'
+													+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+													+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+													+ '<input type ="hidden" name ="item_image" value = '+item.image+'>'
+													+ '<input type ="hidden" name ="item_detail" value = '+item.detail+'>'
+													+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+
+											$('#recommendUserLand')
+													.append(text);
+										})
+						dragFun();
+					}
+				});
+
+		//item
+		$
+				.ajax({
+					url : '/Rest/recommend/itemUserRecommend.json',
+					type : 'post',
+					dataType : 'json',
+					data : {
+						city_name : '<c:out value="${city_name}"/>',
+						user_idx : 2
+					},
+					success : function(data) {
+						$('#recommendUserItem').empty();
+						$
+								.each(
+										data,
+										function(index, item) {
+											var text = '<div class="row drag" ><div class="recommendList_thumb" ><img class="img" src='
+                                                             +item.image+'><span id = "category">상품<span></div><div class="recommendDetail" id="recommendDetailName"><div class="name" id="name">'
+													+ item.name
+													+ '</div><div   class="detail"  id="recommendDetail">'
+													+ item.detail
+													+ '</div><div  id="price" class="row">'
+													+ item.price
+													+ '</div>'
+													+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+													+ '<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+													+ '<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+													+ '<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+													+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+													+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+
+											$('#recommendUserItem')
+													.append(text);
+										})
+						dragFun();
+					}
+				});
+
+		//Hotel
+		$
+				.ajax({
+					url : '/Rest/recommend/hotelUserRecommend.json',
+					type : 'post',
+					dataType : 'json',
+					data : {
+						city_name : '<c:out value="${city_name}"/>',
+						user_idx : 2
+					},
+					success : function(data) {
+						$('#recommendUserHotel').empty();
+						$
+								.each(
+										data,
+										function(index, item) {
+											var text = '<div class="row drag" ><div class="recommendList_thumb" ><img class="img" src='
+                                                             +item.image+'><span id = "category">호텔<span></div><div class="recommendDetail" id="recommendDetailName"><div class="name" id="name">'
+													+ item.name
+													+ '</div><div   class="detail"  id="recommendDetail">'
+													+ item.detail
+													+ '</div><div  id="price" class="row">'
+													+ item.price
+													+ '</div>'
+													+ '<input type = "hidden" name ="item_name" value ="'+item.name+'"/>'
+													+ '<input type = "hidden" name ="item_price" value ="'+item.price+'"/>'
+													+ '<input type = "hidden" name ="item_image" value ="'+item.image+'"/>'
+													+ '<input type = "hidden" name ="item_detail" value ="'+item.detail+'"/>'
+													+ '<input type ="hidden" name ="latitude" value = '+item.latitude+'>'
+													+ '<input type ="hidden" name ="longitude" value = "'+item.longitude+'"></div>';
+
+											$('#recommendUserHotel').append(
+													text);
+										})
+						dragFun();
+					}
+				});
 
 		//도시선택시 ajax 구동
 		$('#city_search')
@@ -1140,7 +1124,6 @@
 									})
 						});
 
-
 		//호텔
 		//가격순
 		$('#hotelPriceSort')
@@ -1371,6 +1354,20 @@
 		 }, 10000); */
 	});
 </script>
+<script type="text/javascript">
+	$(function() {
+		var floatPosition = parseInt($("#map-canvas").css('top'));
+
+		$(window).scroll(function() {
+			var scrollTop = $(window).scrollTop();
+			var newPosition = scrollTop + floatPosition + "px";
+
+			$("#map-canvas").css('top', newPosition);
+
+		}).scroll();
+
+	})
+</script>
 <title>여행상품</title>
 </head>
 <body>
@@ -1386,20 +1383,39 @@
 		<img src="../resources/image/loading.jpg" id="im" />
 	</div>
 	<p id="subject">Travel Scheduler</p>
+	<br>
+	<br>
 	<div id="asdf">
-		<select id="city" name="city_name">
+		<select id="city" name="city_name" class="form-control">
 			<c:forEach var="cityList" items="${cityList }">
 				<option value="${cityList }">${cityList }</option>
 			</c:forEach>
 		</select>
-		<button id="city_search">검색</button>
+		<button id="city_search" class="btn btn-info">검색</button>
+	</div>
+	<div id="asdf2">
+		<button id="itemPriceSort" name="price" class="btn btn-info btn-lg">가격순</button>
+		<button id="itemSalesSort" name="price" class="btn btn-info btn-lg">판매순</button>
+		<button id="itemDistSort" name="price" class="btn btn-info btn-lg">거리순</button>
+		<button id="hotelPriceSort" name="price" class="btn btn-info btn-lg">가격순</button>
+		<button id="hotelReviewSort" name="price" class="btn btn-info btn-lg">리뷰순</button>
+		<button id="hotelDistSort" name="price" class="btn btn-info btn-lg">거리순</button>
+		<button id="landmarkDistSort" name="price" class="btn btn-info btn-lg">거리순</button>
+		<button id="landmarkHitsSort" name="price" class="btn btn-info btn-lg">인기순</button>
+		<!--<button id="itemHitsSort" name="price" class="btn btn-info">상품 인기순</button> -->
 	</div>
 	<div class="container">
 
-		<div class="row">
-			<div class="col-5">
+		<div id="map-po" class="row fix-gutters">
+			<div class="col-md-5">
 				<!-- Temp_Scheduler -->
 				<form id="courseData" action="/mypage/list" method="get">
+					<div id="schedule_title">
+						<input type="text" name="title" class="form-control"
+							id="titleSche" placeholder="일정 제목">
+					</div>
+					<button id="course" class="btn btn-info btn-lg">경로 추천</button>
+					<button id="save" class="btn btn-info btn-lg">일정 저장</button>
 					<table id="mySheduleTable" border=2>
 						<tr>
 							<th>일정</th>
@@ -1408,7 +1424,6 @@
 							<th>12:00 ~ 15:00</th>
 							<th>15:00 ~ 18:00</th>
 							<th>18:00 ~ 21:00</th>
-							<th>21:00 ~ 24:00</th>
 						</tr>
 						<c:forEach begin="1" end="${day }" varStatus="index">
 							<tr>
@@ -1418,21 +1433,18 @@
 								<td name="${index.count }-3"></td>
 								<td name="${index.count }-4"></td>
 								<td name="${index.count }-5"></td>
-								<td name="${index.count }-6"></td>
 							</tr>
 						</c:forEach>
 					</table>
 
-					<br> <label>일정제목</label> <input type="text" name="title">
-					<button id="course" class="btn btn-secondary btn-lg">경로 추천</button>
-					<button id="save" class="btn btn-secondary btn-lg">일정 저장</button>
+
 					<input type="hidden" name="schd_idx" value="${schd_idx }">
 					<input type="hidden" name="start_time" value="${start_time }">
 					<input type="hidden" name="end_time" value="${end_time }">
 				</form>
 			</div>
 
-			<div class="col-1">
+			<div class="col-md-1">
 				<form id="savet">
 					<table id="hotelTable" border=2>
 						<tr>
@@ -1446,45 +1458,16 @@
 					</table>
 				</form>
 			</div>
-
-			<div class="col-3" id="city_List">
+			<div class="col-md-3" id="city_List">
 				<div id="landMarkList">
-					<ul>
+					<ul id="landUl">
 						<li><a id="land">관광지</a></li>
 					</ul>
 					<div id="landmarkDiv"></div>
 				</div>
 			</div>
-
-
-
-
-
 			<!-- sort button -->
-			<div class="col-3">
-				<div id="asdf2">
-					<button id="itemPriceSort" name="price" class="btn btn-primary">상품
-						가격순</button>
-					<button id="itemSalesSort" name="price" class="btn btn-primary">상품
-						판매순</button>
-					<button id="itemHitsSort" name="price" class="btn btn-primary">상품
-						인기순</button>
-					<button id="itemDistSort" name="price" class="btn btn-primary">상품
-						거리순</button>
-					<button id="hotelPriceSort" name="price" class="btn btn-primary">숙박
-						가격순</button>
-					<button id="hotelReviewSort" name="price" class="btn btn-primary">숙박
-						리뷰순</button>
-					<button id="hotelDistSort" name="price" class="btn btn-primary">숙박
-						거리순</button>
-					<button id="landmarkDistSort" name="price" class="btn btn-primary">명소
-						거리순</button>
-					<button id="landmarkHitsSort" name="price" class="btn btn-primary">명소
-						인기순</button>
-				</div>
-
-
-
+			<div class="col-md-3">
 				<div id="tabs">
 					<ul>
 						<li><a href="#" id="tab-1">상품</a></li>
@@ -1498,29 +1481,28 @@
 					</div>
 				</div>
 			</div>
-
-			<div id="asdasfdfasdfadsf">
-				<div id="recommendLand"></div>
-				<div id="recommendItem"></div>
-				<div id="recommendHotel"></div>
+			<div id="tabs2">
+				<ul>
+					<li><a href="#" id="tab-1">사용자 맞춤 추천</a></li>
+					<li><a href="#" id="tab-3">Trapick 추천</a></li>
+				</ul>
+			<div id="recommend">
+				<ul id="recommendUl">
+					<li id="recommendLand"></li>
+					<li id="recommendItem"></li>
+					<li id="recommendHotel"></li>
+				</ul>
 			</div>
-
-			<div id="asdasfdfasdfadsf2">
-				<div id="recommendUserLand"></div>
-				<div id="recommendUserItem"></div>
-				<div id="recommendUserHotel"></div>
+			<div id="recommendUser">
+				<ul id="recommendUserUl">
+					<li id="recommendUserLand"></li>
+					<li id="recommendUserItem"></li>
+					<li id="recommendUserHotel"></li>
+				</ul>
 			</div>
+			</div>
+			<div id="map-canvas" style="width: 250px; height: 250px" title="지도"></div>
 		</div>
-	</div>
-
-
-	<form id="saveSchedule" action="/recommend/saveSchedule" method="post">
-		<input type="hidden" name="title" value=""> <input
-			type="hidden" name="schd_idx" value=${schd_idx }>
-	</form>
-	<div class="row">
-		<div id="map-canvas" style="width: 40%; height: 340px" title="지도"
-			id="Map"></div>
 	</div>
 </body>
 </html>
