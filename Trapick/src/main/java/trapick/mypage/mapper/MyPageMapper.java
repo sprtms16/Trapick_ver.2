@@ -11,7 +11,7 @@ public interface MyPageMapper {
 
 	public List<ScheduleVO> scheduleList(UserVO userVO);
 
-	public List<UserVO> findUser();
+	public List<UserVO> findUser(int user_idx);
 
 	public UserVO userInfo(int user_idx);
 

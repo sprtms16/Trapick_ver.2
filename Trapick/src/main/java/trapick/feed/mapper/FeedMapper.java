@@ -16,7 +16,7 @@ public interface FeedMapper {
 
 	List<FeedVO> feedList(Map<String, Object> map);
 
-	FeedVO getFeed(int feed_idx);
+	FeedVO getFeed(Map<String, Object> map);
 
 	int deleteFeed(int feed_idx);
 

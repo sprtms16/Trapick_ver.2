@@ -36,8 +36,7 @@ public class MyPageController {
        }else{
           userVO.setImg_path("/resources/upload/"+userVO.getImg_path());
        }
-      List<UserVO> userList = service.findUser();
-      userList.remove(user_idx-1);
+      List<UserVO> userList = service.findUser(user_idx);
       model.addAttribute("userList", userList);
       model.addAttribute("shareList", service.sharedSchd(user_idx));
    }

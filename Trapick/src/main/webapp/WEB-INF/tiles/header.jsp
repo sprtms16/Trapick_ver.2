@@ -44,14 +44,22 @@
 											)
 									).append(
 											$('<p>').attr("class","mb-1").text(item.feed.contents)
-									)
+									).attr("data-href","/feed/feed/"+item.feed.feed_idx)
+									.attr("data-toggle","modal")
+									.attr("data-target","#feedModal")
 							);
 						})
 						
 					}
 				});
 				
-			})
+			});
+			$('#feedModal').on('show.bs.modal', function(event) {
+				var button = $(event.relatedTarget); // Button that triggered the modal
+				var href = button.data('href'); // Extract info from data-* attributes
+				var modal = $(this);
+				modal.find('.modal-body').load(href);
+			});
 		});
 	</script>
 </header>
@@ -73,7 +81,7 @@
 
 		<c:choose>
 			<c:when test="${sessionScope.user_idx ne null}">
-				<a class="nav-link text-light">${user_idx }</a>
+				<a class="nav-link text-light" href="/">${user_idx }</a>
 				<a class="nav-link text-light" href="/sign/logout">로그아웃</a>
 			</c:when>
 			<c:otherwise>
@@ -113,6 +121,27 @@
 
 			<!-- Modal body -->
 			<div class="modal-body list-group" style="max-height: 300px;overflow-y: scroll;"></div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="feedModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">피드</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body"></div>
 
 			<!-- Modal footer -->
 			<div class="modal-footer">

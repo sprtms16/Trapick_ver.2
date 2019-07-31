@@ -21,7 +21,7 @@ public interface MyPageService {
 
 	public boolean share(int user_idx, int schd_idx, int share);
 
-	public List<UserVO> findUser();
+	public List<UserVO> findUser(int user_idx);
 
 	public List<ScheduleVO> sharedSchd(int user_idx);
 }

@@ -94,8 +94,8 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<UserVO> findUser() {
-		return mapper.findUser();
+	public List<UserVO> findUser(int user_idx) {
+		return mapper.findUser(user_idx);
 	}
 
 	@Override

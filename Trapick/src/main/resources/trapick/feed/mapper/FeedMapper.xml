@@ -20,9 +20,9 @@
 		left JOIN
 		FEED_HEART h
 		on
-		f.feed_idx = h.feed_idx and h.user_idx =1
+		f.feed_idx = h.feed_idx and h.user_idx =#{user_idx}
 		left JOIN
-		feed_subscribe s on f.user_idx = s.feeder and s.subscriber = 1
+		feed_subscribe s on f.user_idx = s.feeder and s.subscriber = #{user_idx}
 		JOIN
 		schedule c on f.schd_idx = c.schd_idx
 		<where>
@@ -32,6 +32,7 @@
 			</if>
 		</where>
 		order by f.regdate desc
+
 	</select>
 
 	<insert id="insertFeed">
@@ -77,8 +78,31 @@
 	</update>
 
 	<select id="getFeed" resultType="trapick.feed.domain.FeedVO">
-		select * from feed where
-		feed_idx = #{feed_idx}
+		select
+		f.*,
+		nvl2(h.user_idx,1,0)
+		as islike, nvl2(s.subscriber,1,0) as
+		issubs,
+		(select COUNT(*) from
+		feed_heart where feed_heart.FEED_IDX =
+		f.FEED_IDX) as
+		heart,
+		TO_DATE(c.schd_end,'YYYY-MM-DD') -
+		TO_DATE(c.schd_start,
+		'YYYY-MM-DD')as travelDates
+		from
+		feed f
+		left JOIN
+		FEED_HEART h
+		on
+		f.feed_idx = h.feed_idx and h.user_idx = #{user_idx}
+		left JOIN
+		feed_subscribe s on
+		f.user_idx = s.feeder and s.subscriber = #{user_idx}
+		JOIN
+		schedule c on f.schd_idx
+		= c.schd_idx where
+		f.feed_idx = #{feed_idx}
 	</select>
 
 	<select id="selectMyFeedList" resultType="trapick.feed.domain.FeedVO">
@@ -150,12 +174,12 @@
 	<resultMap type="trapick.feed.domain.AlertSubscribeVO" id="AlertSubscribe">
 		<result property="alert_type" column="alert_type" />
 		<result property="read" column="read" />
-		<collection property="feeder" column="feeder" ofType="trapick.feed.domain.UserVO"
-			select="getUser" />
-		<collection property="subscriber" column="subscriber" ofType="trapick.feed.domain.UserVO"
-			select="getUser" />
-		<collection property="feed" column="feed_idx" ofType="trapick.feed.domain.FeedVO"
-			select="getFeed" />
+		<collection property="feeder" column="feeder"
+			ofType="trapick.feed.domain.UserVO" select="getUser" />
+		<collection property="subscriber" column="subscriber"
+			ofType="trapick.feed.domain.UserVO" select="getUser" />
+		<collection property="feed" column="feed_idx"
+			ofType="trapick.feed.domain.FeedVO" select="getFeed" />
 
 	</resultMap>
 

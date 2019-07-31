@@ -46,8 +46,8 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	@Override
-	public FeedVO getFeed(int feed_idx) {
-		return mapper.getFeed(feed_idx);
+	public FeedVO getFeed(Map<String, Object> map) {
+		return mapper.getFeed(map);
 	}
 
 	@Override

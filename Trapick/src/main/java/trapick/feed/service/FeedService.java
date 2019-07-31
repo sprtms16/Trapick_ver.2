@@ -22,7 +22,7 @@ public interface FeedService {
 
 	public List<FeedVO> getList(Map<String, Object> map);
 
-	public FeedVO getFeed(int feed_idx);
+	public FeedVO getFeed(Map<String, Object> map);
 
 	public int switchingHeart(HeartVO vo);
 

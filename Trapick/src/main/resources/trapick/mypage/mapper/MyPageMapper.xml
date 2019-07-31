@@ -10,7 +10,7 @@
    </select>
 
    <select id="findUser" resultType="trapick.feed.domain.UserVO">
-      select * from users
+      select * from users where user_idx != #{user_idx}
    </select>
 
    <select id="userInfo" resultType="trapick.feed.domain.UserVO">

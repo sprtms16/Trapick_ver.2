@@ -8,13 +8,16 @@
 	<definition name="baseEmpty" template="/WEB-INF/tiles/templateEmpty.jsp">
 	</definition>
 
-	 <definition name="sign/*" extends="baseEmpty">
+	<definition name="sign/*" extends="baseEmpty">
 		<put-attribute name="body" value="/WEB-INF/views/sign/{1}.jsp" />
-	</definition> 
-	 <definition name="feed/echo" extends="baseEmpty">
+	</definition>
+	<definition name="feed/echo" extends="baseEmpty">
 		<put-attribute name="body" value="/WEB-INF/views/feed/echo.jsp" />
-	</definition> 
-	
+	</definition>
+	<definition name="feed/feed" extends="baseEmpty">
+		<put-attribute name="body" value="/WEB-INF/views/feed/feed.jsp" />
+	</definition>
+
 	<!-- 메뉴 표시 -->
 	<definition name="base" template="/WEB-INF/tiles/template.jsp">
 		<!-- <put-attribute name="left" value="/WEB-INF/tiles/left.jsp" /> -->
