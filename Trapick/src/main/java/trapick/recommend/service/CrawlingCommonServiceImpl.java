@@ -11,65 +11,7 @@ public class CrawlingCommonServiceImpl implements CrawlingCommonService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private RecommendMapper mapper;
-/*
-   @Override
-      public String getLatitude(String cityName, String placeName) {
 
-         String url_location = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + placeName + "&key=AIzaSyCafdAtR2qeRHV-G6art-6-guHlmJBL_1s";
-
-         String latitude = "";
-
-         try {
-
-            Document doc_location = Jsoup.connect(url_location).ignoreHttpErrors(true).get();
-
-            latitude = doc_location.select("location").select("lat").text();
-          
-            if (latitude.length() < 10 || latitude == null) {
-               String url_temp = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + cityName + "&key=AIzaSyCafdAtR2qeRHV-G6art-6-guHlmJBL_1s";
-               Document doc_temp = Jsoup.connect(url_temp).ignoreHttpErrors(true).get();
-               latitude = doc_temp.select("location").select("lat").text();
-            }
-            if (latitude.length() > 15) {
-               latitude = latitude.substring(latitude.lastIndexOf(" ") + 1);
-            }
-         } catch (Exception e) {
-            e.printStackTrace();
-         }
-
-         return latitude;
-      }
-
-      // 경도 Method
-      @Override
-      public String getLongitude(String cityName, String placeName) {
-
-         String url_location = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + placeName
-               + "&key=AIzaSyDb_AIzaSyCafdAtR2qeRHV-G6art-6-guHlmJBL_1s";
-
-         String longitude = "";
-
-         try {
-            Document doc_location = Jsoup.connect(url_location).ignoreHttpErrors(true).get();
-            longitude = doc_location.select("location").select("lng").text();
-
-            if (longitude.length() < 10) {
-               String url_temp = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + cityName
-                     + "&key=AIzaSyCafdAtR2qeRHV-G6art-6-guHlmJBL_1s";
-               Document doc_temp = Jsoup.connect(url_temp).ignoreHttpErrors(true).get();
-               longitude = doc_temp.select("location").select("lng").text();
-            }
-
-            if (longitude.length() > 15) {
-               longitude = longitude.substring(longitude.lastIndexOf(" ") + 1);
-            }
-         } catch (Exception e) {
-            e.printStackTrace();
-         }
-
-         return longitude;
-      }
-      */
       
 	  //거리 Method
       public double getDist(String latitude, String longitude, String baseLat, String baseLon){

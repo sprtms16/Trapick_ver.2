@@ -48,15 +48,25 @@ public class CrawlingServiceTest {
 /*   
    @Setter(onMethod_ = @Autowired)
    private CrawlingRestService serviceRest;
+<<<<<<< HEAD
+   
+  
+=======
    */
 /*  
+>>>>>>> branch 'master' of https://github.com/sprtms16/Trapick_ver.2.git
    @Test
    public void testItemCrwaling(){
       List<ItemVO> list = serviceItem.crawling("파리", null);
       log.info("----------------------------------------Item----------------------------------------");
       log.info(list);
+<<<<<<< HEAD
+   }
+  
+=======
    }*/
   /*
+>>>>>>> branch 'master' of https://github.com/sprtms16/Trapick_ver.2.git
    @Test
    public void testHotelCrwaling(){
       List<ItemVO> list = serviceItem.crawling("런던", "");
@@ -64,16 +74,14 @@ public class CrawlingServiceTest {
     	  log.info(list.get(i));  
       }
    }
-   */
-/*
+   
    @Test
    public void testRestCrwaling(){
       List<RestaurantVO> list = service.restCrawling("홍콩");
       log.info("----------------------------------------Rest----------------------------------------");
       log.info(list);
    }
-*/
-   /*
+
    @Test
    public void testItemPrice(){
 	   List<HotelVO> list = serviceHotel.crawling("런던", "");
@@ -88,8 +96,7 @@ public class CrawlingServiceTest {
 	   }
 	   
    }
-   */
-   /*
+
    @Test
    public void testLandmark(){
 	   List<LandmarkVO> list = mapperLandmark.landMarkList("런던");
@@ -106,8 +113,7 @@ public class CrawlingServiceTest {
 		   
 	   }
    }
-   */
-   /*
+
    @Test
    public void test(){
 	   List<LandmarkVO> list = serviceRecommend.recommendLand("런던", "런던아이");
@@ -115,30 +121,26 @@ public class CrawlingServiceTest {
 	   log.info(list);
 	   
    }
-   */
-   /*
+
    @Test
    public void test(){
 	   ItemVO vo = serviceRecommend.recommendItem("런던", "런던아이");
 	   log.info(vo);
    }
    
-   */
-   /*
+
    @Test
    public void test(){
 	   HotelVO vo = serviceRecommend.recommendHotel("런던", "런던아이");
 	   log.info(vo);
    }
-   */
-/*  
+
    @Test
    public void test(){
 	   List<RestaurantVO> vo = serviceRecommend.recommendRest("런던", "런던아이");
 	   log.info(vo);
    }
-*/
-   /*
+
    @Test
    public void test(){
 	   List<LandmarkVO> list = serviceRecommend.userRecommendLand("시카고", 2);
