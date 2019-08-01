@@ -39,6 +39,7 @@ public class MyPageController {
       List<UserVO> userList = service.findUser(user_idx);
       model.addAttribute("userList", userList);
       model.addAttribute("shareList", service.sharedSchd(user_idx));
+      model.addAttribute("sharer", service.sharer(user_idx));
    }
    
    @RequestMapping(value = "remove/{schd_idx}", method={RequestMethod.GET, RequestMethod.POST})
@@ -46,7 +47,7 @@ public class MyPageController {
       if(service.remove(schd_idx)){
          rttr.addFlashAttribute("result", "success");
       }
-      return "redirect:/mypage/list";
+      return "redirect:/mypage/mypage";
    }
    
    @RequestMapping(value = "share/{user}/{schd_idx}", method={RequestMethod.GET, RequestMethod.POST})

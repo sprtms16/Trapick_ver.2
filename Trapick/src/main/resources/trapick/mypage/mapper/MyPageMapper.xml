@@ -10,7 +10,8 @@
 	</select>
 
 	<select id="findUser" resultType="trapick.feed.domain.UserVO">
-		select * from users where user_idx != #{user_idx}
+		select * from users where
+		user_idx != #{user_idx}
 	</select>
 
 	<select id="userInfo" resultType="trapick.feed.domain.UserVO">
@@ -48,7 +49,15 @@
 	<update id="updateImg">
 		update users set img_path = #{img_path}
 		where
-		user_idx = #{user_idx}
+		user_idx
+		= #{user_idx}
 	</update>
+
+	<select id="findSharer" parameterType="int"
+		resultType="trapick.feed.domain.UserVO">
+		select id from users u, shareschd s
+		where u.user_idx = s.sharer
+		and s.user_idx = #{user_idx}
+	</select>
 
 </mapper>

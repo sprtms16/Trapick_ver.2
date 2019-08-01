@@ -24,5 +24,7 @@ public interface MyPageMapper {
 	public int shareSchd(@Param("user_idx") int user_idx, @Param("schd_idx") int schd_idx, @Param("sharer") int sharer);
 
 	public List<ScheduleVO> sharedSchd(int user_idx);
+	
+	public List<UserVO> findSharer(int user_idx);
 
 }
