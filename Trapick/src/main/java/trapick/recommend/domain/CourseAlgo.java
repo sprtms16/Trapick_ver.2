@@ -109,6 +109,7 @@ public class CourseAlgo {
 	        for (int i = 0; i < num; i++) {
 	        	System.out.print(city[i]+" ");
 	        }
+	        System.out.println(" : " + costSum);
 	        if(costSum<min && city[num-1]==last){
 	        	min = costSum;
 	        	for(int i = 0 ; i< num; i++){

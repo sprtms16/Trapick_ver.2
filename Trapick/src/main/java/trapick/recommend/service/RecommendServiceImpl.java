@@ -177,6 +177,7 @@ public class RecommendServiceImpl implements RecommendService {
 		for (int a = 0; a < dist.length; a++) {
 			resultList.add(list.get(algo.getResult()[a]));
 		}
+		System.out.println();
 		System.out.println(list);
 		System.out.println(resultList);
 		return resultList;
