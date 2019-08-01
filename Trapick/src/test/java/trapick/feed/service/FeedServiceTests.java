@@ -38,17 +38,23 @@ public class FeedServiceTests {
 
 	@Test
 	public void testGet() {
-		log.info(service.getFeed(62));
+		Map<String, Object> map = new HashMap<>();
+		map.put("feed_idx", 62);
+		map.put("user_idx", 47);
+		log.info(service.getFeed(map));
 
 	}
 
 	@Test
 	public void testModify() {
-		FeedVO feed = service.getFeed(62);
+		Map<String, Object> map = new HashMap<>();
+		map.put("feed_idx", 62);
+		map.put("user_idx", 47);
+		FeedVO feed = service.getFeed(map);
 		if (feed == null) {
 			return;
 		}
-		feed.setTitle("Á¦¸ñ ¹Ù…fµû¸®");
+		feed.setTitle("ï¿½ï¿½ï¿½ï¿½ ï¿½Ù…fï¿½ï¿½ï¿½ï¿½");
 		log.info("Modify result :" + service.modify(feed));
 	}
 
