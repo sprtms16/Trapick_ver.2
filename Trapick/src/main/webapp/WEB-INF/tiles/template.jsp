@@ -5,12 +5,12 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>제목</title>
+<title>Trapick</title>
 <style>
 </style>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-<script
+ <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
@@ -18,17 +18,9 @@
 		<div id="header">
 			<tiles:insertAttribute name="header" />
 		</div>
-		<%-- <div id="left"><tiles:insertAttribute name="left" /></div> --%>
 		<div id="main">
 			<tiles:insertAttribute name="body" />
 		</div>
-		<%-- <div id="footer"><tiles:insertAttribute name="footer" /></div> --%>
 	</div>
-
-	<script type="text/javascript">
-		$(function() {
-
-		});
-	</script>
 </body>
 </html>

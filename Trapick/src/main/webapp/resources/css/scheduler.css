@@ -1,9 +1,3 @@
-td {
-   width: 100px;
-   height: 100px;
-   position: relative;
-}
-
 .liveButton {
    position: absolute;
    z-index: 2;
@@ -18,7 +12,7 @@ td {
    top: 2px;
 }
 
-td .img {
+#mySheduleTable td .img, #hotelTable td .img {
    width: 100%;
    height: 100%;
    position: absolute;
@@ -27,7 +21,7 @@ td .img {
    left: 0px;
 }
 
-.recommendList_thumb{
+.recommendList_thumb {
    width: 100%;
    height: 100%;
 }
@@ -42,6 +36,7 @@ td .img {
 }
 
 #tabs-1 {
+   
 }
 
 #tabs li {
@@ -69,19 +64,20 @@ td .img {
    padding-right: 20px;
 }
 
-table {
+#mySheduleTable, #hotelTable {
    text-align: center;
 }
 
-table th {
+#mySheduleTable th, #hotelTable th {
    height: 50px;
    background-color: #D8D8D8;
    border-bottom-color: black;
 }
 
-#mySheduleTable td {
-   height: 100px;
+#mySheduleTable td, #hotelTable td {
+   position: relative; height : 100px;
    width: 200px;
+   height: 100px;
 }
 
 .time {
@@ -119,17 +115,17 @@ table th {
 }
 
 #asdf {
-   width:80px;
+   width: 80px;
    position: absolute;
    top: 200px;
    left: 430px;
    margin-bottom: 15px;
 }
 
-#city_search{
+#city_search {
    position: absolute;
-   top:-0px;
-   left: 85px;   
+   top: -0px;
+   left: 85px;
 }
 
 #Progress_Loading {
@@ -182,7 +178,6 @@ table th {
    height: 85px;
 }
 /* 여기 까지 */
-
 #landmarkDiv, #hotelList, #itemList, #restList {
    width: 250px;
    height: 500px;
@@ -191,240 +186,235 @@ table th {
 }
 
 #landmarkDiv img, #tabs img {
-   margin-top:1.5px;
+   margin-top: 1.5px;
    width: 100px;
    height: 80px;
 }
 
-#landmarkDiv #name{
-   margin-top:4px;
-   margin-left:5px;
-   font-size : 13px;
+#landmarkDiv #name {
+   margin-top: 4px;
+   margin-left: 5px;
+   font-size: 13px;
    font-weight: bold;
    font-family: fantasy;
    overflow: hidden;
    text-overflow: ellipsis;
-      white-space: nowrap; 
+   white-space: nowrap;
 }
 
-#landmarkDiv .detail{
-   margin-top:4px;
-   margin-left:5px;
-   text-align:right;
-   font-size : 12px;
+#landmarkDiv .detail {
+   margin-top: 4px;
+   margin-left: 5px;
+   text-align: right;
+   font-size: 12px;
    font-family: cursive;
    overflow: hidden;
    text-overflow: ellipsis;
-      white-space: nowrap; 
+   white-space: nowrap;
 }
 
-#itemList .list_detail{
+#itemList .list_detail {
    margin-left: 20px;
 }
 
-#itemList #name{
+#itemList #name {
    font-weight: bold;
    font-family: fantasy;
    overflow: hidden;
    text-overflow: ellipsis;
-      white-space: nowrap; 
+   white-space: nowrap;
 }
 
-#itemList #detail{
-   margin-top:4px;
-   margin-left:15px;
-   text-align:center;
-   padding-left:30px;
-   font-size : 12px;
+#itemList #detail {
+   margin-top: 4px;
+   margin-left: 15px;
+   text-align: center;
+   padding-left: 30px;
+   font-size: 12px;
    font-family: cursive;
-   overflow:hidden;
-   white-space:nowrap;
+   overflow: hidden;
+   white-space: nowrap;
    text-overflow: ellipsis;
 }
 
-#itemList #price{
-   font-size : 10px;
+#itemList #price {
+   font-size: 10px;
    font-family: Geogia;
 }
 
-#hotelList .list_detail{
+#hotelList .list_detail {
    margin-left: 20px;
 }
 
-
-#hotelList #name{
+#hotelList #name {
    font-weight: bold;
    font-family: fantasy;
    overflow: hidden;
    text-overflow: ellipsis;
-      white-space: nowrap; 
+   white-space: nowrap;
 }
 
-#hotelList #detail{
-   margin-top:4px;
-   margin-left:15px;
-   text-align:center;
-   padding-left:30px;
-   font-size : 12px;
+#hotelList #detail {
+   margin-top: 4px;
+   margin-left: 15px;
+   text-align: center;
+   padding-left: 30px;
+   font-size: 12px;
    font-family: cursive;
-   overflow:hidden;
-   white-space:nowrap;
+   overflow: hidden;
+   white-space: nowrap;
    text-overflow: ellipsis;
 }
 
-#hotelList #price{
-   font-size : 10px;
+#hotelList #price {
+   font-size: 10px;
    font-family: Geogia;
 }
 
-table .list_detail{
+#mySheduleTable .list_detail, #hotelTable .list_detail {
    display: none;
 }
 
-table .recommendDetail{
+#mySheduleTable .recommendDetail, #hotelTable .recommendDetail {
    display: none;
 }
 
-table span{
-   display : none;
+#mySheduleTable span, #hotelTabl span {
+   display: none;
 }
 
-.list_detail #name,#detail{
+#name, #detail {
    width: 120px;
    height: 30px;
 }
 
-.container{
+.container {
    margin: 0px;
 }
-.liveInput{
-   background-color:#F2F2F2;
+
+.liveInput {
+   background-color: #F2F2F2;
    width: 20px;
    height: 20px;
 }
 
 /* 여기부터 시작함 _ 190730 */
-
-#recommendUl li{
+#recommendUl li {
    list-style-type: none;
    float: left;
    margin-left: 45px;
    display: inline;
 }
 
-#recommendUserUl li{
+#recommendUserUl li {
    list-style-type: none;
    float: left;
    margin-right: 45px;
    display: inline;
 }
 
-#recommendUserUl li img{
+#recommendUserUl li img {
    width: 170px;
    height: 200px;
    border: solid 3px #D8D8D8;
    z-index: 3;
 }
 
-#recommendUl li img{
+#recommendUl li img {
    width: 170px;
    height: 200px;
    border: solid 3px #D8D8D8;
    z-index: 3;
 }
 
-.recommendList_thumb{
+.recommendList_thumb {
    position: relative;
 }
 
-#category{
+#category {
    background-color: #6E6E6E;
-   padding:4px 10px;
-   position:absolute;
-   left:1%;
-   top:1%;
-   z-index:1;
-   opacity:0.7;
+   padding: 4px 10px;
+   position: absolute;
+   left: 1%;
+   top: 1%;
+   z-index: 1;
+   opacity: 0.7;
    font-weight: bold;
    color: white;
 }
 
-#recommendDetailName{
+#recommendDetailName {
    position: relative;
    left: -168px;
-   top : 60px;
+   top: 60px;
 }
 
-#recommendDetailName #name{
+#recommendDetailName #name {
    background-color: #6E6E6E;
-   overflow-x:hidden;
-   overflow-y:hidden;
+   overflow-x: hidden;
+   overflow-y: hidden;
    text-overflow: ellipsis;
-   white-space: nowrap; 
-   width:167px;
-   opacity:0.7;
+   white-space: nowrap;
+   width: 167px;
+   opacity: 0.7;
    font-weight: bold;
-   color:white;
+   color: white;
    position: absolute;
    left: 10%;
    bottom: 42%;
    padding-top: 5px;
 }
 
-#recommendDetailName #recommendDetail{
+#recommendDetailName #recommendDetail {
    background-color: #6E6E6E;
-   opacity:0.7;
-   
+   opacity: 0.7;
 }
 
-
-#recommendDetail{
-   width:167px;
-   text-align:right;
-   position:absolute;
+#recommendDetail {
+   width: 167px;
+   text-align: right;
+   position: absolute;
    left: 10%;
    bottom: 29.8%;
    padding-top: 5px;
    padding-bottom: 5px;
-   overflow-x:hidden;
-   overflow-y:hidden;
+   overflow-x: hidden;
+   overflow-y: hidden;
    text-overflow: ellipsis;
    white-space: nowrap;
-   opacity:0.7;
+   opacity: 0.7;
    font-weight: bold;
-   color:white;
-   
+   color: white;
 }
 
-#recommendDetailName #price{
-   background-color:#04B4AE;
-   width:65px;
-   text-align:right;
+#recommendDetailName #price {
+   background-color: #04B4AE;
+   width: 65px;
+   text-align: right;
    opacity: 0.9;
    color: black;
    font-weight: bold;
    position: absolute;
-   left:115px;
-   top:39%;
+   left: 115px;
+   top: 39%;
    padding-top: 1px;
    padding-bottom: 1px;
-    
 }
 
-#schedule_title{
+#schedule_title {
    position: absolute;
    top: -30px;
 }
 
-#titleSche{
+#titleSche {
    margin-bottom: 15px;
 }
 
-#landMarkList ul{
-   padding : 0px;
+#landMarkList ul {
+   padding: 0px;
 }
 
-#landMarkList li{
+#landMarkList li {
    list-style: none;
    font-weight: bold;
    font-size: 15px;
@@ -432,79 +422,78 @@ table span{
    margin-bottom: 10px;
 }
 
-#asdf2{
+#asdf2 {
    margin-bottom: 40px;
 }
 
-
-#itemPriceSort{
+#itemPriceSort {
    position: absolute;
    left: 1060px;
 }
 
-#itemSalesSort{
+#itemSalesSort {
    position: absolute;
    left: 1140px;
 }
 
-#itemDistSort{
+#itemDistSort {
    position: absolute;
    left: 1220px;
 }
 
-#hotelPriceSort{
+#hotelPriceSort {
    position: absolute;
    left: 1060px;
 }
 
-#hotelReviewSort{
+#hotelReviewSort {
    position: absolute;
    left: 1140px;
 }
 
-#hotelDistSort{
+#hotelDistSort {
    position: absolute;
    left: 1220px;
 }
 
-#landmarkHitsSort{
+#landmarkHitsSort {
    position: absolute;
    left: 825px;
 }
 
-#landmarkDistSort{
+#landmarkDistSort {
    position: absolute;
-   left:905px;
+   left: 905px;
 }
 
-#city_List{
-   margin-top:12px;
+#city_List {
+   margin-top: 12px;
 }
 
-#recommendUser{
+#recommendUser {
    margin-top: 20px;
    position: relative;
    left: -305px;
-   top:30px;
+   top: 30px;
 }
 
-#recommend{
+#recommend {
    margin-top: 20px;
    position: relative;
    left: -350px;
-   top:30px;
+   top: 30px;
 }
 
-#tabs2 li{
+#tabs2 li {
    list-style: none;
    float: left;
    margin-bottom: 20px;
    text-align: center;
 }
 
-#tabs2{
-   margin-top:20px;
-   margin-bottom:20px;
+#tabs2 {
+   margin-top: 20px;
+   margin-bottom: 20px;
    position: relative;
    width: 1000px;
 }
@@ -519,23 +508,24 @@ table span{
    padding-right: 20px;
 }
 
-#allClear{
+#allClear {
    width: 20px;
    height: 20px;
    position: absolute;
-   bottom:-25px;
+   bottom: -25px;
    right: 20px;
 }
-#map-po > .col-md-5{
+
+#map-po>.col-md-5 {
    padding-right: 0px;
 }
 
-#map-po > .col-md-1{
+#map-po>.col-md-1 {
    padding-left: 0px;
 }
 
-#map-canvas{
+#map-canvas {
    position: absolute;
    right: 20px;
-   bottom:-280px;
+   bottom: -280px;
 }

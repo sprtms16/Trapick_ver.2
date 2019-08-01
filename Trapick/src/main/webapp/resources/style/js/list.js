@@ -55,6 +55,7 @@ $(function() {
 			dataType : 'json',
 			success : function(data) {
 				$.each(data, function(index, item) {
+					console.log('asdf');
 					$this.find('td[name="'+item.position+'"]').append(
 							$('<input>').attr('type','button').addClass('detailbt').addClass('liveInput').val('상세보기')
 					).append(
@@ -232,7 +233,7 @@ $(function() {
 							'width' : '100%',
 							'height' : '100%',
 							'object-fit' : 'contain'
-						});
+						}).addClass('row');
 				$('#exampleModal').find('.modal-content').html($img);
 				$('.modal-content').find('.detailbt').click(function() {
 					pop($(this));

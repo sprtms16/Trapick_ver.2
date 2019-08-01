@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
@@ -81,9 +81,10 @@
 .btn-group-fab .btn-sub:nth-child(5) {
 	bottom: 210px;
 }
-.dropdown{
-   margin-left: 700px;
-   margin-top: 70px;
+
+.dropdown {
+	margin-left: 700px;
+	margin-top: 70px;
 }
 </style>
 </head>
@@ -116,10 +117,9 @@
 						<div class="carousel-inner">
 							<div class="carousel-item active"
 								style="width: 100%; height: 500px; overflow: hidden; position: relative;">
-
-								<form id="courseData" action="/mypage/list" method="get">
-									<table id="mySheduleTable" class="SheduleTable" border=2
-										data-href="/RestFeed/getSelectedItem/${feed.schd_idx }">
+								<div class="SheduleTable row"
+									data-href="/RestFeed/getSelectedItem/${feed.schd_idx }">
+									<table id="mySheduleTable" border=2 class="col-9" >
 										<tr>
 											<th>일정</th>
 											<th>06:00 ~ 09:00</th>
@@ -127,7 +127,6 @@
 											<th>12:00 ~ 15:00</th>
 											<th>15:00 ~ 18:00</th>
 											<th>18:00 ~ 21:00</th>
-											<th>21:00 ~ 24:00</th>
 										</tr>
 										<c:forEach begin="1" end="${feed.travelDates }"
 											varStatus="index">
@@ -138,14 +137,10 @@
 												<td name="${index.count }-3"></td>
 												<td name="${index.count }-4"></td>
 												<td name="${index.count }-5"></td>
-												<td name="${index.count }-6"></td>
 											</tr>
 										</c:forEach>
 									</table>
-								</form>
-
-								<form id="savet">
-									<table id="hotelTable" border=2>
+									<table id="hotelTable" border=2 class="col-3" >
 										<tr>
 											<th>숙소</th>
 										</tr>
@@ -156,72 +151,7 @@
 											</tr>
 										</c:forEach>
 									</table>
-								</form>
-								<%-- <table id="mySheduleTable" class="SheduleTable" border=2
-									data-href="/RestFeed/getSelectedItem/${feed.schd_idx }">
-									<tr>
-										<th>일정</th>
-										<c:forEach begin="1" end="${feed.travelDates }"
-											varStatus="index">
-											<th>${index.count }일차</th>
-										</c:forEach>
-									</tr>
-									<tr>
-										<td class="time">06:00<br> <br>&nbsp;&nbsp; ~
-											09:00
-										</td>
-										<c:forEach begin="1" end="${feed.travelDates  }"
-											varStatus="index">
-											<td name="${index.count }-1"></td>
-										</c:forEach>
-									</tr>
-									<tr>
-										<td class="time">09:00<br> <br>&nbsp;&nbsp; ~
-											12:00
-										</td>
-										<c:forEach begin="1" end="${feed.travelDates  }"
-											varStatus="index">
-											<td name="${index.count }-2"></td>
-										</c:forEach>
-									</tr>
-									<tr>
-										<td class="time">12:00<br> <br>&nbsp;&nbsp; ~
-											15:00
-										</td>
-										<c:forEach begin="1" end="${feed.travelDates  }"
-											varStatus="index">
-											<td name="${index.count }-3"></td>
-										</c:forEach>
-									</tr>
-									<tr>
-										<td class="time">15:00<br> <br>&nbsp;&nbsp; ~
-											18:00
-										</td>
-										<c:forEach begin="1" end="${feed.travelDates  }"
-											varStatus="index">
-											<td name="${index.count }-4"></td>
-										</c:forEach>
-									</tr>
-									<tr>
-										<td class="time">18:00<br> <br>&nbsp;&nbsp; ~
-											21:00
-										</td>
-										<c:forEach begin="1" end="${feed.travelDates  }"
-											varStatus="index">
-											<td name="${index.count }-5"></td>
-										</c:forEach>
-									</tr>
-									<tr>
-										<td class="time">21:00<br> <br>&nbsp;&nbsp; ~
-											24:00
-										</td>
-										<c:forEach begin="1" end="${feed.travelDates  }"
-											varStatus="index">
-											<td name="${index.count }-6"></td>
-										</c:forEach>
-									</tr>
-								</table> --%>
-
+								</div>
 
 							</div>
 							<c:forEach var="img" items="${feed.url }" varStatus="status">
@@ -243,13 +173,9 @@
 						</div>
 					</div>
 					<div class="card-body">
-
 						<h5 class="card-title">${feed.title }</h5>
 						<hr>
-
 						<div class="hashtag">${feed.contents }</div>
-
-
 
 						<div class="container" role="main">
 							<form method="post" class="replyList">
@@ -264,9 +190,10 @@
 										id="btnSave">작성</button>
 									<a class="btn btn-sm btn-primary view getReplyList"
 										data-href="${feed.feed_idx}" data-toggle="collapse"
-										href="#collapseExample${feed.feed_idx }" role="button" aria-expanded="false"
-										aria-controls="collapseExample${feed.feed_idx }"> <i class="fas fa-map"></i>
-										모두보기
+										href="#collapseExample${feed.feed_idx }" role="button"
+										aria-expanded="false"
+										aria-controls="collapseExample${feed.feed_idx }"> <i
+										class="fas fa-map"></i> 모두보기
 									</a>
 									<c:if test="${feed.user_idx ne user_idx }">
 										<c:choose>
@@ -368,7 +295,7 @@
 		</div>
 	</div>
 
-	
+
 </body>
 
 </html>

@@ -94,7 +94,9 @@ public class FeedRestController {
 
 	@PostMapping("getAlertList/{user_idx}")
 	public List<AlertSubscribeVO> getAlertList(@PathVariable("user_idx") int user_idx) {
-		return feedService.getAlertList(user_idx);
+		List<AlertSubscribeVO> list = feedService.getAlertList(user_idx);
+		feedService.readAlertList(user_idx);
+		return list;
 	}
 
 }

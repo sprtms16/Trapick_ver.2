@@ -14,22 +14,24 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-
-   function deleteSchedule(schd_idx){
-      location.href = "/mypage/remove/"+schd_idx;
-   }
-   
-   function shareSchedule(schd_idx) {
-   var user = $('#userShare option:selected').val();
-   location.href = "/mypage/share/"+user+"/"+schd_idx;
-}
-</script>
-<script type="text/javascript">
 $(function() {
    $('#imgResult').click(function(e) {
       $('#imgFile')[0].click();
    });
 });
+</script>
+<script type="text/javascript">
+
+   function deleteSchedule(schd_idx){
+      event.stopPropagation();
+      location.href = "/mypage/remove/"+schd_idx;
+   }
+   
+   function shareSchedule(schd_idx) {
+      event.stopPropagation();
+   var user = $('#userShare option:selected').val();
+   location.href = "/mypage/share/"+user+"/"+schd_idx;
+}
 </script>
 <style>
 th, td{
@@ -55,8 +57,9 @@ th, td{
                </div>
                <form action="imgUpload" name="imgUpload" method="post" enctype="multipart/form-data">
                   <input type="file" name="uploadFile" id = "imgFile" class="d-none">
-                  <button type="submit" class="btn btn-link float-right">
-                     <i class="fas fa-camera" style="font-size: 1.3em; color: gray;"></i></button>
+                  <button type="submit" class="btn btn-link float-right" style="padding-top: 0px;">
+                     <i class="fas fa-camera" style="font-size: 1.2em; color: #848484;"></i>
+                   </button>
                </form>
                
             <div class="card-body">
@@ -77,8 +80,9 @@ th, td{
                        <label>Email</label> <input class="form-control" name='email'
                            value="${user.email }">
                      </div>
-                     <button type="submit" class="btn btn-link float-right">
-                  <i class="fas fa-edit" style="font-size: 1.3em; color: gray;"></i></button>
+                     <button type="submit" class="btn btn-link float-right" style="padding-top: 0px; padding-right: 0px;">
+                        <i class="fas fa-edit" style="font-size: 1.2em; color: #848484;"></i>
+                     </button>
                   </form>              
             </div>
       </div>
@@ -86,7 +90,7 @@ th, td{
 
    <div class="col-8">
          <div class="container">
-            <h3>내 일정</h3>
+            <h4>내 일정</h4>
             <div class="table-responsive">
             <table class="table">
                <thead class="thead-light">
@@ -103,7 +107,7 @@ th, td{
                <c:forEach items="${list }" var="schedule">
                      <tr>
                         <th scope="row" id="schd_idx" style="vertical-align: middle;"><c:out value="${schedule.schd_idx }"></c:out></th>
-                        <td style="vertical-align: middle;"><c:out value="${schedule.title }"></c:out></td>
+                        <td  onclick="location.href='/feed/insert?schd_idx=${schedule.schd_idx }'" style="vertical-align: middle;"><c:out value="${schedule.title }"></c:out></td>
                         <td style="vertical-align: middle;"><c:out value="${schedule.schd_start }"></c:out></td>
                         <td style="vertical-align: middle;"><c:out value="${schedule.schd_end }"></c:out></td>
                         <td style="vertical-align: middle;">
@@ -133,7 +137,7 @@ th, td{
             <br>
             </div>
             <div class="container">
-               <h3>공유받은 일정</h3>
+               <h4>공유받은 일정</h4>
                <div class="table-responsive">
                <table class="table">
                   <thead class="thead-light">
@@ -142,21 +146,24 @@ th, td{
                            <th scope="col" style="width: 230px;">제목</th>
                            <th scope="col" style="width: 110px;">출발일</th>
                            <th scope="col" style="width: 110px;">도착일</th>
+                           <th scope="col" style="width: 110px;">공유한 사람</th>
                            <th scope="col">삭제</th>
                      </tr>
                   </thead>   
                   <tbody>
-                     <c:forEach items="${shareList }" var="list">
+                     <c:forEach items="${shareList }" var="list" varStatus="status">
                         <tr>
                            <th scope="row" id="schd_idx" style="vertical-align: middle;"><c:out value="${list.schd_idx }"></c:out></th>
                            <td style="vertical-align: middle;"><c:out value="${list.title }"></c:out></td>
                            <td style="vertical-align: middle;"><c:out value="${list.schd_start }"></c:out></td>
                            <td style="vertical-align: middle;"><c:out value="${list.schd_end }"></c:out></td>
+                           <td style="vertical-align: middle;"><c:out value="${sharer[status.index].id }"></c:out></td>
                            <td style="vertical-align: middle;">
                               <button type="button" class="btn btn-link" onclick="deleteSchedule('${schedule.schd_idx }')">
                                  <i class="fas fa-trash-alt" style="color: red;"></i>
                               </button>
                            </td>
+                           
                         </tr>
                      </c:forEach>
                   </tbody>
@@ -167,4 +174,5 @@ th, td{
    </div>
 </div>
 </body>
+</html>
 </html>

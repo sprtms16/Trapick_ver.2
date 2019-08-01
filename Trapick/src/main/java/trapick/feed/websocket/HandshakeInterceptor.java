@@ -30,6 +30,10 @@ public class HandshakeInterceptor extends HttpSessionHandshakeInterceptor {
 		 */
 
 		// HttpSession 에 저장된 이용자의 아이디를 추출하는 경우
+		if (req.getSession().getAttribute("user_idx") == null) {
+			throw new Exception("not found user_idx");
+		}
+
 		int user_idx = (int) req.getSession().getAttribute("user_idx");
 		attributes.put("user_idx", user_idx);
 		System.out.println("HttpSession에 저장된 id:" + user_idx);

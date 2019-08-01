@@ -34,20 +34,27 @@
 					success : function(data) {
 						modal.find('.modal-body').html('');
 						$.each(data, function(index, item) {
-							modal.find('.modal-body').append(
-									$('<a>').attr("class","list-group-item list-group-item-action flex-column align-items-start active")
-									.append(
-											$('<div>').attr("class","d-flex w-100 justify-content-between").append(
-													$('<h5>').attr("class","mb-1").text(item.feeder.id+" 님께서 "+item.feed.title+" (을)를 작성하셨습니다.")
-											).append(
-													$('small').text('방금전')
-											)
-									).append(
-											$('<p>').attr("class","mb-1").text(item.feed.contents)
-									).attr("data-href","/feed/feed/"+item.feed.feed_idx)
-									.attr("data-toggle","modal")
-									.attr("data-target","#feedModal")
+							var $formItem = $('<a>').attr("class","list-group-item list-group-item-action flex-column align-items-start")
+							.attr("data-href","/feed/feed/"+item.feed.feed_idx)
+							.attr("data-toggle","modal")
+							.attr("data-target","#feedModal");
+							if(item.alert_type==="U"){
+								var title = item.feeder.id+" 님께서 "+item.feed.title+" (을)를 수정하셨습니다.";
+							}else{
+								var title = item.feeder.id+" 님께서 "+item.feed.title+" (을)를 작성하셨습니다.";
+							}
+							
+							var $formTitle = $('<div>').attr("class","d-flex w-100 justify-content-between").append(
+									$('<h5>').attr("class","mb-1").text(title)
+							).append(
+									$('<small>').text(item.feed.regdate)	
 							);
+							var $formBody = $('<p>').attr("class","mb-1").text(item.feed.contents);
+							$formItem.append($formTitle).append($formBody);
+							if(item.read == null){
+								$formItem.addClass("active");
+							}
+							modal.find('.modal-body').append($formItem);
 						})
 						
 					}
@@ -81,7 +88,7 @@
 
 		<c:choose>
 			<c:when test="${sessionScope.user_idx ne null}">
-				<a class="nav-link text-light" href="/">${user_idx }</a>
+				<a class="nav-link text-light" href="/mypage/mypage">마이페이지</a>
 				<a class="nav-link text-light" href="/sign/logout">로그아웃</a>
 			</c:when>
 			<c:otherwise>

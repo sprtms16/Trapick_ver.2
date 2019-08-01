@@ -2,98 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script type="text/javascript">
-	$(function() {
-		$('.SheduleTable')
-				.each(
-						function() {
-							var href = $(this).data("href");
-							var $this = $(this);
-							$
-									.ajax({
-										url : href,
-										type : 'GET',
-										dataType : 'json',
-										success : function(data) {
-											$
-													.each(
-															data,
-															function(index,
-																	item) {
-																$this
-																		.find(
-																				'td[name="'
-																						+ item.position
-																						+ '"]')
-																		.append(
-																				$(
-																						'<input>')
-																						.attr(
-																								'type',
-																								'button')
-																						.addClass(
-																								'detailbt')
-																						.addClass(
-																								'liveInput')
-																						.val(
-																								'상세보기'))
-																		.append(
-																				$(
-																						'<div>')
-																						.addClass(
-																								'list_thumb')
-																						.append(
-																								$(
-																										'<img>')
-																										.attr(
-																												'src',
-																												item.image)
-																										.addClass(
-																												'img')))
-																		.append(
-																				$(
-																						'<div>')
-																						.addClass(
-																								'list_detail')
-																						.attr(
-																								'id',
-																								'landDetail')
-																						.append(
-																								$(
-																										'<div>')
-																										.addClass(
-																												'name')
-																										.attr(
-																												'id',
-																												'name')
-																										.text(
-																												item.name))
-																						.append(
-																								$(
-																										'<div>')
-																										.addClass(
-																												'detail')
-																										.attr(
-																												'id',
-																												'detail')
-																										.text(
-																												item.detail))
-																						.append(
-																								$(
-																										'<div>')
-																										.addClass(
-																												'detail')
-																										.attr(
-																												'id',
-																												'price')
-																										.text(
-																												item.price)));
-															});
-										}
-									});
-						});
-	});
-</script>
+<script type="text/javascript" src="/resources/style/js/list.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/scheduler.css" />
 <div id="target${feed.feed_idx }" class="mt-5">
 	<div class="card text-center">
 		<div id="carouselExampleControls${feed.feed_idx }"
@@ -102,9 +13,9 @@
 				<div class="carousel-item active"
 					style="width: 100%; height: 500px; overflow: hidden; position: relative;">
 
-					<form id="courseData" action="/mypage/list" method="get">
-						<table id="mySheduleTable" class="SheduleTable" border=2
-							data-href="/RestFeed/getSelectedItem/${feed.schd_idx }">
+					<div class="SheduleTable row"
+						data-href="/RestFeed/getSelectedItem/${feed.schd_idx }">
+						<table id="mySheduleTable" border=2 class="col-9">
 							<tr>
 								<th>일정</th>
 								<th>06:00 ~ 09:00</th>
@@ -112,7 +23,6 @@
 								<th>12:00 ~ 15:00</th>
 								<th>15:00 ~ 18:00</th>
 								<th>18:00 ~ 21:00</th>
-								<th>21:00 ~ 24:00</th>
 							</tr>
 							<c:forEach begin="1" end="${feed.travelDates }" varStatus="index">
 								<tr>
@@ -122,14 +32,10 @@
 									<td name="${index.count }-3"></td>
 									<td name="${index.count }-4"></td>
 									<td name="${index.count }-5"></td>
-									<td name="${index.count }-6"></td>
 								</tr>
 							</c:forEach>
 						</table>
-					</form>
-
-					<form id="savet">
-						<table id="hotelTable" border=2>
+						<table id="hotelTable" border=2 class="col-3">
 							<tr>
 								<th>숙소</th>
 							</tr>
@@ -139,71 +45,7 @@
 								</tr>
 							</c:forEach>
 						</table>
-					</form>
-					<%-- <table id="mySheduleTable" class="SheduleTable" border=2
-									data-href="/RestFeed/getSelectedItem/${feed.schd_idx }">
-									<tr>
-										<th>일정</th>
-										<c:forEach begin="1" end="${feed.travelDates }"
-											varStatus="index">
-											<th>${index.count }일차</th>
-										</c:forEach>
-									</tr>
-									<tr>
-										<td class="time">06:00<br> <br>&nbsp;&nbsp; ~
-											09:00
-										</td>
-										<c:forEach begin="1" end="${feed.travelDates  }"
-											varStatus="index">
-											<td name="${index.count }-1"></td>
-										</c:forEach>
-									</tr>
-									<tr>
-										<td class="time">09:00<br> <br>&nbsp;&nbsp; ~
-											12:00
-										</td>
-										<c:forEach begin="1" end="${feed.travelDates  }"
-											varStatus="index">
-											<td name="${index.count }-2"></td>
-										</c:forEach>
-									</tr>
-									<tr>
-										<td class="time">12:00<br> <br>&nbsp;&nbsp; ~
-											15:00
-										</td>
-										<c:forEach begin="1" end="${feed.travelDates  }"
-											varStatus="index">
-											<td name="${index.count }-3"></td>
-										</c:forEach>
-									</tr>
-									<tr>
-										<td class="time">15:00<br> <br>&nbsp;&nbsp; ~
-											18:00
-										</td>
-										<c:forEach begin="1" end="${feed.travelDates  }"
-											varStatus="index">
-											<td name="${index.count }-4"></td>
-										</c:forEach>
-									</tr>
-									<tr>
-										<td class="time">18:00<br> <br>&nbsp;&nbsp; ~
-											21:00
-										</td>
-										<c:forEach begin="1" end="${feed.travelDates  }"
-											varStatus="index">
-											<td name="${index.count }-5"></td>
-										</c:forEach>
-									</tr>
-									<tr>
-										<td class="time">21:00<br> <br>&nbsp;&nbsp; ~
-											24:00
-										</td>
-										<c:forEach begin="1" end="${feed.travelDates  }"
-											varStatus="index">
-											<td name="${index.count }-6"></td>
-										</c:forEach>
-									</tr>
-								</table> --%>
+					</div>
 
 
 				</div>

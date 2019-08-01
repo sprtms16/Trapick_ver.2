@@ -19,9 +19,8 @@ public interface RecommendService {
 
 	// public List<String> cityList(String country_name);
 
-	 public void saveSchedule(String title, List<Selected> landList,
-	 List<Selected> itemList, String start_time,
-	 String end_time,int user_idx);
+	public void saveSchedule(String title, List<Selected> landList, List<Selected> itemList, String start_time,
+			String end_time, int user_idx);
 
 	// public double distance(double lat1, double lon1, double lat2, double
 	// lon2);
@@ -38,13 +37,15 @@ public interface RecommendService {
 			List<String> item_detail, List<String> latitude, List<String> longitude, List<String> position,
 			List<String> item_image) throws NumberFormatException, UnsupportedEncodingException;
 
-//	public List<LandmarkVO> recommendLand(String city_name, String base_point);
-//
-//	public List<ItemVO> recommendItem(String city_name, String base_point);
-//
-//	public List<HotelVO> recommendHotel(String city_name, String base_point);
-//
-//	public List<RestaurantVO> recommendRest(String city_name, String base_point);
+	// public List<LandmarkVO> recommendLand(String city_name, String
+	// base_point);
+	//
+	// public List<ItemVO> recommendItem(String city_name, String base_point);
+	//
+	// public List<HotelVO> recommendHotel(String city_name, String base_point);
+	//
+	// public List<RestaurantVO> recommendRest(String city_name, String
+	// base_point);
 
 	// public List<LandmarkVO> userRecommendLand(String city_name, int
 	// user_idx);
@@ -73,5 +74,9 @@ public interface RecommendService {
 	public List<LandmarkVO> userRecommendLand(String city_name, int user_idx);
 
 	public double rad2deg(double rad);
+
+	List<ItemVO> recommendUserItem(String city_name, String lat, String lon);
+
+	List<HotelVO> recommendUserHotel(String city_name, String lat, String lon);
 
 }

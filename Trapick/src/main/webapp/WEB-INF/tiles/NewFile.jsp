@@ -1380,10 +1380,10 @@
 	</div>
 	<div id="Progress_Loading">
 		<!-- 로딩바 -->
-		<img src="../resources/image/Progress_Loading.gif" id="progress" />
+		<img src="/resources/image/Progress_Loading.gif" id="progress" />
 	</div>
 	<div id="loadingImage">
-		<img src="../resources/image/loading.jpg" id="im" />
+		<img src="/resources/image/loading.jpg" id="im" />
 	</div>
 	<p id="subject">Travel Scheduler</p>
 	<div id="asdf">

@@ -125,4 +125,10 @@ public class FeedServiceImpl implements FeedService {
 		return mapper.selectAlertList(user_idx);
 	}
 
+	@Override
+	public void readAlertList(int user_idx) {
+		mapper.readAlertList(user_idx);
+		
+	}
+
 }

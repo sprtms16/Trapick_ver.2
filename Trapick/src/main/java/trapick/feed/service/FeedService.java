@@ -42,4 +42,6 @@ public interface FeedService {
 
 	public List<AlertSubscribeVO> getAlertList(int user_idx);
 
+	public void readAlertList(int user_idx);
+
 }
