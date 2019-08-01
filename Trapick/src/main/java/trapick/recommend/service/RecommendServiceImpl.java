@@ -28,25 +28,25 @@ import trapick.recommend.mapper.RecommendMapper;
 @Service
 public class RecommendServiceImpl implements RecommendService {
 
-	@Setter(onMethod_ = @Autowired)
-	private LandMarkMapper mapper;
+   @Setter(onMethod_ = @Autowired)
+   private LandMarkMapper mapper;
 
-	@Setter(onMethod_ = @Autowired)
-	private CrawlingItemServiceImpl serviceItem;
+   @Setter(onMethod_ = @Autowired)
+   private CrawlingItemServiceImpl serviceItem;
 
-	@Setter(onMethod_ = @Autowired)
-	private CrawlingHotelServiceImpl serviceHotel;
+   @Setter(onMethod_ = @Autowired)
+   private CrawlingHotelServiceImpl serviceHotel;
 
-	@Setter(onMethod_ = @Autowired)
-	private CrawlingRestServiceImpl serviceRest;
+   @Setter(onMethod_ = @Autowired)
+   private CrawlingRestServiceImpl serviceRest;
 
-	@Setter(onMethod_ = @Autowired)
-	private CrawlingSortingService serviceSort;
+   @Setter(onMethod_ = @Autowired)
+   private CrawlingSortingService serviceSort;
 
-	@Setter(onMethod_ = @Autowired)
-	private RecommendMapper mapperRecommend;
+   @Setter(onMethod_ = @Autowired)
+   private RecommendMapper mapperRecommend;
 
-	@Override
+   @Override
 	public List<LandmarkVO> landMarkList(String city_name) {
 		return mapper.landMarkList(city_name);
 	}
@@ -182,169 +182,216 @@ public class RecommendServiceImpl implements RecommendService {
 		return resultList;
 	}
 
-	// 4개 추천하기
-	// Landmark
-	@Override
-	public List<LandmarkVO> recommendLand(String city_name, String lat, String lon) {
+   // 4개 추천하기
+   // Landmark
+   @Override
+   public List<LandmarkVO> recommendLand(String city_name, String lat, String lon) {
 
-		List<LandmarkVO> list = serviceSort.landmarkDistSort(mapper.landMarkList(city_name), city_name, lat, lon);
+      List<LandmarkVO> list = serviceSort.landmarkDistSort(mapper.landMarkList(city_name), city_name, lat, lon);
 
-		for (int i = list.size() - 1; i > 2; i--) {
-			list.remove(i);
-		}
+      for (int i = list.size() - 1; i > 2; i--) {
+         list.remove(i);
+      }
+      
+      Collections.sort(list, new Comparator<LandmarkVO>() {
+         @Override
+         public int compare(LandmarkVO o1, LandmarkVO o2) {
+            if (o1.getLand_idx() < o2.getLand_idx()) {
+               return -1;
+            } else if (o1.getLand_idx() > o2.getLand_idx()) {
+               return 1;
+            }
+            return 0;
+         }
+      });
 
-		Collections.sort(list, new Comparator<LandmarkVO>() {
-			@Override
-			public int compare(LandmarkVO o1, LandmarkVO o2) {
-				if (o1.getLand_idx() < o2.getLand_idx()) {
-					return -1;
-				} else if (o1.getLand_idx() > o2.getLand_idx()) {
-					return 1;
-				}
-				return 0;
-			}
-		});
+      list.remove(0);
+      
+      for (int i = list.size() - 1; i > 0; i--) {
+         list.remove(i);
+      }
 
-		list.remove(0);
+      return list;
+   }
 
-		for (int i = list.size() - 1; i > 0; i--) {
-			list.remove(i);
-		}
+   // item
+   @Override
+   public List<ItemVO> recommendItem(String city_name, String lat, String lon) {
 
-		return list;
-	}
+      List<ItemVO> list = serviceSort.itemDistSort(serviceItem.crawling(city_name,lat, lon));
 
-	// item
-	@Override
-	public List<ItemVO> recommendItem(String city_name, String lat, String lon) {
+      for (int i = list.size() - 1; i > 4; i--) {
+         list.remove(i);
+      }
 
-		List<ItemVO> list = serviceSort.itemDistSort(serviceItem.crawling(city_name, lat, lon));
+      serviceSort.itemHitsSort(list);
 
-		for (int i = list.size() - 1; i > 4; i--) {
-			list.remove(i);
-		}
+      for (int i = list.size() - 1; i > 2; i--) {
+         list.remove(i);
+      }
 
-		serviceSort.itemHitsSort(list);
+      serviceSort.itemSalesSort(list);
+      
+      list.remove(0);
 
-		for (int i = list.size() - 1; i > 2; i--) {
-			list.remove(i);
-		}
+      for (int i = list.size() - 1; i > 0; i--) {
+         list.remove(i);
+      }
 
-		serviceSort.itemSalesSort(list);
+      return list;
 
-		list.remove(0);
+   }
 
-		for (int i = list.size() - 1; i > 0; i--) {
-			list.remove(i);
-		}
+   // hotel
+   @Override
+   public List<HotelVO> recommendHotel(String city_name, String lat, String lon) {
 
-		return list;
+      List<HotelVO> list = serviceSort.hotelDistSort(serviceHotel.crawling(city_name, lat, lon));
 
-	}
+      for (int i = list.size() - 1; i > 4; i--) {
+         list.remove(i);
+      }
 
-	// hotel
-	@Override
-	public List<HotelVO> recommendHotel(String city_name, String lat, String lon) {
+      serviceSort.hotelReviewSort(list);
 
-		List<HotelVO> list = serviceSort.hotelDistSort(serviceHotel.crawling(city_name, lat, lon));
+      for (int i = list.size() - 1; i > 2; i--) {
+         list.remove(i);
+      }
 
-		for (int i = list.size() - 1; i > 4; i--) {
-			list.remove(i);
-		}
+      serviceSort.hotelPriceSort(list);
+      
+      list.remove(0);
 
-		serviceSort.hotelReviewSort(list);
+      for (int i = list.size() - 1; i > 0; i--) {
+         list.remove(i);
+      }
 
-		for (int i = list.size() - 1; i > 2; i--) {
-			list.remove(i);
-		}
+      return list;
 
-		serviceSort.hotelPriceSort(list);
+   }
+/*
+   // restaurant
+   @Override
+   public List<RestaurantVO> recommendRest(String city_name, String lat, String lon) {
 
-		list.remove(0);
+      List<RestaurantVO> list = serviceSort.restDistSort(serviceRest.crawling(city_name, lat, lon));
 
-		for (int i = list.size() - 1; i > 0; i--) {
-			list.remove(i);
-		}
+      for (int i = list.size() - 1; i > 0; i--) {
+         list.remove(i);
+      }
 
-		return list;
+      return list;
+   }
+*/
+   @Override
+   public List<LandmarkVO> userRecommendLand(String city_name, int user_idx) {
 
-	}
+      List<Integer> temp = new ArrayList<>();
+      List<Integer> feeder = new ArrayList<>();
+      List<Integer> feed = new ArrayList<>();
+      List<Integer> schd_idx = new ArrayList<>();
+      List<Integer> wholeLand = new ArrayList<>();
+      List<Integer> checkCityList = new ArrayList<>();
+      List<LandmarkVO> list = new ArrayList<>();
 
-	/*
-	 * // restaurant
-	 * 
-	 * @Override public List<RestaurantVO> recommendRest(String city_name,
-	 * String lat, String lon) {
-	 * 
-	 * List<RestaurantVO> list =
-	 * serviceSort.restDistSort(serviceRest.crawling(city_name, lat, lon));
-	 * 
-	 * for (int i = list.size() - 1; i > 0; i--) { list.remove(i); }
-	 * 
-	 * return list; }
-	 */
-	@Override
-	public List<LandmarkVO> userRecommendLand(String city_name, int user_idx) {
+      feeder = mapperRecommend.findFeeder(user_idx);
 
-		List<Integer> temp = new ArrayList<>();
-		List<Integer> feeder = new ArrayList<>();
-		List<Integer> feed = new ArrayList<>();
-		List<Integer> schd_idx = new ArrayList<>();
-		List<Integer> wholeLand = new ArrayList<>();
-		List<Integer> checkCityList = new ArrayList<>();
-		List<LandmarkVO> list = new ArrayList<>();
+      for (int i = 0; i < feeder.size(); i++) {
+         temp = mapperRecommend.findFeed(feeder.get(i));
+         for (int j = 0; j < temp.size(); j++) {
+            feed.add(temp.get(j));
+         }
+         temp.clear();
+      }
 
-		feeder = mapperRecommend.findFeeder(user_idx);
+      for (int i = 0; i < feed.size(); i++) {
+         temp = mapperRecommend.findSchedule(feed.get(i));
+         for (int j = 0; j < temp.size(); j++) {
+            schd_idx.add(temp.get(j));
+         }
+         temp.clear();
+      }
 
-		for (int i = 0; i < feeder.size(); i++) {
-			temp = mapperRecommend.findFeed(feeder.get(i));
-			for (int j = 0; j < temp.size(); j++) {
-				feed.add(temp.get(j));
-			}
-			temp.clear();
-		}
+      for (int i = 0; i < schd_idx.size(); i++) {
+         temp = mapperRecommend.findLandmark(schd_idx.get(i));
+         for (int j = 0; j < temp.size(); j++) {
+            wholeLand.add(temp.get(j));
+         }
+         temp.clear();
+      }
+      temp = mapperRecommend.checkCity(city_name);
 
-		for (int i = 0; i < feed.size(); i++) {
-			temp = mapperRecommend.findSchedule(feed.get(i));
-			for (int j = 0; j < temp.size(); j++) {
-				schd_idx.add(temp.get(j));
-			}
-			temp.clear();
-		}
+      for (int i = 0; i < temp.size(); i++) {
+         for (int j = 0; j < wholeLand.size(); j++) {
+            if (temp.get(i).equals(wholeLand.get(j))) {
+               checkCityList.add(wholeLand.get(j));
+            }
+         }
+      }
+      
+      if(checkCityList.size() == 0){
+         List<LandmarkVO> listTemp = mapper.landMarkList(city_name);
+         for(int i=0; i<listTemp.size();i++){
+            checkCityList.add(listTemp.get(i).getLand_idx());
+         }
+      }
+      
+      TreeSet<Integer> ts = new TreeSet<Integer>(checkCityList);
+      checkCityList = new ArrayList<Integer>(ts);
+      
 
-		for (int i = 0; i < schd_idx.size(); i++) {
-			temp = mapperRecommend.findLandmark(schd_idx.get(i));
-			for (int j = 0; j < temp.size(); j++) {
-				wholeLand.add(temp.get(j));
-			}
-			temp.clear();
-		}
-		temp = mapperRecommend.checkCity(city_name);
+      for (int i = checkCityList.size() - 1; i > 1; i--) {
+         checkCityList.remove(i);
+      }
+      
+      list = mapperRecommend.userRecommendLandmark(checkCityList.get(1));
+      return list;
+   }
+   
+   // item
+   @Override
+   public List<ItemVO> recommendUserItem(String city_name, String lat, String lon) {
 
-		for (int i = 0; i < temp.size(); i++) {
-			for (int j = 0; j < wholeLand.size(); j++) {
-				if (temp.get(i).equals(wholeLand.get(j))) {
-					checkCityList.add(wholeLand.get(j));
-				}
-			}
-		}
+      List<ItemVO> list = serviceSort.itemDistSort(serviceItem.crawling(city_name,lat, lon));
 
-		if (checkCityList.size() == 0) {
-			List<LandmarkVO> listTemp = mapper.landMarkList(city_name);
-			for (int i = 0; i < listTemp.size(); i++) {
-				checkCityList.add(listTemp.get(i).getLand_idx());
-			}
-		}
+      for (int i = list.size() - 1; i > 4; i--) {
+         list.remove(i);
+      }
 
-		TreeSet<Integer> ts = new TreeSet<Integer>(checkCityList);
-		checkCityList = new ArrayList<Integer>(ts);
+      serviceSort.itemHitsSort(list);
 
-		for (int i = checkCityList.size() - 1; i > 1; i--) {
-			checkCityList.remove(i);
-		}
+      list.remove(0);
 
-		list = mapperRecommend.userRecommendLandmark(checkCityList.get(1));
-		return list;
-	}
+      for (int i = list.size() - 1; i > 0; i--) {
+         list.remove(i);
+      }
+
+      return list;
+
+   }
+
+   // hotel
+   @Override
+   public List<HotelVO> recommendUserHotel(String city_name, String lat, String lon) {
+
+      List<HotelVO> list = serviceSort.hotelDistSort(serviceHotel.crawling(city_name, lat, lon));
+
+      for (int i = list.size() - 1; i > 4; i--) {
+         list.remove(i);
+      }
+
+      serviceSort.hotelReviewSort(list);
+
+      list.remove(0);
+
+      for (int i = list.size() - 1; i > 1; i--) {
+         list.remove(i);
+      }
+      
+      list.remove(0);
+
+      return list;
+
+   }
 
 }

@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+   <%
+   if (session.getAttribute("user_idx") != null) {
+      session.removeAttribute("user_idx");
+   }
+   session.setAttribute("user_idx", 1);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -177,7 +183,7 @@ var city = {}; */
    </div>
    <form action="/recommend/scheduleDetail" method="post" id="mfrom">
       
-      <p id="main_title">TraPick</p>
+      <p id="main_title"><i class="fas fa-plane"></i> TraPick</p>
       <div id="container">
          <div id="contents">
          <input id="target" type="text" name="country_name">
@@ -188,7 +194,7 @@ var city = {}; */
             <label for="start_time">출발일 : </label> <input type="text"
                name="start_time" id="start_time" autocomplete=off> ~ <label
                for="end_time">도착일 : </label> <input type="text" name="end_time"
-               id="end_time" autocomplete=off> <input value="생성" id="submit" type="submit"
+               id="end_time" autocomplete=off> <i class="fas fa-location-arrow"></i> <input value="생성" id="submit" type="submit"
                      class="booking_button trans_200">
             <input type="hidden" name="day" value="">   
             <div id="target3_weather">

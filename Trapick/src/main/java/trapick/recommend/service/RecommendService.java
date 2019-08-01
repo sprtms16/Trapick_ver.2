@@ -8,10 +8,7 @@ import trapick.recommend.domain.CourseItemVO;
 import trapick.recommend.domain.HotelVO;
 import trapick.recommend.domain.ItemVO;
 import trapick.recommend.domain.LandmarkVO;
-import trapick.recommend.domain.RestaurantVO;
 import trapick.recommend.domain.Selected;
-import trapick.recommend.domain.SelectedItemVO;
-import trapick.recommend.domain.SelectedLandMarkVO;
 
 public interface RecommendService {
 
@@ -71,6 +68,10 @@ public interface RecommendService {
 	// String lon);
 
 	public List<LandmarkVO> userRecommendLand(String city_name, int user_idx);
+    
+    public List<ItemVO> recommendUserItem(String city_name, String lat, String lon);
+    
+    public List<HotelVO> recommendUserHotel(String city_name, String lat, String lon);
 
 	public double rad2deg(double rad);
 
