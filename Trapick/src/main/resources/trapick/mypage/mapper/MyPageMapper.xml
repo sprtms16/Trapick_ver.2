@@ -3,47 +3,52 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="trapick.mypage.mapper.MyPageMapper">
 
-   <select id="scheduleList" resultType="trapick.schedule.domain.ScheduleVO">
-      select * from schedule
-      where
-      user_idx = #{user_idx}
-   </select>
+	<select id="scheduleList" resultType="trapick.schedule.domain.ScheduleVO">
+		select * from schedule
+		where
+		user_idx = #{user_idx}
+	</select>
 
-   <select id="findUser" resultType="trapick.feed.domain.UserVO">
-      select * from users where user_idx != #{user_idx}
-   </select>
+	<select id="findUser" resultType="trapick.feed.domain.UserVO">
+		select * from users where user_idx != #{user_idx}
+	</select>
 
-   <select id="userInfo" resultType="trapick.feed.domain.UserVO">
-      select * from users
-      where
-      user_idx = #{user_idx}
-   </select>
+	<select id="userInfo" resultType="trapick.feed.domain.UserVO">
+		select * from users
+		where
+		user_idx = #{user_idx}
+	</select>
 
-   <delete id="delete">
-      delete
-      schedule
-      where
-      schd_idx = #{schd_idx}
-   </delete>
+	<delete id="delete">
+		delete
+		schedule
+		where
+		schd_idx = #{schd_idx}
+	</delete>
 
-   <select id="findUserIdx" parameterType="int" resultType="int">
-      select schd_idx from schedule where user_idx = #{user_idx}
-   </select>
+	<select id="findUserIdx" parameterType="int" resultType="int">
+		select
+		schd_idx from schedule where user_idx = #{user_idx}
+	</select>
 
-   <insert id="shareSchd">
-      insert into shareSchd values (#{user_idx},#{schd_idx},#{sharer})
-   </insert>
+	<insert id="shareSchd">
+		insert into shareSchd values
+		(#{user_idx},#{schd_idx},#{sharer})
+	</insert>
 
-	<select id="sharedSchd" resultType="trapick.schedule.domain.ScheduleVO" parameterType="int">
-		select s1.schd_idx, s1.title, s1.schd_start, s1.schd_end from schedule s1, shareschd s2
+	<select id="sharedSchd" resultType="trapick.schedule.domain.ScheduleVO"
+		parameterType="int">
+		select s1.schd_idx, s1.title, s1.schd_start, s1.schd_end
+		from schedule s1, shareschd s2
 		where s1.schd_idx = s2.schd_idx
-		and s2.user_idx = #{user_idx}
+		and
+		s2.user_idx = #{user_idx}
 
 	</select>
-	   <update id="updateImg">
-      update users set img_path = #{img_path}
-      where
-      user_idx = #{user_idx}
-   </update>
+	<update id="updateImg">
+		update users set img_path = #{img_path}
+		where
+		user_idx = #{user_idx}
+	</update>
 
 </mapper>
