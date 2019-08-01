@@ -18,12 +18,8 @@
 	</script>
 	<script type="text/javascript">
 		$(function() {
-			$('#popover-content').on("mouseenter mouseleave",
-					'.list-group-item', function(event) {
-						$(this).toggleClass('active');
-					});
-
 			$('#myModal').on('show.bs.modal', function(event) {
+				console.log("alert list load");
 				var button = $(event.relatedTarget); // Button that triggered the modal
 				var href = button.data('href'); // Extract info from data-* attributes
 				var modal = $(this)
@@ -32,6 +28,7 @@
 					method : 'POST',
 					dataType : 'json',
 					success : function(data) {
+						console.log("alert list success");
 						modal.find('.modal-body').html('');
 						$.each(data, function(index, item) {
 							var $formItem = $('<a>').attr("class","list-group-item list-group-item-action flex-column align-items-start")
@@ -67,6 +64,9 @@
 				var modal = $(this);
 				modal.find('.modal-body').load(href);
 			});
+			
+			$("#myModal").appendTo("body");
+			$("#feedModal").appendTo("body");
 		});
 	</script>
 </header>

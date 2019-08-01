@@ -107,7 +107,7 @@ th, td{
                <c:forEach items="${list }" var="schedule">
                      <tr>
                         <th scope="row" id="schd_idx" style="vertical-align: middle;"><c:out value="${schedule.schd_idx }"></c:out></th>
-                        <td  onclick="location.href='/feed/insert?schd_idx=${schedule.schd_idx }'" style="vertical-align: middle;"><c:out value="${schedule.title }"></c:out></td>
+                        <td onclick="location.href='/feed/insert?schd_idx=${schedule.schd_idx }'" style="vertical-align: middle;"><c:out value="${schedule.title }"></c:out></td>
                         <td style="vertical-align: middle;"><c:out value="${schedule.schd_start }"></c:out></td>
                         <td style="vertical-align: middle;"><c:out value="${schedule.schd_end }"></c:out></td>
                         <td style="vertical-align: middle;">
@@ -154,7 +154,7 @@ th, td{
                      <c:forEach items="${shareList }" var="list" varStatus="status">
                         <tr>
                            <th scope="row" id="schd_idx" style="vertical-align: middle;"><c:out value="${list.schd_idx }"></c:out></th>
-                           <td style="vertical-align: middle;"><c:out value="${list.title }"></c:out></td>
+                           <td onclick="location.href='/feed/insert?schd_idx=${schedule.schd_idx }'" style="vertical-align: middle;"><c:out value="${list.title }"></c:out></td>
                            <td style="vertical-align: middle;"><c:out value="${list.schd_start }"></c:out></td>
                            <td style="vertical-align: middle;"><c:out value="${list.schd_end }"></c:out></td>
                            <td style="vertical-align: middle;"><c:out value="${sharer[status.index].id }"></c:out></td>
@@ -174,5 +174,4 @@ th, td{
    </div>
 </div>
 </body>
-</html>
 </html>
