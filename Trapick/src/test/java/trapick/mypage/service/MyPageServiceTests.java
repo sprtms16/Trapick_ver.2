@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
+import trapick.feed.domain.UserVO;
 import trapick.schedule.domain.ScheduleVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,39 +20,31 @@ public class MyPageServiceTests {
 
 	@Setter(onMethod_ = @Autowired)
 	private MyPageService service;
-/*
-	@Test
-	public void testGetSchedule() {
-		UserVO userVO = new UserVO();
-		userVO.setUser_idx(1);
-		service.scheduleList(userVO).forEach(schedule -> log.info(schedule));
-	}
-	
-//	@Test
-	public void testUpdateUser(){
-		UserVO vo = service.userInfo(3);
-		
-		vo.setId("ruthjiin");
-		vo.setPw("moonjiin");
-		vo.setEmail("ruthjiin@gmail.com");
-		
-		log.info("User Info 수정 : " + service.updateUserInfo(vo));
-	}
+	/*
+	 * @Test public void testGetSchedule() { UserVO userVO = new UserVO();
+	 * userVO.setUser_idx(1); service.scheduleList(userVO).forEach(schedule ->
+	 * log.info(schedule)); }
+	 * 
+	 * // @Test public void testUpdateUser(){ UserVO vo = service.userInfo(3);
+	 * 
+	 * vo.setId("ruthjiin"); vo.setPw("moonjiin");
+	 * vo.setEmail("ruthjiin@gmail.com");
+	 * 
+	 * log.info("User Info 수정 : " + service.updateUserInfo(vo)); }
+	 * 
+	 * // @Test public void testGetUserInfo() { int user_idx = 1;
+	 * log.info(service.userInfo(user_idx)); }
+	 * 
+	 */
 
-//	@Test
-	public void testGetUserInfo() {
-		int user_idx = 1;
-		log.info(service.userInfo(user_idx));
-	}
-	
-*/
-	
 	@Test
-	public void test(){
-		List<ScheduleVO> list = service.sharedSchd(3);
-		
-		for(int i=0; i<list.size();i++){
-			log.info(list.get(i));
+	public void test() {
+		List<ScheduleVO> list = service.sharedSchd(2);
+		List<UserVO> listSh = service.sharer(2);
+
+		for (int i = 0; i < list.size(); i++) {
+			log.info(list.get(i) + "공유자" + listSh.get(i).getId());
 		}
+
 	}
 }

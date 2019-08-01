@@ -9,11 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
@@ -32,19 +31,10 @@ public class FeedController {
 
 	private FeedService feedService;
 	private ReplyService replyService;
-	private EchoHandler handler;
-	
-	
+
 	@GetMapping("echo")
 	public void echo() {
 	}
-	
-	@GetMapping("echoSet")
-	public String echoSet(HttpSession session){
-		return "redirect:echo";
-	}
-
-
 
 	@PostMapping("join")
 	public String postJoin(UserVO user) {
@@ -58,10 +48,10 @@ public class FeedController {
 	}
 
 	@GetMapping("/list")
-	public void feedList(Model model, @RequestParam HashMap<String, String> paramMap) {
+	public void feedList(Model model, @RequestParam HashMap<String, String> paramMap, HttpSession session) {
 		log.info("list");
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("user_idx", 2);
+		map.put("user_idx", session.getAttribute("user_idx"));
 		if (paramMap.get("keyword") != null) // hashtag
 			map.put("keyword", "#" + paramMap.get("keyword"));
 		if (paramMap.get("word") != null) // �˻�â�� �Է��� text��
@@ -70,13 +60,28 @@ public class FeedController {
 
 		list.forEach(feed -> {
 			Map<String, Object> replyInfo = new HashMap<>();
-			replyInfo.put("user_idx", 2);
+			replyInfo.put("user_idx", session.getAttribute("user_idx"));
 			replyInfo.put("feed_idx", feed.getFeed_idx());
 			feed.setReplys(replyService.replyListService(replyInfo));
 			feed.setUrl(feedService.selectFeedUrl(feed.getFeed_idx()));
 		});
 		model.addAttribute("list", list);
-		
+
+	}
+
+	@GetMapping("feed/{feed_idx}")
+	public String feed(@PathVariable("feed_idx") int feed_idx, Model model, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_idx", session.getAttribute("user_idx"));
+		map.put("feed_idx", feed_idx);
+		FeedVO feedVO = feedService.getFeed(map);
+		Map<String, Object> replyInfo = new HashMap<>();
+		replyInfo.put("user_idx", session.getAttribute("user_idx"));
+		replyInfo.put("feed_idx", feedVO.getFeed_idx());
+		feedVO.setUrl(feedService.selectFeedUrl(feedVO.getFeed_idx()));
+		feedVO.setReplys(replyService.replyListService(replyInfo));
+		model.addAttribute("feed", feedVO);
+		return "feed/feed";
 	}
 
 	@GetMapping("insert")
@@ -86,9 +91,12 @@ public class FeedController {
 	}
 
 	@GetMapping({ "/get", "/modify" })
-	public void get(@RequestParam("feed_idx") int feed_idx, Model model) {
+	public void get(@RequestParam("feed_idx") int feed_idx, Model model, HttpSession session) {
 		log.info("/get or modify");
-		model.addAttribute("feed", feedService.getFeed(feed_idx));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_idx", session.getAttribute("user_idx"));
+		map.put("feed_idx", feed_idx);
+		model.addAttribute("feed", feedService.getFeed(map));
 	}
 
 	@PostMapping("/modify")

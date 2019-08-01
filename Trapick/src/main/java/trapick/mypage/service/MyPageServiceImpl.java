@@ -94,8 +94,8 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<UserVO> findUser() {
-		return mapper.findUser();
+	public List<UserVO> findUser(int user_idx) {
+		return mapper.findUser(user_idx);
 	}
 
 	@Override
@@ -103,6 +103,8 @@ public class MyPageServiceImpl implements MyPageService {
 
 		List<ScheduleVO> listTemp = mapper.sharedSchd(user_idx);
 		List<ScheduleVO> list = new ArrayList<ScheduleVO>();
+		List<UserVO> listSharerTemp = mapper.findSharer(user_idx);
+		List<UserVO> listSharer = new ArrayList<>();
 
 		String tempStart = null;
 		String tempEnd = null;
@@ -127,5 +129,38 @@ public class MyPageServiceImpl implements MyPageService {
 			}
 		}
 		return listShare;
+	}
+	
+	@Override
+	public List<UserVO> sharer(int user_idx){
+		
+		List<ScheduleVO> listTemp = mapper.sharedSchd(user_idx);
+		List<ScheduleVO> list = new ArrayList<ScheduleVO>();
+		List<UserVO> listSharerTemp = mapper.findSharer(user_idx);
+		List<UserVO> listSharer = new ArrayList<UserVO>();
+
+		String tempStart = null;
+		String tempEnd = null;
+
+		for (int i = 0; i < listTemp.size(); i++) {
+
+			tempStart = listTemp.get(i).getSchd_start().substring(0, 10);
+			tempEnd = listTemp.get(i).getSchd_end().substring(0, 10);
+
+			ScheduleVO vo = new ScheduleVO(listTemp.get(i).getSchd_idx(), listTemp.get(i).getTitle(), tempStart,
+					tempEnd, listTemp.get(i).getUser_idx(), listTemp.get(i).getSelectedLandmarkds(),
+					listTemp.get(i).getSelectedItems());
+
+			list.add(vo);
+		}
+		
+		List<ScheduleVO> listShare = new ArrayList<ScheduleVO>();
+		
+		for(int i=0; i<list.size();i++){
+			if(!listShare.contains(list.get(i))){
+				listSharer.add(listSharerTemp.get(i));
+			}
+		}
+		return listSharer;
 	}
 }

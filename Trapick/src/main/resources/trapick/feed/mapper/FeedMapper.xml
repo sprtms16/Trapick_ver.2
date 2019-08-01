@@ -4,36 +4,36 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="trapick.feed.mapper.FeedMapper">
 
-   <select id="feedList" resultType="trapick.feed.domain.FeedVO">
-      select
-      f.*,
-      nvl2(h.user_idx,1,0) as islike, nvl2(s.subscriber,1,0) as
-      issubs,
-      (select COUNT(*) from
-      feed_heart where feed_heart.FEED_IDX =
-      f.FEED_IDX) as
-      heart,
-      TO_DATE(c.schd_end,'YYYY-MM-DD') -
-      TO_DATE(c.schd_start, 'YYYY-MM-DD')as travelDates
-      from
-      feed f
-      left JOIN
-      FEED_HEART h
-      on
-      f.feed_idx = h.feed_idx and h.user_idx =1
-      left JOIN
-      feed_subscribe s on f.user_idx = s.feeder and s.subscriber = 1
-      JOIN
-      schedule c on f.schd_idx = c.schd_idx
-      <where>
-         <if test="keyword != null">
-            REGEXP_LIKE(replace(f.contents,' ',''), #{keyword}) OR
-            REGEXP_LIKE(replace(f.title,' ',''), #{keyword})
-         </if>
-      </where>
-      order by f.regdate desc
-   </select>
+	<select id="feedList" resultType="trapick.feed.domain.FeedVO">
+		select
+		f.*,
+		nvl2(h.user_idx,1,0) as islike, nvl2(s.subscriber,1,0) as
+		issubs,
+		(select COUNT(*) from
+		feed_heart where feed_heart.FEED_IDX =
+		f.FEED_IDX) as
+		heart,
+		TO_DATE(c.schd_end,'YYYY-MM-DD') -
+		TO_DATE(c.schd_start, 'YYYY-MM-DD')as travelDates
+		from
+		feed f
+		left JOIN
+		FEED_HEART h
+		on
+		f.feed_idx = h.feed_idx and h.user_idx =#{user_idx}
+		left JOIN
+		feed_subscribe s on f.user_idx = s.feeder and s.subscriber = #{user_idx}
+		JOIN
+		schedule c on f.schd_idx = c.schd_idx
+		<where>
+			<if test="keyword != null">
+				REGEXP_LIKE(replace(f.contents,' ',''), #{keyword}) OR
+				REGEXP_LIKE(replace(f.title,' ',''), #{keyword})
+			</if>
+		</where>
+		order by f.regdate desc
 
+	</select>
 
 	<insert id="insertFeed">
 		INSERT ALL into feed
@@ -53,10 +53,10 @@
 		values(users_seq.nextval,#{id},#{pw},#{email})
 	</insert>
 
-   <select id="loginCheck" resultType="int">
-      select user_idx from users
-      where id = #{id} AND pw = #{pw}
-   </select>
+	<select id="loginCheck" resultType="int">
+		select user_idx from users
+		where id = #{id} AND pw = #{pw}
+	</select>
 
 	<select id="getPw" resultType="String">
 		select pw from users
@@ -64,75 +64,97 @@
 		#{id}
 	</select>
 
-   <delete id="deleteFeed">
-      delete from feed where
-      feed_idx = #{feed_idx}
-   </delete>
+	<delete id="deleteFeed">
+		delete from feed where
+		feed_idx = #{feed_idx}
+	</delete>
 
-   <update id="updateFeed">
-      update feed set
-      title = #{title}, contents =
-      #{contents} where feed_idx =
-      #{feed_idx}
+	<update id="updateFeed">
+		update feed set
+		title = #{title}, contents =
+		#{contents} where feed_idx =
+		#{feed_idx}
 
-   </update>
+	</update>
 
-   <select id="getFeed" resultType="trapick.feed.domain.FeedVO">
-      select * from feed where
-      feed_idx = #{feed_idx}
-   </select>
+	<select id="getFeed" resultType="trapick.feed.domain.FeedVO">
+		select
+		f.*,
+		nvl2(h.user_idx,1,0)
+		as islike, nvl2(s.subscriber,1,0) as
+		issubs,
+		(select COUNT(*) from
+		feed_heart where feed_heart.FEED_IDX =
+		f.FEED_IDX) as
+		heart,
+		TO_DATE(c.schd_end,'YYYY-MM-DD') -
+		TO_DATE(c.schd_start,
+		'YYYY-MM-DD')as travelDates
+		from
+		feed f
+		left JOIN
+		FEED_HEART h
+		on
+		f.feed_idx = h.feed_idx and h.user_idx = #{user_idx}
+		left JOIN
+		feed_subscribe s on
+		f.user_idx = s.feeder and s.subscriber = #{user_idx}
+		JOIN
+		schedule c on f.schd_idx
+		= c.schd_idx where
+		f.feed_idx = #{feed_idx}
+	</select>
 
-   <select id="selectMyFeedList" resultType="trapick.feed.domain.FeedVO">
-      select * from feed
-      where user_idx = #{user_idx}
-      order by
-      regdate desc
-   </select>
+	<select id="selectMyFeedList" resultType="trapick.feed.domain.FeedVO">
+		select * from feed
+		where user_idx = #{user_idx}
+		order by
+		regdate desc
+	</select>
 
-   <select id="selectMySchdList" resultType="trapick.feed.domain.FeedVO">
-      select * from
-      schedule_sf where user_idx = #{user_idx}
-      order by SCHD_IDX desc
-   </select>
+	<select id="selectMySchdList" resultType="trapick.feed.domain.FeedVO">
+		select * from
+		schedule_sf where user_idx = #{user_idx}
+		order by SCHD_IDX desc
+	</select>
 
-   <select id="selectFeedUrl" resultType="String">
-      SELECT url FROM
-      update_image WHERE feed_idx =
-      #{feed_idx}
-   </select>
+	<select id="selectFeedUrl" resultType="String">
+		SELECT url FROM
+		update_image WHERE feed_idx =
+		#{feed_idx}
+	</select>
 
-   <select id="selectFeedHeartCount" resultType="int">
-      select COUNT(*)
-      from feed_heart
-      where feed_idx = #{feed_idx}
-   </select>
+	<select id="selectFeedHeartCount" resultType="int">
+		select COUNT(*)
+		from feed_heart
+		where feed_idx = #{feed_idx}
+	</select>
 
-   <select id="selectFeedHeartCheck" resultType="int">
-      select COUNT(*)
-      from feed_heart
-      where user_idx = #{user_idx}
-      and feed_idx = #{feed_idx}
-   </select>
+	<select id="selectFeedHeartCheck" resultType="int">
+		select COUNT(*)
+		from feed_heart
+		where user_idx = #{user_idx}
+		and feed_idx = #{feed_idx}
+	</select>
 
-   <delete id="deleteFeedHeart">
-      delete from
-      feed_heart where feed_idx = #{feed_idx}
-      and user_idx=#{user_idx}
-   </delete>
+	<delete id="deleteFeedHeart">
+		delete from
+		feed_heart where feed_idx = #{feed_idx}
+		and user_idx=#{user_idx}
+	</delete>
 
-   <insert id="insertFeedHeart">
-      insert into
-      feed_heart
-      VALUES(
-      #{user_idx},
-      #{feed_idx})
-   </insert>
+	<insert id="insertFeedHeart">
+		insert into
+		feed_heart
+		VALUES(
+		#{user_idx},
+		#{feed_idx})
+	</insert>
 
-   <insert id="addSubscriber">
-      insert into FEED_SUBSCRIBE
-      values(#{feeder},#{subscriber})
-   </insert>
-
+	<insert id="addSubscriber">
+		insert into FEED_SUBSCRIBE
+		values(#{feeder},#{subscriber})
+	</insert>
 
 	<select id="selectSubscriber" resultType="int">
 		select feeder from
@@ -144,9 +166,26 @@
 		count(subscriber) from feed_subscribe where feeder = #{user_idx}
 	</select>
 
-	<select id="selectAlertList" resultType="trapick.feed.domain.AlertSubscribeVO">
+	<select id="selectAlertList" resultMap="AlertSubscribe">
 		SELECT * FROM
 		ALERT_SUBSCRIBE where SUBSCRIBER = #{user_idx}
+	</select>
+
+	<resultMap type="trapick.feed.domain.AlertSubscribeVO" id="AlertSubscribe">
+		<result property="alert_type" column="alert_type" />
+		<result property="read" column="read" />
+		<collection property="feeder" column="feeder"
+			ofType="trapick.feed.domain.UserVO" select="getUser" />
+		<collection property="subscriber" column="subscriber"
+			ofType="trapick.feed.domain.UserVO" select="getUser" />
+		<collection property="feed" column="feed_idx"
+			ofType="trapick.feed.domain.FeedVO" select="getFeed" />
+
+	</resultMap>
+
+	<select id="getUser" resultType="trapick.feed.domain.UserVO">
+		select * from users where
+		user_idx= #{user_idx}
 	</select>
 
 	<select id="selectSubscriberCheck" resultType="int">

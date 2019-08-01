@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width">
-<title>Insert title here</title>
-
-
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -272,30 +264,31 @@
 										id="btnSave">작성</button>
 									<a class="btn btn-sm btn-primary view getReplyList"
 										data-href="${feed.feed_idx}" data-toggle="collapse"
-										href="#collapseExample" role="button" aria-expanded="false"
-										aria-controls="collapseExample"> <i class="fas fa-map"></i>
+										href="#collapseExample${feed.feed_idx }" role="button" aria-expanded="false"
+										aria-controls="collapseExample${feed.feed_idx }"> <i class="fas fa-map"></i>
 										모두보기
 									</a>
-
-									<c:choose>
-										<c:when test="${feed.issubs eq 1}">
-											<button
-												class="btn btn-sm btn-primary ${feed.user_idx} follow"
-												data-idx="${feed.user_idx}"
-												data-href="/RestFeed/followAction/${feed.user_idx}">구독중</button>
-										</c:when>
-										<c:otherwise>
-											<button
-												class="btn btn-sm btn-primary ${feed.user_idx} follow"
-												data-idx="${feed.user_idx}"
-												data-href="/RestFeed/followAction/${feed.user_idx}">구독</button>
-										</c:otherwise>
-									</c:choose>
+									<c:if test="${feed.user_idx ne user_idx }">
+										<c:choose>
+											<c:when test="${feed.issubs eq 1}">
+												<button
+													class="btn btn-sm btn-primary ${feed.user_idx} follow"
+													data-idx="${feed.user_idx}"
+													data-href="/RestFeed/followAction/${feed.user_idx}">구독중</button>
+											</c:when>
+											<c:otherwise>
+												<button
+													class="btn btn-sm btn-primary ${feed.user_idx} follow"
+													data-idx="${feed.user_idx}"
+													data-href="/RestFeed/followAction/${feed.user_idx}">구독</button>
+											</c:otherwise>
+										</c:choose>
+									</c:if>
 								</div>
 							</form>
 						</div>
 						<p></p>
-						<div class="collapse" id="collapseExample">
+						<div class="collapse" id="collapseExample${feed.feed_idx }">
 							<div class="card card-body">
 
 								<%-- <c:forEach var="reply" items="${feed.replys}">

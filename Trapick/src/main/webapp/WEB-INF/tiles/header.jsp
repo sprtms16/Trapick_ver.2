@@ -23,9 +23,43 @@
 						$(this).toggleClass('active');
 					});
 
-			/* 	content : function() {
-					return $('#popover-content').html();
-				} */
+			$('#myModal').on('show.bs.modal', function(event) {
+				var button = $(event.relatedTarget); // Button that triggered the modal
+				var href = button.data('href'); // Extract info from data-* attributes
+				var modal = $(this)
+				$.ajax({
+					url : href,
+					method : 'POST',
+					dataType : 'json',
+					success : function(data) {
+						modal.find('.modal-body').html('');
+						$.each(data, function(index, item) {
+							modal.find('.modal-body').append(
+									$('<a>').attr("class","list-group-item list-group-item-action flex-column align-items-start active")
+									.append(
+											$('<div>').attr("class","d-flex w-100 justify-content-between").append(
+													$('<h5>').attr("class","mb-1").text(item.feeder.id+" 님께서 "+item.feed.title+" (을)를 작성하셨습니다.")
+											).append(
+													$('small').text('방금전')
+											)
+									).append(
+											$('<p>').attr("class","mb-1").text(item.feed.contents)
+									).attr("data-href","/feed/feed/"+item.feed.feed_idx)
+									.attr("data-toggle","modal")
+									.attr("data-target","#feedModal")
+							);
+						})
+						
+					}
+				});
+				
+			});
+			$('#feedModal').on('show.bs.modal', function(event) {
+				var button = $(event.relatedTarget); // Button that triggered the modal
+				var href = button.data('href'); // Extract info from data-* attributes
+				var modal = $(this);
+				modal.find('.modal-body').load(href);
+			});
 		});
 	</script>
 </header>
@@ -47,7 +81,7 @@
 
 		<c:choose>
 			<c:when test="${sessionScope.user_idx ne null}">
-				<a class="nav-link text-light">${user_idx }</a>
+				<a class="nav-link text-light" href="/">${user_idx }</a>
 				<a class="nav-link text-light" href="/sign/logout">로그아웃</a>
 			</c:when>
 			<c:otherwise>
@@ -57,6 +91,7 @@
 		</c:choose>
 
 		<button class="btn" type="button" data-toggle="modal"
+			data-href="/RestFeed/getAlertList/${user_idx }.json"
 			data-target="#myModal">
 			<i class="fas fa-bell" id="alertCount" style="font-size: 1.7em;"><span
 				class="text-danger"></span></i>
@@ -72,16 +107,6 @@
 			</form>
 		</div>
 	</div>
-	<div id="popover-content" class="d-none">
-		<div class="list-group">
-			<button type="button" class="list-group-item list-group-item-action">asdfasdf</button>
-			<button type="button" class="list-group-item list-group-item-action">asdfasdf</button>
-			<button type="button" class="list-group-item list-group-item-action">asdfasdf</button>
-			<button type="button" class="list-group-item list-group-item-action">asdfasdf</button>
-			<button type="button" class="list-group-item list-group-item-action">asdfasdf</button>
-		</div>
-
-	</div>
 </nav>
 <!-- The Modal -->
 <div class="modal" id="myModal">
@@ -95,7 +120,28 @@
 			</div>
 
 			<!-- Modal body -->
-			<div class="modal-body">Modal body..</div>
+			<div class="modal-body list-group" style="max-height: 300px;overflow-y: scroll;"></div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="modal" id="feedModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">피드</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body"></div>
 
 			<!-- Modal footer -->
 			<div class="modal-footer">

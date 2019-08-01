@@ -30,6 +30,7 @@ var city = {}; */
       //날짜 선택기능
       $(".datepicker").datepicker();
       //
+      
       var availableTags = [];
       var uniqueAvailableTags = [];//국가 배열
       $.getJSON('/schedule/country', function(data) {

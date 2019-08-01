@@ -11,7 +11,7 @@ public interface MyPageMapper {
 
 	public List<ScheduleVO> scheduleList(UserVO userVO);
 
-	public List<UserVO> findUser();
+	public List<UserVO> findUser(int user_idx);
 
 	public UserVO userInfo(int user_idx);
 
@@ -24,5 +24,7 @@ public interface MyPageMapper {
 	public int shareSchd(@Param("user_idx") int user_idx, @Param("schd_idx") int schd_idx, @Param("sharer") int sharer);
 
 	public List<ScheduleVO> sharedSchd(int user_idx);
+	
+	public List<UserVO> findSharer(int user_idx);
 
 }

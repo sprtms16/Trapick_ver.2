@@ -24,7 +24,10 @@ import trapick.mypage.service.MyPageService;
 public class MyPageController {
    
    private MyPageService service;
-   
+   @PostMapping("/mypage")
+   public String re(){
+	   return "redirect:/mypage/mypage";
+   }
    @GetMapping("/mypage")
    public void list(Model model, HttpSession session) {
       int user_idx = (int) session.getAttribute("user_idx");
@@ -36,10 +39,10 @@ public class MyPageController {
        }else{
           userVO.setImg_path("/resources/upload/"+userVO.getImg_path());
        }
-      List<UserVO> userList = service.findUser();
-      userList.remove(user_idx-1);
+      List<UserVO> userList = service.findUser(user_idx);
       model.addAttribute("userList", userList);
       model.addAttribute("shareList", service.sharedSchd(user_idx));
+      model.addAttribute("sharer", service.sharer(user_idx));
    }
    
    @RequestMapping(value = "remove/{schd_idx}", method={RequestMethod.GET, RequestMethod.POST})
@@ -47,7 +50,7 @@ public class MyPageController {
       if(service.remove(schd_idx)){
          rttr.addFlashAttribute("result", "success");
       }
-      return "redirect:/mypage/list";
+      return "redirect:/mypage/mypage";
    }
    
    @RequestMapping(value = "share/{user}/{schd_idx}", method={RequestMethod.GET, RequestMethod.POST})

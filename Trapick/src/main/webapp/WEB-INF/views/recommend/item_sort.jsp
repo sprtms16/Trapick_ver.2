@@ -29,39 +29,29 @@
 <script type="text/javascript"
    src="http://maps.google.com/maps/api/js?key=AIzaSyCafdAtR2qeRHV-G6art-6-guHlmJBL_1s"></script>
 <script type="text/javascript">
-	var map;
-	var testMarker = [];
-	testMarker[0] = {}
-	var directionDisplay;
-	var directionsService = new google.maps.DirectionsService();
-	
-	function initialize() {
-		directionsDisplay = new google.maps.DirectionsRenderer();
-		
-	   
+   var map;
+   var testMarker = new Array();
+
+   function initialize() {
+
       var mapOptions = {
          zoom : 6, // 지도를 띄웠을 때의 줌 크기
          mapTypeId : google.maps.MapTypeId.ROADMAP
       };
-      //map = new google.maps.Map(document.getElementById("map-canvas"), // div의 id과 값이 같아야 함. "map-canvas"
-      //mapOptions);
-	
-      map = new google.maps.Map(document.getElementById("map"),
-    		  mapOptions);
-      
-      
-     /*  var size_x = 40; // 마커로 사용할 이미지의 가로 크기
+
+      map = new google.maps.Map(document.getElementById("map-canvas"), // div의 id과 값이 같아야 함. "map-canvas"
+      mapOptions);
+
+      var size_x = 40; // 마커로 사용할 이미지의 가로 크기
       var size_y = 40; // 마커로 사용할 이미지의 세로 크기
 
       // 마커로 사용할 이미지 주소
       var image = new google.maps.MarkerImage('주소 여기에 기입!',
             new google.maps.Size(size_x, size_y), '', '',
-            new google.maps.Size(size_x, size_y)); */
-     
+            new google.maps.Size(size_x, size_y));
 
    }
    google.maps.event.addDomListener(window, 'load', initialize);
-   
 
    function addMarker(name, lat, lon) {
       var lat = parseFloat(lat);
@@ -80,33 +70,6 @@
          lng : lon
       });
    }
-   function calcRoute(){
-	   var request = {
-			   origin: testMarker[0],
-			   destination: testMarker[testMarker.length - 1],
-			   optimizeWaypoints: true,
-			   travelMode: google.maps.DirectionsTravelMode.WALKING
-	   };
-	   directionsService.route(request, function(response, status) {
-		      if (status == google.maps.DirectionsStatus.OK) {
-		        directionsDisplay.setDirections(response);
-		        var route = response.routes[0];
-		        var summaryPanel = document.getElementById("directions_panel");
-		        summaryPanel.innerHTML = "";
-		        // For each route, display summary information.
-		        for (var i = 0; i < route.legs.length; i++) {
-		          var routeSegment = i + 1;
-		          summaryPanel.innerHTML += "<b>Route Segment: " + routeSegment + "</b><br />";
-		          summaryPanel.innerHTML += route.legs[i].start_address + " to ";
-		          summaryPanel.innerHTML += route.legs[i].end_address + "<br />";
-		          summaryPanel.innerHTML += route.legs[i].distance.text + "<br /><br />";
-		        }
-		      } else {
-		        alert("directions response "+status);
-		      }
-		    });
-   }
-   
 </script>
 
 
@@ -150,14 +113,14 @@
          $('#itemHitsSort').show();
          $('#itemDistSort').show();
       });
-      
+
       $('#tabRe-1').click(function() {
          $('#tabRe-1').addClass('selected');
          $('#tabRe-3').removeClass('selected');
          $('#recommendUser').show();
          $('#recommend').hide();
       });
-      
+
       $('#tabRe-3').click(function() {
          $('#tabRe-3').addClass('selected');
          $('#tabRe-1').removeClass('selected');
@@ -250,7 +213,6 @@
                               'input[name=item_name]').val();
 
                         addMarker(name, lat, lon);
-                        
 
                         $(this).addClass('select');
                         $(this).empty();
@@ -260,7 +222,7 @@
                         html = "";
 
                         var user_idx = 1;
-                        
+
                         //4개 추천하기
                         //landmark
                         $
@@ -588,7 +550,6 @@
             .on(
                   "click",
                   function() {
-                	  calcRoute();
                      var te = $('#courseData').serialize();
                      te = encodeURI(te);
                      alert(te);
@@ -1314,130 +1275,28 @@
                   })
       //정렬 끝
 
+      $('#allClear').click(function() {
+         $('td:not(.time)').empty();
+      })
    })
-
-   function wrapWindowByMask() {
-      //화면의 높이와 너비를 구한다.
-      var maskHeight = $(document).height();
-      var maskWidth = $(window).width();
-
-      //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
-      $('#mask').css({
-         'width' : maskWidth,
-         'height' : maskHeight
-      });
-
-      //애니메이션 효과
-      $('#mask').fadeIn(1000);
-      $('#mask').fadeTo("slow", 0.8);
-   }
-
-   function wrapWindowByloading() {
-      //화면의 높이와 너비를 구한다.
-      var maskHeight = $(document).height();
-      var maskWidth = $(window).width();
-
-      //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
-      $('#loadingImage').css({
-         'width' : maskWidth,
-         'height' : maskHeight
-      });
-   }
-
-   $(document).ready(function() {
-      $('#Progress_Loading').hide(); //첫 시작시 로딩바를 숨겨준다.
-      $('#mask').hide();
-   }).ajaxStart(function() {
-      $('#Progress_Loading').show(); //ajax실행시 로딩바를 보여준다.
-      wrapWindowByMask();
-   }).ajaxStop(function() {
-      $('#Progress_Loading').hide(); //ajax종료시 로딩바를 숨겨준다.
-      $('#mask').hide();
-   });
 </script>
 <script type="text/javascript">
-   /*
-    $(document).ready(function() {
-    setTimeout(function() {
-    document.getElementById( 'jb' ).value = '10';
-    },1000);
-    setTimeout(function() {
-    document.getElementById( 'jb' ).value = '20';
-    },2000);
-    setTimeout(function() {
-    document.getElementById( 'jb' ).value = '30';
-    },3000);
-    setTimeout(function() {
-    document.getElementById( 'jb' ).value = '40';
-    },4000);
-    setTimeout(function() {
-    document.getElementById( 'jb' ).value = '50';
-    },5000);
-    setTimeout(function() {
-    document.getElementById( 'jb' ).value = '60';
-    },6000);
-    setTimeout(function() {
-    document.getElementById( 'jb' ).value = '70';
-    },7000);
-    setTimeout(function() {
-    document.getElementById( 'jb' ).value = '80';
-    },8000);
-    setTimeout(function() {
-    document.getElementById( 'jb' ).value = '90';
-    },9000);
-    setTimeout(function() {
-    document.getElementById( 'jb' ).value = '100';
-    },10000);
-    });
-    */
-</script>
-<style type="text/css">
-#loadingImage {
-   position: absolute;
-   left: 0;
-   top: 0;
-   z-index: 300;
-}
-</style>
-<script type="text/javascript">
-   $(document).ready(function() {
-      $('#loadingImage').hide();
-      $('#jb').hide();
-      /*    setTimeout(function(){
-       $('#loadingImage').hide();
-       $('#jb').hide();
-       }, 10000); */
-   });
-</script>
-<script type="text/javascript">
-   $(function() {
-     // var floatPosition = parseInt($("#map-canvas").css('top'));
-		var floatPosition = parseInt($("#map").css('top'));
-     
+/*    $(function() {
+      var floatPosition = parseInt($("#map-canvas").css('top'));
+
       $(window).scroll(function() {
          var scrollTop = $(window).scrollTop();
          var newPosition = scrollTop + floatPosition + "px";
 
-         //$("#map-canvas").css('top', newPosition);
-		$("#map").css('top', newPosition);
+         $("#map-canvas").css('top', newPosition);
+
       }).scroll();
 
-   })
+   }) */
 </script>
 <title>여행상품</title>
 </head>
 <body>
-   <div id="mask"></div>
-   <div>
-      <progress value="0" max="100" id="jb"></progress>
-   </div>
-   <div id="Progress_Loading">
-      <!-- 로딩바 -->
-      <img src="../resources/image/Progress_Loading.gif" id="progress" />
-   </div>
-   <div id="loadingImage">
-      <img src="../resources/image/loading.jpg" id="im" />
-   </div>
    <p id="subject">Travel Scheduler</p>
    <br>
    <br>
@@ -1448,34 +1307,61 @@
          </c:forEach>
       </select>
       <button id="city_search" class="btn btn-link">
-            <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-               <i class="fas fa-search"></i> 검색</span></button>
+         <span
+            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-search"></i> 검색
+         </span>
+      </button>
    </div>
    <div id="asdf2">
-         <button id="itemPriceSort" name="price" class="btn btn-link">
-         <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-            <i class="fas fa-tags"></i> 가격순</span></button>
-         <button id="itemSalesSort" name="price" class="btn btn-link">
-            <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-            <i class="fas fa-credit-card"></i> 판매순</span></button>
-         <button id="itemDistSort" name="price" class="btn btn-link">
-            <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-            <i class="fas fa-train"></i> 거리순</span></button>
-         <button id="hotelPriceSort" name="price" class="btn btn-link">
-            <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-               <i class="fas fa-tags"></i> 가격순</span></button>
-         <button id="hotelReviewSort" name="price" class="btn btn-link">
-            <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-               <i class="fas fa-pencil-alt"></i> 리뷰순</span></button>
-         <button id="hotelDistSort" name="price" class="btn btn-link">
-            <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-               <i class="fas fa-train"></i> 거리순</span></button>
-         <button id="landmarkDistSort" name="price" class="btn btn-link">
-            <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-            <i class="fas fa-subway"></i> 거리순</span></button>
-         <button id="landmarkHitsSort" name="price" class="btn btn-link">
-            <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-               <i class="far fa-thumbs-up"></i> 인기순</span></button>
+      <button id="itemPriceSort" name="price" class="btn btn-link">
+         <span
+            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-tags"></i> 가격순
+         </span>
+      </button>
+      <button id="itemSalesSort" name="price" class="btn btn-link">
+         <span
+            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-credit-card"></i> 판매순
+         </span>
+      </button>
+      <button id="itemDistSort" name="price" class="btn btn-link">
+         <span
+            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-train"></i> 거리순
+         </span>
+      </button>
+      <button id="hotelPriceSort" name="price" class="btn btn-link">
+         <span
+            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-tags"></i> 가격순
+         </span>
+      </button>
+      <button id="hotelReviewSort" name="price" class="btn btn-link">
+         <span
+            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-pencil-alt"></i> 리뷰순
+         </span>
+      </button>
+      <button id="hotelDistSort" name="price" class="btn btn-link">
+         <span
+            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-train"></i> 거리순
+         </span>
+      </button>
+      <button id="landmarkDistSort" name="price" class="btn btn-link">
+         <span
+            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-subway"></i> 거리순
+         </span>
+      </button>
+      <button id="landmarkHitsSort" name="price" class="btn btn-link">
+         <span
+            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="far fa-thumbs-up"></i> 인기순
+         </span>
+      </button>
       <!--<button id="itemHitsSort" name="price" class="btn btn-info">상품 인기순</button> -->
    </div>
    <div class="container">
@@ -1489,11 +1375,17 @@
                      id="titleSche" placeholder="일정 제목">
                </div>
                <button id="course" class="btn btn-link">
-                     <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-                        <i class="fas fa-map-signs"></i> 경로 추천</span></button>
-                     <button id="save" class="btn btn-link">
-                     <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-                        <i class="fas fa-save"></i> 일정 저장</span></button>
+                  <span
+                     style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+                     <i class="fas fa-map-signs"></i> 경로 추천
+                  </span>
+               </button>
+               <button id="save" class="btn btn-link">
+                  <span
+                     style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+                     <i class="fas fa-save"></i> 일정 저장
+                  </span>
+               </button>
                <table id="mySheduleTable" border=2>
                   <tr>
                      <th>일정</th>
@@ -1535,6 +1427,7 @@
                   </c:forEach>
                </table>
             </form>
+            <img src="../resources/image/del.png" id="allClear">
          </div>
          <div class="col-md-3" id="city_List">
             <div id="landMarkList">
@@ -1549,7 +1442,8 @@
             <div id="tabs">
                <ul>
                   <li><a href="#" id="tab-1"><i class="fas fa-map"></i> 상품</a></li>
-                        <li><a href="#" id="tab-3"><i class="fas fa-building"></i> 숙박</a></li>
+                  <li><a href="#" id="tab-3"><i class="fas fa-building"></i>
+                        숙박</a></li>
                </ul>
                <div id="tabs-1">
                   <div id="itemList"></div>
@@ -1558,33 +1452,30 @@
                   <div id="hotelList"></div>
                </div>
             </div>
+            <div id="map-canvas" style="width: 530px; height: 240px" title="지도"></div>
          </div>
          <div id="tabs2">
             <ul>
-               <li><a href="javascript:;" id="tabRe-1"><i class="fas fa-users"></i> 사용자 맞춤 추천</a></li>
-               <li><a href="javascript:;" id="tabRe-3"><i class="fas fa-plane"></i> Trapick 추천</a></li>
+               <li><a href="javascript:;" id="tabRe-1"><i
+                     class="fas fa-users"></i> 사용자 맞춤 추천</a></li>
+               <li><a href="javascript:;" id="tabRe-3"><i
+                     class="fas fa-plane"></i> Trapick 추천</a></li>
             </ul>
-         <div id="recommend">
-            <ul id="recommendUl">
-               <li id="recommendLand"></li>
-               <li id="recommendItem"></li>
-               <li id="recommendHotel"></li>
-            </ul>
+            <div id="recommend">
+               <ul id="recommendUl">
+                  <li id="recommendLand"></li>
+                  <li id="recommendItem"></li>
+                  <li id="recommendHotel"></li>
+               </ul>
+            </div>
+            <div id="recommendUser">
+               <ul id="recommendUserUl">
+                  <li id="recommendUserLand"></li>
+                  <li id="recommendUserItem"></li>
+                  <li id="recommendUserHotel"></li>
+               </ul>
+            </div>
          </div>
-         <div id="recommendUser">
-            <ul id="recommendUserUl">
-               <li id="recommendUserLand"></li>
-               <li id="recommendUserItem"></li>
-               <li id="recommendUserHotel"></li>
-            </ul>
-         </div>
-         </div>
-         <!-- <div id="map-canvas" style="width: 250px; height: 250px" title="지도"></div>
-          -->
-          <div id="map" style="width: 250px; height: 250px" title="지도"></div>
-          <div id="control_panel" style="float:right;width:30%;text-align:left;padding-top:20px">
-		<div id="directions_panel" style="margin:20px;background-color:#FFEE77;"></div>
-		</div>
          
       </div>
    </div>
