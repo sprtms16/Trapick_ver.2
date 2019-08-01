@@ -1,541 +1,531 @@
-td {
-   width: 100px;
-   height: 100px;
-   position: relative;
-}
-
 .liveButton {
-   position: absolute;
-   z-index: 2;
-   right: 0;
-   top: 0;
+	position: absolute;
+	z-index: 2;
+	right: 0;
+	top: 0;
 }
 
 .liveInput {
-   position: absolute;
-   z-index: 2;
-   left: 0px;
-   top: 2px;
+	position: absolute;
+	z-index: 2;
+	left: 0px;
+	top: 2px;
 }
 
-td .img {
-   width: 100%;
-   height: 100%;
-   position: absolute;
-   z-index: 1;
-   top: 0px;
-   left: 0px;
+#mySheduleTable td .img, #hotelTable td .img {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 1;
+	top: 0px;
+	left: 0px;
 }
 
-.recommendList_thumb{
-   width: 100%;
-   height: 100%;
+.recommendList_thumb {
+	width: 100%;
+	height: 100%;
 }
 
 #subject {
-   font-size: 50px;
-   font-weight: bold;
-   text-align: center;
-   margin-bottom: 15px;
-   margin-top: 80px;
-   font-family: Fantasy;
+	font-size: 50px;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 15px;
+	margin-top: 80px;
+	font-family: Fantasy;
 }
 
 #tabs-1 {
+	
 }
 
 #tabs li {
-   list-style: none;
-   float: left;
-   margin-bottom: 20px;
-   text-align: center;
+	list-style: none;
+	float: left;
+	margin-bottom: 20px;
+	text-align: center;
 }
 
 #tabs ul {
-   margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 
 #land {
-   text-align: center;
+	text-align: center;
 }
 
 #tabs li a {
-   color: black;
-   font-size: 13.5px;
-   font-weight: bold;
-   padding-top: 10px;
-   padding-bottom: 10px;
-   padding-left: 20px;
-   padding-right: 20px;
+	color: black;
+	font-size: 13.5px;
+	font-weight: bold;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
-table {
-   text-align: center;
+#mySheduleTable, #hotelTable {
+	text-align: center;
 }
 
-table th {
-   height: 50px;
-   background-color: #D8D8D8;
-   border-bottom-color: black;
+#mySheduleTable th, #hotelTable th {
+	height: 50px;
+	background-color: #D8D8D8;
+	border-bottom-color: black;
 }
 
-#mySheduleTable td {
-   height: 100px;
-   width: 200px;
+#mySheduleTable td, #hotelTable td {
+	position: relative; height : 100px;
+	width: 200px;
+	height: 100px;
 }
 
 .time {
-   width: 60px;
+	width: 60px;
 }
 
 #sortButton {
-   margin-left: 40px;
-   border: 1px;
-   margin-bottom: 20px;
-   position: absolute;
-   top: -40px;
-   left: 20px;
+	margin-left: 40px;
+	border: 1px;
+	margin-bottom: 20px;
+	position: absolute;
+	top: -40px;
+	left: 20px;
 }
 
 .selected {
-   background-color: #D8D8D8;
-   border: 1px black soild;
-   border-radius: 5px;
-   padding: 10px;
+	background-color: #D8D8D8;
+	border: 1px black soild;
+	border-radius: 5px;
+	padding: 10px;
 }
 
 #save {
-   position: absolute;
-   top: -40px;
-   left: 480px;
-   margin-bottom: 20px;
+	position: absolute;
+	top: -40px;
+	left: 480px;
+	margin-bottom: 20px;
 }
 
 #course {
-   position: absolute;
-   top: -40px;
-   left: 390px;
-   margin-bottom: 20px;
+	position: absolute;
+	top: -40px;
+	left: 390px;
+	margin-bottom: 20px;
 }
 
 #asdf {
-   width:80px;
-   position: absolute;
-   top: 200px;
-   left: 430px;
-   margin-bottom: 15px;
+	width: 80px;
+	position: absolute;
+	top: 200px;
+	left: 430px;
+	margin-bottom: 15px;
 }
 
-#city_search{
-   position: absolute;
-   top:-0px;
-   left: 85px;   
+#city_search {
+	position: absolute;
+	top: -0px;
+	left: 85px;
 }
 
 #Progress_Loading {
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   background: #ffffff;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	background: #ffffff;
 }
 
 #progress {
-   width: 100px;
-   height: auto;
-   z-index: 6;
+	width: 100px;
+	height: auto;
+	z-index: 6;
 }
 
 #mask {
-   position: absolute;
-   left: 0;
-   top: 0;
-   z-index: 5;
-   background-color: #A4A4A4;
-   display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 5;
+	background-color: #A4A4A4;
+	display: none;
 }
 
 #jb {
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   width: 60%;
-   height: 50px;
-   z-index: 500;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 60%;
+	height: 50px;
+	z-index: 500;
 }
 
 /* 바뀐 부분 */
 #landmarkDiv>.drag {
-   border: solid 1px;
-   width: 250px;
-   height: 85px;
+	border: solid 1px;
+	width: 250px;
+	height: 85px;
 }
 
 #itemList>.drag {
-   border: solid 1px;
-   width: 250px;
-   height: 85px;
+	border: solid 1px;
+	width: 250px;
+	height: 85px;
 }
 
 #hotelList>.drag {
-   border: solid 1px;
-   width: 250px;
-   height: 85px;
+	border: solid 1px;
+	width: 250px;
+	height: 85px;
 }
 /* 여기 까지 */
-
 #landmarkDiv, #hotelList, #itemList, #restList {
-   width: 250px;
-   height: 500px;
-   overflow-y: scroll;
-   overflow-x: hidden;
+	width: 250px;
+	height: 500px;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 #landmarkDiv img, #tabs img {
-   margin-top:1.5px;
-   width: 100px;
-   height: 80px;
+	margin-top: 1.5px;
+	width: 100px;
+	height: 80px;
 }
 
-#landmarkDiv #name{
-   margin-top:4px;
-   margin-left:5px;
-   font-size : 13px;
-   font-weight: bold;
-   font-family: fantasy;
-   overflow: hidden;
-   text-overflow: ellipsis;
-      white-space: nowrap; 
+#landmarkDiv #name {
+	margin-top: 4px;
+	margin-left: 5px;
+	font-size: 13px;
+	font-weight: bold;
+	font-family: fantasy;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-#landmarkDiv .detail{
-   margin-top:4px;
-   margin-left:5px;
-   text-align:right;
-   font-size : 12px;
-   font-family: cursive;
-   overflow: hidden;
-   text-overflow: ellipsis;
-      white-space: nowrap; 
+#landmarkDiv .detail {
+	margin-top: 4px;
+	margin-left: 5px;
+	text-align: right;
+	font-size: 12px;
+	font-family: cursive;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-#itemList .list_detail{
-   margin-left: 20px;
+#itemList .list_detail {
+	margin-left: 20px;
 }
 
-#itemList #name{
-   font-weight: bold;
-   font-family: fantasy;
-   overflow: hidden;
-   text-overflow: ellipsis;
-      white-space: nowrap; 
+#itemList #name {
+	font-weight: bold;
+	font-family: fantasy;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-#itemList #detail{
-   margin-top:4px;
-   margin-left:15px;
-   text-align:center;
-   padding-left:30px;
-   font-size : 12px;
-   font-family: cursive;
-   overflow:hidden;
-   white-space:nowrap;
-   text-overflow: ellipsis;
+#itemList #detail {
+	margin-top: 4px;
+	margin-left: 15px;
+	text-align: center;
+	padding-left: 30px;
+	font-size: 12px;
+	font-family: cursive;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
-#itemList #price{
-   font-size : 10px;
-   font-family: Geogia;
+#itemList #price {
+	font-size: 10px;
+	font-family: Geogia;
 }
 
-#hotelList .list_detail{
-   margin-left: 20px;
+#hotelList .list_detail {
+	margin-left: 20px;
 }
 
-
-#hotelList #name{
-   font-weight: bold;
-   font-family: fantasy;
-   overflow: hidden;
-   text-overflow: ellipsis;
-      white-space: nowrap; 
+#hotelList #name {
+	font-weight: bold;
+	font-family: fantasy;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-#hotelList #detail{
-   margin-top:4px;
-   margin-left:15px;
-   text-align:center;
-   padding-left:30px;
-   font-size : 12px;
-   font-family: cursive;
-   overflow:hidden;
-   white-space:nowrap;
-   text-overflow: ellipsis;
+#hotelList #detail {
+	margin-top: 4px;
+	margin-left: 15px;
+	text-align: center;
+	padding-left: 30px;
+	font-size: 12px;
+	font-family: cursive;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
-#hotelList #price{
-   font-size : 10px;
-   font-family: Geogia;
+#hotelList #price {
+	font-size: 10px;
+	font-family: Geogia;
 }
 
-table .list_detail{
-   display: none;
+#mySheduleTable .list_detail, #hotelTable .list_detail {
+	display: none;
 }
 
-table .recommendDetail{
-   display: none;
+#mySheduleTable .recommendDetail, #hotelTable .recommendDetail {
+	display: none;
 }
 
-table span{
-   display : none;
+#mySheduleTable span, #hotelTabl span {
+	display: none;
 }
 
-.list_detail #name,#detail{
-   width: 120px;
-   height: 30px;
+#name, #detail {
+	width: 120px;
+	height: 30px;
 }
 
-.container{
-   margin: 0px;
+.container {
+	margin: 0px;
 }
-.liveInput{
-   background-color:#F2F2F2;
-   width: 20px;
-   height: 20px;
+
+.liveInput {
+	background-color: #F2F2F2;
+	width: 20px;
+	height: 20px;
 }
 
 /* 여기부터 시작함 _ 190730 */
-
-#recommendUl li{
-   list-style-type: none;
-   float: left;
-   margin-left: 45px;
-   display: inline;
+#recommendUl li {
+	list-style-type: none;
+	float: left;
+	margin-left: 45px;
+	display: inline;
 }
 
-#recommendUserUl li{
-   list-style-type: none;
-   float: left;
-   margin-right: 45px;
-   display: inline;
+#recommendUserUl li {
+	list-style-type: none;
+	float: left;
+	margin-right: 45px;
+	display: inline;
 }
 
-#recommendUserUl li img{
-   width: 170px;
-   height: 200px;
-   border: solid 3px #D8D8D8;
-   z-index: 3;
+#recommendUserUl li img {
+	width: 170px;
+	height: 200px;
+	border: solid 3px #D8D8D8;
+	z-index: 3;
 }
 
-#recommendUl li img{
-   width: 170px;
-   height: 200px;
-   border: solid 3px #D8D8D8;
-   z-index: 3;
+#recommendUl li img {
+	width: 170px;
+	height: 200px;
+	border: solid 3px #D8D8D8;
+	z-index: 3;
 }
 
-.recommendList_thumb{
-   position: relative;
+.recommendList_thumb {
+	position: relative;
 }
 
-#category{
-   background-color: #6E6E6E;
-   padding:4px 10px;
-   position:absolute;
-   left:1%;
-   top:1%;
-   z-index:1;
-   opacity:0.7;
-   font-weight: bold;
-   color: white;
+#category {
+	background-color: #6E6E6E;
+	padding: 4px 10px;
+	position: absolute;
+	left: 1%;
+	top: 1%;
+	z-index: 1;
+	opacity: 0.7;
+	font-weight: bold;
+	color: white;
 }
 
-#recommendDetailName{
-   position: relative;
-   left: -168px;
-   top : 60px;
+#recommendDetailName {
+	position: relative;
+	left: -168px;
+	top: 60px;
 }
 
-#recommendDetailName #name{
-   background-color: #6E6E6E;
-   overflow-x:hidden;
-   overflow-y:hidden;
-   text-overflow: ellipsis;
-   white-space: nowrap; 
-   width:167px;
-   opacity:0.7;
-   font-weight: bold;
-   color:white;
-   position: absolute;
-   left: 10%;
-   bottom: 42%;
-   padding-top: 5px;
+#recommendDetailName #name {
+	background-color: #6E6E6E;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 167px;
+	opacity: 0.7;
+	font-weight: bold;
+	color: white;
+	position: absolute;
+	left: 10%;
+	bottom: 42%;
+	padding-top: 5px;
 }
 
-#recommendDetailName #recommendDetail{
-   background-color: #6E6E6E;
-   opacity:0.7;
-   
+#recommendDetailName #recommendDetail {
+	background-color: #6E6E6E;
+	opacity: 0.7;
 }
 
-
-#recommendDetail{
-   width:167px;
-   text-align:right;
-   position:absolute;
-   left: 10%;
-   bottom: 29.8%;
-   padding-top: 5px;
-   padding-bottom: 5px;
-   overflow-x:hidden;
-   overflow-y:hidden;
-   text-overflow: ellipsis;
-   white-space: nowrap;
-   opacity:0.7;
-   font-weight: bold;
-   color:white;
-   
+#recommendDetail {
+	width: 167px;
+	text-align: right;
+	position: absolute;
+	left: 10%;
+	bottom: 29.8%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	opacity: 0.7;
+	font-weight: bold;
+	color: white;
 }
 
-#recommendDetailName #price{
-   background-color:#04B4AE;
-   width:65px;
-   text-align:right;
-   opacity: 0.9;
-   color: black;
-   font-weight: bold;
-   position: absolute;
-   left:115px;
-   top:39%;
-   padding-top: 1px;
-   padding-bottom: 1px;
-    
+#recommendDetailName #price {
+	background-color: #04B4AE;
+	width: 65px;
+	text-align: right;
+	opacity: 0.9;
+	color: black;
+	font-weight: bold;
+	position: absolute;
+	left: 115px;
+	top: 39%;
+	padding-top: 1px;
+	padding-bottom: 1px;
 }
 
-#schedule_title{
-   position: absolute;
-   top: -30px;
+#schedule_title {
+	position: absolute;
+	top: -30px;
 }
 
-#titleSche{
-   margin-bottom: 15px;
+#titleSche {
+	margin-bottom: 15px;
 }
 
-#landMarkList ul{
-   padding : 0px;
+#landMarkList ul {
+	padding: 0px;
 }
 
-#landMarkList li{
-   list-style: none;
-   font-weight: bold;
-   font-size: 15px;
-   text-align: center;
-   margin-bottom: 10px;
+#landMarkList li {
+	list-style: none;
+	font-weight: bold;
+	font-size: 15px;
+	text-align: center;
+	margin-bottom: 10px;
 }
 
-#asdf2{
-   margin-bottom: 40px;
+#asdf2 {
+	margin-bottom: 40px;
 }
 
-
-#itemPriceSort{
-   position: absolute;
-   left: 1060px;
+#itemPriceSort {
+	position: absolute;
+	left: 1060px;
 }
 
-#itemSalesSort{
-   position: absolute;
-   left: 1140px;
+#itemSalesSort {
+	position: absolute;
+	left: 1140px;
 }
 
-#itemDistSort{
-   position: absolute;
-   left: 1220px;
+#itemDistSort {
+	position: absolute;
+	left: 1220px;
 }
 
-#hotelPriceSort{
-   position: absolute;
-   left: 1060px;
+#hotelPriceSort {
+	position: absolute;
+	left: 1060px;
 }
 
-#hotelReviewSort{
-   position: absolute;
-   left: 1140px;
+#hotelReviewSort {
+	position: absolute;
+	left: 1140px;
 }
 
-#hotelDistSort{
-   position: absolute;
-   left: 1220px;
+#hotelDistSort {
+	position: absolute;
+	left: 1220px;
 }
 
-#landmarkHitsSort{
-   position: absolute;
-   left: 825px;
+#landmarkHitsSort {
+	position: absolute;
+	left: 825px;
 }
 
-#landmarkDistSort{
-   position: absolute;
-   left:905px;
+#landmarkDistSort {
+	position: absolute;
+	left: 905px;
 }
 
-#city_List{
-   margin-top:12px;
+#city_List {
+	margin-top: 12px;
 }
 
-#recommendUser{
-   margin-top: 20px;
-   position: relative;
-   left: -305px;
-   top:30px;
+#recommendUser {
+	margin-top: 20px;
+	position: relative;
+	left: -305px;
+	top: 30px;
 }
 
-#recommend{
-   margin-top: 20px;
-   position: relative;
-   left: -350px;
-   top:30px;
+#recommend {
+	margin-top: 20px;
+	position: relative;
+	left: -350px;
+	top: 30px;
 }
 
-#tabs2 li{
-   list-style: none;
-   float: left;
-   margin-bottom: 20px;
-   text-align: center;
+#tabs2 li {
+	list-style: none;
+	float: left;
+	margin-bottom: 20px;
+	text-align: center;
 }
 
-#tabs2{
-   margin-top:20px;
-   margin-bottom:20px;
-   position: relative;
-   width: 1000px;
+#tabs2 {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	position: relative;
+	width: 1000px;
 }
 
 #tabs2 li a {
-   color: black;
-   font-size: 13.5px;
-   font-weight: bold;
-   padding-top: 10px;
-   padding-bottom: 10px;
-   padding-left: 20px;
-   padding-right: 20px;
+	color: black;
+	font-size: 13.5px;
+	font-weight: bold;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
-#allClear{
-   width: 20px;
-   height: 20px;
-   position: absolute;
-   bottom:-25px;
-   right: 20px;
-}
-#map-po > .col-md-5{
-   padding-right: 0px;
+#allClear {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	bottom: -25px;
+	right: 20px;
 }
 
-#map-po > .col-md-1{
-   padding-left: 0px;
+#map-po>.col-md-5 {
+	padding-right: 0px;
 }
 
-#map-canvas{
-   position: absolute;
-   right: 20px;
-   bottom:-280px;
+#map-po>.col-md-1 {
+	padding-left: 0px;
+}
+
+#map-canvas {
+	position: absolute;
+	right: 20px;
+	bottom: -280px;
 }
