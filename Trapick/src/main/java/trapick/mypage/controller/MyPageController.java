@@ -24,7 +24,10 @@ import trapick.mypage.service.MyPageService;
 public class MyPageController {
    
    private MyPageService service;
-   
+   @PostMapping("/mypage")
+   public String re(){
+	   return "redirect:/mypage/mypage";
+   }
    @GetMapping("/mypage")
    public void list(Model model, HttpSession session) {
       int user_idx = (int) session.getAttribute("user_idx");
