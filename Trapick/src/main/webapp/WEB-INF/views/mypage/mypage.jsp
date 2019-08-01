@@ -55,7 +55,7 @@ th, td{
                </div>
                <form action="imgUpload" name="imgUpload" method="post" enctype="multipart/form-data">
                   <input type="file" name="uploadFile" id = "imgFile" class="d-none">
-                  <button type="submit" class="btn btn-link float-right">
+                  <button type="submit" class="btn btn-link float-right" style="padding-top: 0px;">
                      <i class="fas fa-camera" style="font-size: 1.3em; color: gray;"></i></button>
                </form>
                
