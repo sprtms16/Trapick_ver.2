@@ -1315,52 +1315,36 @@
    </div>
    <div id="asdf2">
       <button id="itemPriceSort" name="price" class="btn btn-link">
-         <span
-            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-            <i class="fas fa-tags"></i> 가격순
-         </span>
+         <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-tags"></i> 가격순</span>
       </button>
       <button id="itemSalesSort" name="price" class="btn btn-link">
-         <span
-            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-            <i class="fas fa-credit-card"></i> 판매순
-         </span>
+         <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-credit-card"></i> 판매순</span>
       </button>
       <button id="itemDistSort" name="price" class="btn btn-link">
-         <span
-            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-            <i class="fas fa-train"></i> 거리순
-         </span>
+         <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-train"></i> 거리순</span>
       </button>
       <button id="hotelPriceSort" name="price" class="btn btn-link">
-         <span
-            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-            <i class="fas fa-tags"></i> 가격순
-         </span>
+         <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-tags"></i> 가격순</span>
       </button>
       <button id="hotelReviewSort" name="price" class="btn btn-link">
-         <span
-            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-            <i class="fas fa-pencil-alt"></i> 리뷰순
-         </span>
+         <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-pencil-alt"></i> 리뷰순</span>
       </button>
       <button id="hotelDistSort" name="price" class="btn btn-link">
-         <span
-            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-            <i class="fas fa-train"></i> 거리순
-         </span>
+         <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-train"></i> 거리순</span>
       </button>
       <button id="landmarkDistSort" name="price" class="btn btn-link">
-         <span
-            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-            <i class="fas fa-subway"></i> 거리순
-         </span>
+         <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="fas fa-subway"></i> 거리순</span>
       </button>
       <button id="landmarkHitsSort" name="price" class="btn btn-link">
-         <span
-            style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
-            <i class="far fa-thumbs-up"></i> 인기순
-         </span>
+         <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+            <i class="far fa-thumbs-up"></i> 인기순</span>
       </button>
       <!--<button id="itemHitsSort" name="price" class="btn btn-info">상품 인기순</button> -->
    </div>
@@ -1375,14 +1359,12 @@
                      id="titleSche" placeholder="일정 제목">
                </div>
                <button id="course" class="btn btn-link">
-                  <span
-                     style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+                  <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
                      <i class="fas fa-map-signs"></i> 경로 추천
                   </span>
                </button>
                <button id="save" class="btn btn-link">
-                  <span
-                     style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
+                  <span style="font-weight: bold; font-family: sans-serif; font-size: 1.4em; color: #585858;">
                      <i class="fas fa-save"></i> 일정 저장
                   </span>
                </button>

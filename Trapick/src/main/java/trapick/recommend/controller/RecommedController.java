@@ -1,5 +1,7 @@
 package trapick.recommend.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,12 +38,8 @@ public class RecommedController {
 		model.addAttribute("city_name", city_name);
 		model.addAttribute("cityList", recommedService.cityList(country_name));
 		model.addAttribute("day", day);
-		System.out.println("test1");
 		return "recommend/item_sort";
 
 	}
-
-	
-	
 
 }
