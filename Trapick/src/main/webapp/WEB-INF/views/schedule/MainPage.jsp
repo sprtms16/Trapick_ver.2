@@ -26,7 +26,7 @@
 
 
 <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> -->
 <link rel="stylesheet" type="text/css"
 	href="/resources/style/css/main_insert_css.css" />
 <link rel="stylesheet"
