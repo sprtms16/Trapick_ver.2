@@ -134,6 +134,23 @@
          window.open(url, "", popupOption).document.write(str);
       }
       //삭제 상세보기 함수
+      
+      
+      function setMapOnAll(map) {
+        for (var i = 0; i < testMarker.length; i++) {
+          testMarker[i].setMap(map);
+        }
+      }
+      
+      function clearMarkers() {
+        setMapOnAll(null);
+      }
+      
+      function deleteMarkers() {
+          clearMarkers();
+          testMarker = [];
+        }
+      
       function event() {
          $("table .delete_schedule")
                .click(
@@ -514,7 +531,7 @@
                   "click",
                   function() {
                      var te = $('#courseData').serialize();
-                     /* te = encodeURI(te); */
+                     te = encodeURI(te);
                      alert(te);
                      $
                            .ajax({
@@ -1188,8 +1205,9 @@
                            });
                   })
       //정렬 끝
-      $('#allClear').click(function() {
+      $('#allClear').click(function() {	
          $('td:not(.time)').empty();
+         deleteMarkers();
       })
    })
 </script>
