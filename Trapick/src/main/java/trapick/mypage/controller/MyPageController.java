@@ -71,4 +71,12 @@ public class MyPageController {
       service.updateUserImg(userVO, uploadFile, uploadPath);
       return "redirect:mypage";
    }
+   
+   @PostMapping("/update")
+   public String updateUserInfo(UserVO userVO, RedirectAttributes rttr){
+      if(service.updateUserInfo(userVO)){
+         rttr.addFlashAttribute("result", "success");
+      }
+      return "redirect:/mypage/list";
+   }
 }
