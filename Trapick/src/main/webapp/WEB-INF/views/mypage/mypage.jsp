@@ -70,10 +70,10 @@ th, td{
                      </div>
                      <div class="form-group">
                        <label>User ID</label> <input class="form-control" name='id'
-                           value="${user.id }">
+                           value="${user.id }" readonly="readonly">
                      </div>
                      <div class="form-group">
-                       <label>User PW</label> <input class="form-control" name='pw'
+                       <input type = "hidden" class="form-control" name='pw'          
                            value="${user.pw }">
                      </div>
                      <div class="form-group">

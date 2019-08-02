@@ -326,7 +326,6 @@ $(function() {
       $('#save').on("click", function(){
          var te = $('#savet').serialize();
          te = decodeURIComponent(te);
-         alert(te);
          $.ajax({
               url : '/Rest/recommend/saveLandMark',
               type: 'post',
@@ -344,7 +343,6 @@ $(function() {
          var te = $('#savet').serialize();
          /* te = decodeURIComponent(te); */
          te = decodeURI(te);
-         alert(te);
           $.ajax({
               url : '/Rest/recommend/course',
               type: 'post',

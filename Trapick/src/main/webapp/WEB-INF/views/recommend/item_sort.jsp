@@ -512,7 +512,6 @@
 	               var te = $('#savet').serialize() + "&"
 	                     + $('#courseData').serialize();
 	               /* te = encodeURI(te); */
-	               alert(te);
 	               $.ajax({
 	                  url : '/Rest/recommend/saveLandMark',
 	                  type : 'post',
@@ -532,7 +531,6 @@
                   function() {
                      var te = $('#courseData').serialize();
                      /* te = encodeURI(te); */
-                     alert(te);
                      $
                            .ajax({
                               url : '/Rest/recommend/course',
@@ -649,7 +647,6 @@
                }
             })
       $('landmarkDiv .cc').click(function() {
-         alert("df");
       })
       $
             .ajax({

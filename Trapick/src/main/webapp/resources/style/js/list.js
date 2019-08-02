@@ -32,13 +32,11 @@ function getQuerystring(paramName) {
 $(function() {
 	$('.replyList').submit(function(e) {
 		var $this = $(this);
-		alert(JSON.stringify($(this).serialize()));
 		$.ajax({
 			url : '/reply/new',
 			type : 'POST',
 			data : $(this).serialize(),
 			success : function(e) {
-				alert(e);
 			}
 		})
 		return false;

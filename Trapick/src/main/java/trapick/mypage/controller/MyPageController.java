@@ -77,6 +77,6 @@ public class MyPageController {
       if(service.updateUserInfo(userVO)){
          rttr.addFlashAttribute("result", "success");
       }
-      return "redirect:/mypage/list";
+      return "redirect:/mypage/mypage";
    }
 }
