@@ -101,7 +101,7 @@
 			data-href="/RestFeed/getAlertList/${user_idx }.json"
 			data-target="#myModal">
 			<i class="fas fa-bell" id="alertCount" style="font-size: 1.7em;"><span
-				class="text-danger"></span></i>
+				class="text-danger">${alertCount }</span></i>
 		</button>
 
 		<div class="search_menu">

@@ -131,4 +131,9 @@ public class FeedServiceImpl implements FeedService {
 		
 	}
 
+	@Override
+	public int selectAlertListCount(int user_idx) {
+		return mapper.selectAlertListCount(user_idx);
+	}
+
 }

@@ -69,7 +69,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		for (Entry<Integer, WebSocketSession> sess : sessionRoom.get((int) session.getAttributes().get("user_idx"))
 				.entrySet()) {
 			if (!sess.getValue().equals(session)) {
-				int idx = mapper.selectAlertList((int) sess.getKey()).size();
+				int idx = mapper.selectAlertListCount((int) sess.getKey());
 				sess.getValue().sendMessage(new TextMessage(idx + ""));
 				// session.getAttributes().get("user_idx") + " : " +
 				// message.getPayload()

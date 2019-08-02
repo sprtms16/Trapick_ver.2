@@ -60,5 +60,7 @@ public interface FeedMapper {
 	List<AlertSubscribeVO> selectAlertList(int user_idx);
 
 	void readAlertList(int user_idx);
+	
+	int selectAlertListCount(int user_idx);
 }
 

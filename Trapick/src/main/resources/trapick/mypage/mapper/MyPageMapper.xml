@@ -60,5 +60,14 @@
 		s.sharer
 		and s.user_idx = #{user_idx}
 	</select>
+	<update id="updateUserInfo">
+		update users
+		set
+		id = #{id},
+		pw = #{pw},
+		email = #{email}
+		where
+		user_idx = #{user_idx}
+	</update>
 
 </mapper>

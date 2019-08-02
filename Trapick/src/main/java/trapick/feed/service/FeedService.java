@@ -44,4 +44,6 @@ public interface FeedService {
 
 	public void readAlertList(int user_idx);
 
+	public int selectAlertListCount(int user_idx);
+
 }

@@ -171,8 +171,17 @@
 	</select>
 
 	<select id="selectAlertList" resultMap="AlertSubscribe">
-		    SELECT feed_idx, feeder, subscriber, alert_type, read FROM
-		ALERT_SUBSCRIBE join feed using(feed_idx) where SUBSCRIBER = #{user_idx} order by regdate desc
+		SELECT feed_idx, feeder,
+		subscriber, alert_type, read FROM
+		ALERT_SUBSCRIBE join feed
+		using(feed_idx) where SUBSCRIBER =
+		#{user_idx} order by regdate desc
+	</select>
+	<select id="selectAlertListCount" resultType="int">
+		SELECT
+		count(feed_idx) FROM
+		ALERT_SUBSCRIBE join feed using(feed_idx) where SUBSCRIBER =
+		#{user_idx} and read is null order by regdate desc
 	</select>
 
 	<resultMap type="trapick.feed.domain.AlertSubscribeVO" id="AlertSubscribe">
@@ -226,7 +235,8 @@
 	</select>
 
 	<update id="readAlertList">
-		update ALERT_SUBSCRIBE set read = sysdate where SUBSCRIBER =
+		update ALERT_SUBSCRIBE set read = sysdate where
+		SUBSCRIBER =
 		#{user_idx} and read is null
 	</update>
 
