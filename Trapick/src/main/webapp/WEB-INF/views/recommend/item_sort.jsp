@@ -27,7 +27,7 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script type="text/javascript"
-	src="http://maps.google.com/maps/api/js?key=AIzaSyCafdAtR2qeRHV-G6art-6-guHlmJBL_1s"></script>
+	src="http://maps.google.com/maps/api/js?key=AIzaSyDGyRrd85ODEF9Dt6D_qPLIpHMEKSq6GZg"></script>
 <script type="text/javascript">
    var map;
    var testMarker = new Array();
