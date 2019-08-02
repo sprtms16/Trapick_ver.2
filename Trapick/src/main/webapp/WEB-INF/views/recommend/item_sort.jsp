@@ -511,7 +511,7 @@
             	}else{
 	               var te = $('#savet').serialize() + "&"
 	                     + $('#courseData').serialize();
-	               te = encodeURI(te);
+	               /* te = encodeURI(te); */
 	               alert(te);
 	               $.ajax({
 	                  url : '/Rest/recommend/saveLandMark',
@@ -531,7 +531,7 @@
                   "click",
                   function() {
                      var te = $('#courseData').serialize();
-                     te = encodeURI(te);
+                     /* te = encodeURI(te); */
                      alert(te);
                      $
                            .ajax({

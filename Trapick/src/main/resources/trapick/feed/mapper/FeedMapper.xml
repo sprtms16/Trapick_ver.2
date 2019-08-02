@@ -171,8 +171,8 @@
 	</select>
 
 	<select id="selectAlertList" resultMap="AlertSubscribe">
-		SELECT * FROM
-		ALERT_SUBSCRIBE where SUBSCRIBER = #{user_idx}
+		    SELECT feed_idx, feeder, subscriber, alert_type, read FROM
+		ALERT_SUBSCRIBE join feed using(feed_idx) where SUBSCRIBER = #{user_idx} order by regdate desc
 	</select>
 
 	<resultMap type="trapick.feed.domain.AlertSubscribeVO" id="AlertSubscribe">
